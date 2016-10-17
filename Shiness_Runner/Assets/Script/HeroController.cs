@@ -6,13 +6,14 @@ public class HeroController : MonoBehaviour {
     //public variables and properties
     public float jumpHeight;
     public float moveSpeed;
-    public bool isJumping
+    public bool IsJumping
     {
         get
         {
-            return isJumping;
+            return IsJumping;
         }
-        set { }
+
+        private set { }
     }
 
     //intern variables
@@ -23,6 +24,8 @@ public class HeroController : MonoBehaviour {
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        IsJumping = false;
+        _moving = false;
     }
 
 
@@ -30,14 +33,18 @@ public class HeroController : MonoBehaviour {
     {
         if (_moving == true)
         {
-            _rb.MovePosition(new Vector3(moveSpeed, _rb.velocity.y, 0));
+            _rb.velocity = new Vector3(moveSpeed, _rb.velocity.y, 0);
         }
     }
 
 
     public void Jump()
     {
-        _rb.MovePosition(new Vector3(_rb.velocity.x, jumpHeight, 0));
+        if (IsJumping == false)
+        {
+            IsJumping = true;
+            _rb.velocity = new Vector3(_rb.velocity.x, jumpHeight, 0);
+        }
     }
 
 
