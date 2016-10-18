@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown("joystick " + (i + 1) + " button 0"))
             {
                 _buttonA = true;
+                Debug.Log("joystick " + i + ": A pressed");
             }
 
             if (Input.GetKeyDown("joystick " + (i + 1) + " button 3"))
