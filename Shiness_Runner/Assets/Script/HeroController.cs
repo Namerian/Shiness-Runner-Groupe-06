@@ -11,9 +11,7 @@ public class HeroController : MonoBehaviour {
     //intern variables
     Rigidbody _rb;
     Collider _collider;
-    float _yVelocity = 0.0f;
     float _distToGround;
-    bool _jumping;
 
 
     void Start()
