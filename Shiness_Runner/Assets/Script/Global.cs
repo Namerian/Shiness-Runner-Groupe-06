@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Global
+public class Global : MonoBehaviour
 {
-    public const float MOVEMENT_SPEED = 15.0f;
+    public static float MOVEMENT_SPEED = 8.0f;
 }
