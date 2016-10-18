@@ -1,12 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ReferenceBodyController : MonoBehaviour {
 
+    public float moveSpeed;
     float _movespeed;
+    public List<GameObject> Children;
     
 	void Start () {
+        GetComponent<MeshRenderer>().enabled = false;
         StartMove();
+         foreach (Transform child in transform)
+         {
+             if (child.tag == "Player")
+             {
+                 Children.Add(child.gameObject);
+             }
+         }
 	}
 	
 	void Update () {
@@ -15,7 +26,7 @@ public class ReferenceBodyController : MonoBehaviour {
 
     public void StartMove()
     {
-        _movespeed = Global.MOVEMENT_SPEED;
+        _movespeed = moveSpeed;
     }
 
     public void StopMove()
