@@ -14,8 +14,14 @@ public class CameraManager : MonoBehaviour
     private Vector3 currentPosition;
 
     private bool isTransitioning;
+    private Vector3 transitionSourcePosition;
     private Vector3 transitionTargetPosition;
+    private Vector3 transitionSourceRotation;
     private Vector3 transitionTargetRotation;
+    private float transitionSourceSize;
+    private float transitionTargetSize;
+    private float transitionTime;
+    private float transitionTimer;
 
     private bool isMoving;
 
@@ -33,6 +39,24 @@ public class CameraManager : MonoBehaviour
 
         if (isTransitioning)
         {
+            transitionTimer += Time.deltaTime;
+            float _transitionProgress = transitionTime / transitionTimer;
+
+            //move
+            Camera.main.transform.localPosition = Vector3.Lerp(transitionSourcePosition, transitionTargetPosition, _transitionProgress);
+
+            //rotate
+            Camera.main.transform.localEulerAngles = Vector3.Lerp(transitionSourceRotation, transitionTargetRotation, _transitionProgress);
+
+            //resize
+            //float _sizeDiff = transitionTargetSize - transitionSourceSize;
+            //Camera.main.orthographicSize = transitionSourceSize + (_sizeDiff * _transitionProgress);
+
+            //end
+            if(transitionTimer >= transitionTime)
+            {
+                isTransitioning = false;
+            }
 
 
             /*currentAxis = Vector3.Lerp(currentAxis, _rotateTo, Time.deltaTime * speed);
@@ -44,9 +68,27 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public void StartTransition(Vector3 targetPosition, Vector3 targetRotation, int targetSize, float time)
+    public void StartTransition(Vector3 targetPosition, Vector3 targetRotation, float targetSize, float time)
     {
+        if (isTransitioning)
+        {
+            return;
+        }
+
         isTransitioning = true;
+
+        transitionSourcePosition = this.transform.localPosition;
+        transitionTargetPosition = targetPosition;
+
+        transitionSourceRotation = this.transform.localRotation.eulerAngles;
+        transitionTargetRotation = targetRotation;
+
+        transitionSourceSize = Camera.main.orthographicSize;
+        transitionTargetSize = targetSize;
+
+        transitionTime = time;
+        transitionTimer = 0f;
+
         //camera.transform.position = new Vector3(xPosition, camera.transform.position.y, camera.transform.position.z);
     }
 

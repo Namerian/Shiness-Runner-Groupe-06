@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Y)) // transition to 2.5D
         {
-            cameraManager.StartTransition(new Vector3(1.5f, 6.5f, -7.5f), new Vector3(35, 0, 0), 4, 3); //TODO: set targetSize to 4.5f
+            cameraManager.StartTransition(new Vector3(1.5f, 6.5f, -7.5f), new Vector3(35, 0, 0), 4.5f, 3);
         }
 
         //#################################################
