@@ -4,58 +4,52 @@ using System.Collections;
 public class HeroController : MonoBehaviour {
 
     //public variables and properties
-    public float jumpHeight;
-    public float moveSpeed;
-    public bool IsJumping
-    {
-        get
-        {
-            return IsJumping;
-        }
-
-        private set { }
-    }
+    public float jumpHeight = 15.0f;
+    public float moveSpeed = 0.0f;
+    public float gravity = 9.0f;
 
     //intern variables
     Rigidbody _rb;
-    bool _moving;
+    Collider _collider;
+    float _yVelocity = 0.0f;
+    float _distToGround;
+    bool _jumping;
 
 
     void Start()
     {
+        _collider = GetComponent<Collider>();
         _rb = GetComponent<Rigidbody>();
-        IsJumping = false;
-        _moving = false;
+        _distToGround = _collider.bounds.extents.y;
     }
 
 
     void Update()
     {
-        if (_moving == true)
-        {
-            _rb.velocity = new Vector3(moveSpeed, _rb.velocity.y, 0);
-        }
+        _rb.velocity = new Vector3(moveSpeed, _rb.velocity.y, 0);
     }
 
+    bool IsGrounded() {
+        return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.1f);
+    }
 
     public void Jump()
     {
-        if (IsJumping == false)
+        if (IsGrounded())
         {
-            IsJumping = true;
-            _rb.velocity = new Vector3(_rb.velocity.x, jumpHeight, 0);
+            _rb.velocity =  new Vector3(moveSpeed, jumpHeight, 0);
         }
     }
 
 
     public void StartMove()
     {
-        _moving = true;
+        moveSpeed = 15.0f;
     }
 
 
     public void StopMove()
     {
-        _moving = false;
+        moveSpeed = 0.0f;
     }
 }
