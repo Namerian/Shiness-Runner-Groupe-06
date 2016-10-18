@@ -3,15 +3,22 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-    private HeroController character_1;
-    private HeroController character_2;
-    private HeroController character_3;
+    private string[] joystickNames;
+    private HeroController[] characters;
 
 	// Use this for initialization
 	void Start () {
-        character_1 = GameObject.Find("Character1").GetComponent<HeroController>();
-        character_2 = GameObject.Find("Character2").GetComponent<HeroController>();
-        character_3 = GameObject.Find("Character3").GetComponent<HeroController>();
+
+        joystickNames = Input.GetJoystickNames();
+
+        Debug.Log("There are " + joystickNames.Length + " Joysticks available.");
+
+        characters = new HeroController[joystickNames.Length];
+
+        for(int i = 0; i < joystickNames.Length; i++)
+        {
+            characters[0] = GameObject.Find("Character" + (i + 1)).GetComponent<HeroController>();
+        }
 	}
 	
 	// Update is called once per frame
@@ -21,7 +28,12 @@ public class GameManager : MonoBehaviour {
 
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Debug.Log("Joystick 0: Jump pressed");
+        }
+
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
             character_1.Jump();
         }
@@ -34,6 +46,6 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.E))
         {
             character_3.Jump();
-        }
+        }*/
     }
 }
