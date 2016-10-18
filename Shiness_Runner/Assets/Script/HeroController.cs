@@ -7,6 +7,7 @@ public class HeroController : MonoBehaviour {
     public float jumpHeight = 15.0f;
     public float moveSpeed = 0.0f;
     public float gravity = 9.0f;
+    private float _moveSpeed = 0.0f;
 
     //intern variables
     Rigidbody _rb;
@@ -24,7 +25,7 @@ public class HeroController : MonoBehaviour {
 
     void Update()
     {
-        _rb.velocity = new Vector3(moveSpeed, _rb.velocity.y, 0);
+        _rb.velocity = new Vector3(_moveSpeed , _rb.velocity.y, 0);
     }
 
     bool IsGrounded() {
@@ -35,19 +36,20 @@ public class HeroController : MonoBehaviour {
     {
         if (IsGrounded())
         {
-            _rb.velocity =  new Vector3(moveSpeed, jumpHeight, 0);
+            _rb.velocity =  new Vector3(_moveSpeed, jumpHeight, 0);
         }
     }
 
 
     public void StartMove()
     {
-        moveSpeed = 15.0f;
+        _moveSpeed = moveSpeed;
     }
 
 
     public void StopMove()
     {
-        moveSpeed = 0.0f;
+        _moveSpeed = 0.0f;
+
     }
 }
