@@ -4,10 +4,13 @@ using System.Collections;
 public class HeroController : MonoBehaviour {
 
     //public variables and properties
-    public float jumpHeight = 15.0f;
+    public float jumpHeight = 5.0f;
+    public float jumpForce = 5.0f;
+    public float fallSpeed = 1.0f;
     public float moveSpeed = 0.0f;
     public float gravity = 9.0f;
     private float _moveSpeed = 0.0f;
+    private float _jumpStartLocation;
 
     //intern variables
     Rigidbody _rb;
@@ -25,6 +28,10 @@ public class HeroController : MonoBehaviour {
 
     void Update()
     {
+        if((_rb.transform.position.y -_jumpStartLocation) >= jumpHeight && !IsGrounded())
+        {
+            _rb.velocity = new Vector3(_moveSpeed, -fallSpeed, 0);
+        }
         _rb.velocity = new Vector3(_moveSpeed , _rb.velocity.y, 0);
     }
 
@@ -36,7 +43,8 @@ public class HeroController : MonoBehaviour {
     {
         if (IsGrounded())
         {
-            _rb.velocity =  new Vector3(_moveSpeed, jumpHeight, 0);
+            _rb.velocity =  new Vector3(_moveSpeed, jumpForce, 0);
+            _jumpStartLocation = transform.position.y;
         }
     }
 
@@ -50,6 +58,5 @@ public class HeroController : MonoBehaviour {
     public void StopMove()
     {
         _moveSpeed = 0.0f;
-
     }
 }
