@@ -13,9 +13,11 @@ public class GameManager : MonoBehaviour {
 
         Debug.Log("There are " + joystickNames.Length + " Joysticks available.");
 
-        characters = new HeroController[joystickNames.Length];
+        //characters = new HeroController[joystickNames.Length];
+        characters = new HeroController[3];
 
-        for(int i = 0; i < joystickNames.Length; i++)
+        //for(int i = 0; i < joystickNames.Length; i++)
+        for (int i = 0; i < 3; i++)
         {
             characters[i] = GameObject.Find("Character" + (i + 1)).GetComponent<HeroController>();
         }
@@ -26,17 +28,26 @@ public class GameManager : MonoBehaviour {
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            characters[0].Jump();
+            foreach(HeroController character in characters)
+            {
+                character.Jump();
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.A))
         {
-            characters[0].StartMove();
+            foreach (HeroController character in characters)
+            {
+                character.StartMove();
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.Z))
         {
-            characters[0].StopMove();
+            foreach (HeroController character in characters)
+            {
+                character.StopMove();
+            }
         }
 
         //HandleInput();
