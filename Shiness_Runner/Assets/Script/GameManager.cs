@@ -6,15 +6,20 @@ public class GameManager : MonoBehaviour
 {
     private string[] joystickNames;
     private HeroController[] characters;
+
+    private CameraManager cameraManager;
     
 
     private GameState currentState;
 
     private JoystickState[] previousJoystickStates;
 
+    //#################################################
+
     // Use this for initialization
     void Start()
     {
+        cameraManager = GameObject.Find("MainCamera").GetComponent<CameraManager>();
 
         joystickNames = Input.GetJoystickNames();
 
@@ -61,9 +66,15 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
+        //#################################################
 
+        if (Input.GetKeyDown(KeyCode.T)) // transition to 2D
+        {
+            cameraManager.StartTransition(new Vector3(1.25f, 1.25f, -7.5f), new Vector3(0, 0, 0), 2, 3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Y)) // transition to 2.5D
+        {
+            cameraManager.StartTransition(new Vector3(1.5f, 6.5f, -7.5f), new Vector3(35, 0, 0), 4, 3); //TODO: set targetSize to 4.5f
         }
 
         //#################################################
