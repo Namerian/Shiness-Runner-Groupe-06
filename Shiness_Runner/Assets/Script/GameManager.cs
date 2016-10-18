@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private string[] joystickNames;
     private HeroController[] characters;
+    
 
     private GameState currentState;
 
@@ -58,6 +59,11 @@ public class GameManager : MonoBehaviour
             {
                 character.StopMove();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+
         }
 
         //#################################################
