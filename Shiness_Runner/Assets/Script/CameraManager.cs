@@ -42,18 +42,25 @@ public class CameraManager : MonoBehaviour
             transitionTimer += Time.deltaTime;
             float _transitionProgress = transitionTime / transitionTimer;
 
+            if(_transitionProgress > 1f)
+            {
+                _transitionProgress = 1f;
+            }
+
             //move
-            Camera.main.transform.localPosition = Vector3.Lerp(transitionSourcePosition, transitionTargetPosition, _transitionProgress);
+            //Camera.main.transform.localPosition = Vector3.Lerp(transitionSourcePosition, transitionTargetPosition, _transitionProgress);
+            Camera.main.transform.localPosition = transitionTargetPosition;
 
             //rotate
-            Camera.main.transform.localEulerAngles = Vector3.Lerp(transitionSourceRotation, transitionTargetRotation, _transitionProgress);
+            //Camera.main.transform.localEulerAngles = Vector3.Lerp(transitionSourceRotation, transitionTargetRotation, _transitionProgress);
+            Camera.main.transform.localEulerAngles = transitionTargetRotation;
 
             //resize
             //float _sizeDiff = transitionTargetSize - transitionSourceSize;
             //Camera.main.orthographicSize = transitionSourceSize + (_sizeDiff * _transitionProgress);
 
             //end
-            if(transitionTimer >= transitionTime)
+            if (transitionTimer >= transitionTime)
             {
                 isTransitioning = false;
             }

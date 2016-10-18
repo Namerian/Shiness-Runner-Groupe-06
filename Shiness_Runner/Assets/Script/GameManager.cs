@@ -70,11 +70,11 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T)) // transition to 2D
         {
-            cameraManager.StartTransition(new Vector3(1.25f, 1.25f, -7.5f), new Vector3(0, 0, 0), 2, 3);
+            cameraManager.StartTransition(new Vector3(1.25f, 1.25f, -7.5f), new Vector3(0, 0, 0), 2, 0.1f);
         }
         else if (Input.GetKeyDown(KeyCode.Y)) // transition to 2.5D
         {
-            cameraManager.StartTransition(new Vector3(1.5f, 6.5f, -7.5f), new Vector3(35, 0, 0), 4.5f, 3);
+            cameraManager.StartTransition(new Vector3(1.5f, 6.5f, -7.5f), new Vector3(35, 0, 0), 4.5f, 0.1f);
         }
 
         //#################################################
