@@ -19,7 +19,7 @@ public class GameStateTransitionTo25d : GameState
         throw new NotImplementedException();
     }
 
-    protected override void OnHandleInput(List<JoystickState> joystickState)
+    protected override void OnHandleInput(JoystickState[] joystickStates)
     {
         throw new NotImplementedException();
     }
