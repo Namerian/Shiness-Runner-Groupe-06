@@ -44,7 +44,7 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public void StartTransition(Vector3 targetPosition, Vector3 targetRotation, float time)
+    public void StartTransition(Vector3 targetPosition, Vector3 targetRotation, int targetSize, float time)
     {
         isTransitioning = true;
         //camera.transform.position = new Vector3(xPosition, camera.transform.position.y, camera.transform.position.z);
