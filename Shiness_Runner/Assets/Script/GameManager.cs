@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         {
             foreach (HeroController character in characters)
             {
-                character.StartMove();
+               // character.StartMove();
             }
         }
 
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         {
             foreach (HeroController character in characters)
             {
-                character.StopMove();
+                //character.StopMove();
             }
         }
 

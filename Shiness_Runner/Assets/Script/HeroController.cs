@@ -9,7 +9,6 @@ public class HeroController : MonoBehaviour {
     public float fallSpeed = 1.0f;
     public float moveSpeed = 0.0f;
     public float gravity = 9.0f;
-    private float _moveSpeed = 0.0f;
     private float _jumpStartLocation;
 
     //intern variables
@@ -30,15 +29,15 @@ public class HeroController : MonoBehaviour {
     {
         if(_rb.velocity.y < 0)
         {
-            _rb.velocity = new Vector3(_moveSpeed, -fallSpeed, 0);
+            _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed, 0);
         }
         else if ((_rb.transform.position.y - _jumpStartLocation) >= jumpHeight && !IsGrounded())
         {
-            _rb.velocity = new Vector3(_moveSpeed, -fallSpeed, 0);
+            _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed, 0);
         }
         else
         {
-            _rb.velocity = new Vector3(_moveSpeed, _rb.velocity.y, 0);
+            _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, 0);
         }
     }
 
@@ -50,20 +49,8 @@ public class HeroController : MonoBehaviour {
     {
         if (IsGrounded())
         {
-            _rb.velocity =  new Vector3(_moveSpeed, jumpForce, 0);
+            _rb.velocity =  new Vector3(_rb.velocity.x, jumpForce, 0);
             _jumpStartLocation = transform.position.y;
         }
-    }
-
-
-    public void StartMove()
-    {
-        _moveSpeed = moveSpeed;
-    }
-
-
-    public void StopMove()
-    {
-        _moveSpeed = 0.0f;
     }
 }

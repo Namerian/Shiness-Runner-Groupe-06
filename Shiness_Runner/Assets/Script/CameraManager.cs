@@ -59,4 +59,9 @@ public class CameraManager : MonoBehaviour
     {
         isMoving = false;
     }
+
+    public void Slide()
+    {
+
+    }
 }
