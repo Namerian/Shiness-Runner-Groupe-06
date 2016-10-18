@@ -28,11 +28,18 @@ public class HeroController : MonoBehaviour {
 
     void Update()
     {
-        if((_rb.transform.position.y -_jumpStartLocation) >= jumpHeight && !IsGrounded())
+        if(_rb.velocity.y < 0)
         {
             _rb.velocity = new Vector3(_moveSpeed, -fallSpeed, 0);
         }
-        _rb.velocity = new Vector3(_moveSpeed , _rb.velocity.y, 0);
+        else if ((_rb.transform.position.y - _jumpStartLocation) >= jumpHeight && !IsGrounded())
+        {
+            _rb.velocity = new Vector3(_moveSpeed, -fallSpeed, 0);
+        }
+        else
+        {
+            _rb.velocity = new Vector3(_moveSpeed, _rb.velocity.y, 0);
+        }
     }
 
     bool IsGrounded() {
