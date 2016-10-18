@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
     private string[] joystickNames;
     private HeroController[] characters;
 
+    private GameState currentState;
+
 	// Use this for initialization
 	void Start () {
 
@@ -21,6 +23,8 @@ public class GameManager : MonoBehaviour {
         {
             characters[i] = GameObject.Find("Character" + (i + 1)).GetComponent<HeroController>();
         }
+
+        currentState = new GameState25d(this);
 	}
 	
 	// Update is called once per frame
@@ -49,23 +53,16 @@ public class GameManager : MonoBehaviour {
                 character.StopMove();
             }
         }
-
-        //HandleInput();
 	}
 
-    private void HandleInput()
+    public void SwitchState(GameState newState)
     {
-        
-    }
-
-    private void HandleCharacterInput(int charId)
-    {
-        string joystickName = joystickNames[charId];
-        HeroController character = characters[charId];
-
-        if (Input.GetButtonDown("Joy" + charId + "Jump"))
+        if(currentState != null)
         {
-
+            currentState.Exit();
         }
+
+        currentState = newState;
+        currentState.Enter();
     }
 }
