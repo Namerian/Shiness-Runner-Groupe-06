@@ -3,6 +3,10 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+    public const float MOVEMENT_SPEED = 15.0f;
+
+    //###################################################
+
     private string[] joystickNames;
     private HeroController[] characters;
 
@@ -10,7 +14,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        
         joystickNames = Input.GetJoystickNames();
 
         Debug.Log("There are " + joystickNames.Length + " Joysticks available.");
@@ -52,6 +56,19 @@ public class GameManager : MonoBehaviour {
             {
                 character.StopMove();
             }
+        }
+
+        //#################################################
+
+        if (Input.GetKeyDown("joystick 1 button 0"))
+        {
+            Debug.Log("A pressed");
+        }
+
+        float y = Input.GetAxis("Joy1_Vertical");
+        if(y != 0)
+        {
+            Debug.Log("Axis: " + y);
         }
 	}
 
