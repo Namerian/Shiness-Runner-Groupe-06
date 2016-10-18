@@ -17,35 +17,44 @@ public class GameManager : MonoBehaviour {
 
         for(int i = 0; i < joystickNames.Length; i++)
         {
-            characters[0] = GameObject.Find("Character" + (i + 1)).GetComponent<HeroController>();
+            characters[i] = GameObject.Find("Character" + (i + 1)).GetComponent<HeroController>();
         }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        HandleInput();
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            characters[0].Jump();
+        }
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            characters[0].StartMove();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Z))
+        {
+            characters[0].StopMove();
+        }
+
+        //HandleInput();
 	}
 
     private void HandleInput()
     {
-        if(Input.GetButtonDown("Fire1"))
-        {
-            Debug.Log("Joystick 0: Jump pressed");
-        }
+        
+    }
 
-        /*if (Input.GetKeyDown(KeyCode.A))
-        {
-            character_1.Jump();
-        }
+    private void HandleCharacterInput(int charId)
+    {
+        string joystickName = joystickNames[charId];
+        HeroController character = characters[charId];
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetButtonDown("Joy" + charId + "Jump"))
         {
-            character_2.Jump();
-        }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            character_3.Jump();
-        }*/
+        }
     }
 }
