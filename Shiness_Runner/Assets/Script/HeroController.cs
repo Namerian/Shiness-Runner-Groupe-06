@@ -30,6 +30,8 @@ public class HeroController : MonoBehaviour {
         _distToGround = _collider.bounds.extents.y;
         _hitPositionStart = 0.0f;
         _slidePositionStart = 0.0f;
+
+        transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
 
