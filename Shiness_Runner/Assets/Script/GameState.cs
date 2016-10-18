@@ -38,7 +38,7 @@ public abstract class GameState {
         }
     }
 
-    public void HandleInput(List<JoystickState> joystickStates)
+    public void HandleInput(JoystickState[] joystickStates)
     {
         if (isActive)
         {
@@ -49,5 +49,5 @@ public abstract class GameState {
     protected abstract void OnEnter();
     protected abstract void OnExit();
     protected abstract void OnUpdate();
-    protected abstract void OnHandleInput(List<JoystickState> joystickStates);
+    protected abstract void OnHandleInput(JoystickState[] joystickStates);
 }

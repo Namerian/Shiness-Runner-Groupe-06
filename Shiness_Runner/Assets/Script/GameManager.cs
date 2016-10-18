@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         }
 
         currentState = new GameState25d(this);
+        currentState.Enter();
     }
 
     // Update is called once per frame
@@ -61,28 +62,53 @@ public class GameManager : MonoBehaviour
 
         //#################################################
 
-        JoystickState[] joystickStates = new JoystickState[joystickNames.Length];
+        JoystickState[] _joystickStates = new JoystickState[joystickNames.Length];
 
-        for(int i = 0; i < joystickNames.Length; i++)
+        for (int i = 0; i < joystickNames.Length; i++)
         {
-            bool buttonA, buttonY, buttonB, YAxisUp, YAxisDown;
+            bool _buttonA, _buttonY, _buttonB, _YAxisUp, _YAxisDown, _YAxisUp_previous, _YAxisDown_previous;
+            float y;
 
-            if (Input.GetKeyDown("joystick 1 button 0"))
+            _buttonA = _buttonY = _buttonB = _YAxisUp = _YAxisDown = _YAxisUp_previous = _YAxisDown_previous = false;
+
+            if (previousJoystickStates != null)
             {
-                Debug.Log("A pressed");
+                _YAxisUp_previous = previousJoystickStates[i].YAxisUp;
+                _YAxisDown_previous = previousJoystickStates[i].YAxisDown;
             }
+
+
+            if (Input.GetKeyDown("joystick " + (i + 1) + " button 0"))
+            {
+                _buttonA = true;
+            }
+
+            if (Input.GetKeyDown("joystick " + (i + 1) + " button 3"))
+            {
+                _buttonY = true;
+            }
+
+            if (Input.GetKeyDown("joystick " + (i + 1) + " button 1"))
+            {
+                _buttonB = true;
+            }
+
+            y = Input.GetAxis("Joy1_Vertical");
+
+            if (y > 0 && !_YAxisUp_previous)
+            {
+                _YAxisUp = true;
+            }
+            else if (y < 0 && !_YAxisDown_previous)
+            {
+                _YAxisDown = true;
+            }
+
+            _joystickStates[i] = new JoystickState(i, _buttonA, _buttonY, _buttonB, _YAxisUp, _YAxisDown);
         }
 
-        if (Input.GetKeyDown("joystick 1 button 0"))
-        {
-            Debug.Log("A pressed");
-        }
-
-        float y = Input.GetAxis("Joy1_Vertical");
-        if (y != 0)
-        {
-            Debug.Log("Axis: " + y);
-        }
+        currentState.HandleInput(_joystickStates);
+        previousJoystickStates = _joystickStates;
     }
 
     public void SwitchState(GameState newState)

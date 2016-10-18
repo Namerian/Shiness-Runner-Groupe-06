@@ -11,21 +11,20 @@ public class GameState25d : GameState
 
     protected override void OnEnter()
     {
-        throw new NotImplementedException();
+        
     }
 
     protected override void OnExit()
     {
-        throw new NotImplementedException();
+        
     }
 
-    protected override void OnHandleInput(List<JoystickState> joystickState)
+    protected override void OnHandleInput(JoystickState[] joystickStates)
     {
-        throw new NotImplementedException();
     }
 
     protected override void OnUpdate()
     {
-        throw new NotImplementedException();
+        
     }
 }
