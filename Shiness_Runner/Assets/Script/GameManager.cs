@@ -67,7 +67,10 @@ public class GameManager : MonoBehaviour
         {
             bool buttonA, buttonY, buttonB, YAxisUp, YAxisDown;
 
-
+            if (Input.GetKeyDown("joystick 1 button 0"))
+            {
+                Debug.Log("A pressed");
+            }
         }
 
         if (Input.GetKeyDown("joystick 1 button 0"))

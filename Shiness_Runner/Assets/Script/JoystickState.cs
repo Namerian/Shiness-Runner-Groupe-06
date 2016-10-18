@@ -8,15 +8,16 @@ public class JoystickState
     public bool ButtonA { get; private set; }
     public bool ButtonY { get; private set; }
     public bool ButtonB { get; private set; }
+    public bool YAxisUp { get; private set; }
+    public bool YAxisDown { get; private set; }
 
-    public bool YAxisUp_current { get; private set; }
-    public bool YAxisUp_previous { get; private set; }
-
-    public JoystickState(int characterIndex, bool buttonA, bool buttonY, bool buttonB)
+    public JoystickState(int characterIndex, bool buttonA, bool buttonY, bool buttonB, bool yAxisUp, bool yAxisDown)
     {
         CharacterIndex = characterIndex;
         ButtonA = buttonA;
         ButtonY = buttonY;
         ButtonB = buttonB;
+        YAxisUp = yAxisUp;
+        YAxisDown = yAxisDown;
     }
 }
