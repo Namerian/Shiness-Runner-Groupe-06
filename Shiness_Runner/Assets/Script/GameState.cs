@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public abstract class GameState {
 
@@ -37,16 +38,16 @@ public abstract class GameState {
         }
     }
 
-    public void HandleInput(JoystickState joystickState)
+    public void HandleInput(JoystickState[] joystickStates)
     {
         if (isActive)
         {
-            OnHandleInput(joystickState);
+            OnHandleInput(joystickStates);
         }
     }
 
     protected abstract void OnEnter();
     protected abstract void OnExit();
     protected abstract void OnUpdate();
-    protected abstract void OnHandleInput(JoystickState joystickState);
+    protected abstract void OnHandleInput(JoystickState[] joystickStates);
 }

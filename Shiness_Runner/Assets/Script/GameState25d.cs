@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class GameState25d : GameState
 {
@@ -10,21 +11,20 @@ public class GameState25d : GameState
 
     protected override void OnEnter()
     {
-        throw new NotImplementedException();
+        
     }
 
     protected override void OnExit()
     {
-        throw new NotImplementedException();
+        
     }
 
-    protected override void OnHandleInput(JoystickState joystickState)
+    protected override void OnHandleInput(JoystickState[] joystickStates)
     {
-        throw new NotImplementedException();
     }
 
     protected override void OnUpdate()
     {
-        throw new NotImplementedException();
+        
     }
 }
