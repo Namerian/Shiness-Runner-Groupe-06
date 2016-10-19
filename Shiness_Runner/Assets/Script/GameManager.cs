@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
 	public float extasePerSecond;
 
+    public Canvas uicanvas;
+
 	//#################################################
 
 	public float Extase {
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
 	{
 		cameraManager = GameObject.Find ("MainCamera").GetComponent<CameraManager> ();
 		extaseSliderView = GameObject.Find ("UI/ExtaseBarUI/ExtaseSlider").GetComponent<Slider> ();
+        uicanvas = GameObject.Find("UI").GetComponent<Canvas>();
 
 		playerInfoArray = new PlayerInfo[3];
 		string[] _joysticks = Input.GetJoystickNames ();
@@ -129,9 +132,17 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		//#################################################
+        if (Input.GetKey(KeyCode.Z))
+        {
+            foreach (PlayerInfo info in playerInfoArray)
+            {
+                info.character.Ability();
+            }
+        }
 
-		JoystickState[] _joystickStates = new JoystickState[3];
+        //#################################################
+
+        JoystickState[] _joystickStates = new JoystickState[3];
 
 		for (int i = 0; i < 3; i++) {
 			bool _buttonA_down = false;
@@ -155,16 +166,16 @@ public class GameManager : MonoBehaviour
 
 			if (playerInfoArray [i].joystick != "") {
 				//button A
-				if (Input.GetKeyDown ("joystick " + (i + 1) + " button 3")) {
+				if (Input.GetKeyDown ("joystick " + (i + 1) + " button 0")) {
 					_buttonA_down = true;
-				} else if (Input.GetKeyUp ("joystick " + (i + 1) + " button 3")) {
+				} else if (Input.GetKeyUp ("joystick " + (i + 1) + " button 0")) {
 					_buttonA_up = true;
 				}
 
 				//button Y
-				if (Input.GetKeyDown ("joystick " + (i + 1) + " button 0")) {
+				if (Input.GetKeyDown ("joystick " + (i + 1) + " button 3")) {
 					_buttonY_down = true;
-				} else if (Input.GetKeyUp ("joystick " + (i + 1) + " button 0")) {
+				} else if (Input.GetKeyUp ("joystick " + (i + 1) + " button 3")) {
 					_buttonY_up = true;
 				}
 

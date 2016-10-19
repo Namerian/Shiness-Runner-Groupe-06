@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 
 public class UI : MonoBehaviour {
@@ -8,9 +9,7 @@ public class UI : MonoBehaviour {
     public Text scoretext;
     public Text multiplier;
     public Slider extaz;
-    public Image player1;
-    public Image player2;
-    public Image player3;
+    public List<GameObject> players = new List<GameObject>();
 
     float score;
     bool extazcanwow = true;
@@ -18,7 +17,6 @@ public class UI : MonoBehaviour {
     // Use this for initialization
     void Start () {
         RotateScoreLeft();
-        //ScoreRed();	
 	}
 	
 	// Update is called once per frame
@@ -54,7 +52,11 @@ public class UI : MonoBehaviour {
     }
 
 
-    //SCORE ANIMATIONS
+    /*********************
+    **SCORE ANITMATIONS**
+    *********************/
+
+    //ROTATION EFFECT
     void RotateScoreLeft()
     {
         scoretext.transform.DOLocalRotate(new Vector3(0, 0, 3), 2f).SetId("RotateLeft").SetEase(Ease.Linear).OnComplete(RotateScoreRight);
@@ -66,21 +68,8 @@ public class UI : MonoBehaviour {
     }
 
 
-
-    //SLIDER ANITMATIONS
-    void ScaleSliderUp()
-    {
-        extaz.transform.DOScale(1.05f, 0.75f).SetId("ScaleUp").SetEase(Ease.Linear).OnComplete(ScaleSliderDown);
-    }
-
-    void ScaleSliderDown()
-    {
-        extaz.transform.DOScale(0.95f, 0.75f).SetId("ScaleDown").SetEase(Ease.Linear).OnComplete(ScaleSliderUp);
-    }
-
-
-    //SCORE ANIMATION
-    /*void ScoreRed()
+    //RAINBOW EFFECT (à appeler quand on passe en mode Extaz par exemple)
+    public void ScoreRed()
     {
         scoretext.DOBlendableColor(Color.red, 0.5f).OnComplete(ScoreYellow);
     }
@@ -98,6 +87,54 @@ public class UI : MonoBehaviour {
     void ScoreBlue()
     {
         scoretext.DOBlendableColor(Color.blue, 0.5f).OnComplete(ScoreRed);
-    }*/
+    }
 
+
+    /*********************
+    **SLIDER ANITMATIONS**
+    *********************/
+
+    //BREATH EFFECT (à appeler quand la barre d'Extaz est à son maximum)
+    public void ScaleSliderUp()
+    {
+        extaz.transform.DOScale(1.10f, 0.75f).SetId("ScaleUp").SetEase(Ease.Linear).OnComplete(ScaleSliderDown);
+    }
+
+    void ScaleSliderDown()
+    {
+        extaz.transform.DOScale(1f, 0.75f).SetId("ScaleDown").SetEase(Ease.Linear).OnComplete(ScaleSliderUp);
+    }
+
+
+    /*********************
+    **PLAYER ANITMATIONS**
+    *********************/
+
+    //DEATH FEEDBACK (à appeler quand un joueur meurt)
+    public void GoGrey(int playernumber) 
+    {
+        players[playernumber-1].GetComponentInChildren<Image>().DOBlendableColor(new Color32(0x54, 0x54, 0x54, 0xFF), 1f);
+    }
+
+    public void GoWhite(int playernumber)
+    {
+        players[playernumber - 1].GetComponentInChildren<Image>().DOBlendableColor(Color.white,1f);
+    }
+
+    public void HitShake(string playername)
+    {
+        switch (playername)
+        {
+            case "Character1":
+                players[0].transform.DOShakePosition(0.5f, 2.5f, 10, 90, false, true);
+                break;
+            case "Character2":
+                players[1].transform.DOShakePosition(0.5f, 2.5f, 10, 90, false, true);
+                break;
+            case "Character3":
+                players[2].transform.DOShakePosition(0.5f, 2.5f, 10, 90, false, true);
+                break;
+        }
+       
+    }
 }
