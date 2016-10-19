@@ -27,6 +27,12 @@ public class GameStateTransitionTo2d : GameState
 
 	protected override void OnEnter ()
 	{
+		GameObject[] _brawlModeObstacles = GameObject.FindGameObjectsWithTag ("Brawl mode obstacles");
+		foreach (GameObject brawlObstacle in _brawlModeObstacles) {
+			brawlObstacle.SetActive (false);
+		}
+
+
 		PlayerInfo[] _playerInfos = gameManager.GetAllPlayerInfos ();
 
 		for (int i = 0; i < 3; i++) {
@@ -74,6 +80,14 @@ public class GameStateTransitionTo2d : GameState
 
 	protected override void OnExit ()
 	{
+		GameObject[] _extazModeObstacles = GameObject.FindGameObjectsWithTag ("Extaz mode obstacles");
+		float _xLimit = gameManager.cameraManager.transform.position.x + 10;
+		foreach (GameObject extazObstacle in _extazModeObstacles) {
+			if (extazObstacle.transform.position.x >= _xLimit) {
+				extazObstacle.SetActive (true);
+			}
+		}
+
 		for (int i = 0; i < 3; i++) {
 			PlayerInfo _playerInfo = gameManager.GetPlayerInfo (i);
 
