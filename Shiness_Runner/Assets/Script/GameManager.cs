@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
 
             _character = GameObject.Find("Character" + (i + 1)).GetComponent<HeroController>();
 
-            playerInfoArray[i] = new PlayerInfo(_character, _joystick);
+            playerInfoArray[i] = new PlayerInfo(_character, _joystick, i);
             lanes[i] = i;
         }
 
