@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
 	private string[] joystickNames;
-	private HeroController[] characters;
+	public HeroController[] characters { get; private set; }
 
 	public CameraManager cameraManager { get; private set; }
 
@@ -14,8 +14,10 @@ public class GameManager : MonoBehaviour
 
 	private JoystickState[] previousJoystickStates;
 
-	// Use this for initialization
-	void Start ()
+    //#################################################
+    // Use this for initialization
+    //#################################################
+    void Start ()
 	{
 		cameraManager = GameObject.Find ("MainCamera").GetComponent<CameraManager> ();
 
@@ -35,8 +37,10 @@ public class GameManager : MonoBehaviour
 		currentState.Enter ();
 	}
 
-	// Update is called once per frame
-	void Update ()
+    //#################################################
+    // Update is called once per frame
+    //#################################################
+    void Update ()
 	{
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
@@ -65,7 +69,7 @@ public class GameManager : MonoBehaviour
 
 		//#################################################
 
-		JoystickState[] _joystickStates = new JoystickState[joystickNames.Length];
+		JoystickState[] _joystickStates = new JoystickState[characters.Length];
 
 		for (int i = 0; i < joystickNames.Length; i++) {
 			bool _buttonA, _buttonY, _buttonB, _YAxisUp, _YAxisDown, _YAxisUp_previous, _YAxisDown_previous;
@@ -78,27 +82,35 @@ public class GameManager : MonoBehaviour
 				_YAxisDown_previous = previousJoystickStates [i].YAxisDown;
 			}
 
+            if (joystickNames[i] != null)
+            {
+                if (Input.GetKeyDown("joystick " + (i + 1) + " button 0"))
+                {
+                    _buttonA = true;
+                    Debug.Log("joystick " + i + ": A pressed");
+                }
 
-			if (Input.GetKeyDown ("joystick " + (i + 1) + " button 0")) {
-				_buttonA = true;
-				Debug.Log ("joystick " + i + ": A pressed");
-			}
+                if (Input.GetKeyDown("joystick " + (i + 1) + " button 3"))
+                {
+                    _buttonY = true;
+                }
 
-			if (Input.GetKeyDown ("joystick " + (i + 1) + " button 3")) {
-				_buttonY = true;
-			}
+                if (Input.GetKeyDown("joystick " + (i + 1) + " button 1"))
+                {
+                    _buttonB = true;
+                }
 
-			if (Input.GetKeyDown ("joystick " + (i + 1) + " button 1")) {
-				_buttonB = true;
-			}
+                y = Input.GetAxis("Joy1_Vertical");
 
-			y = Input.GetAxis ("Joy1_Vertical");
-
-			if (y > 0 && !_YAxisUp_previous) {
-				_YAxisUp = true;
-			} else if (y < 0 && !_YAxisDown_previous) {
-				_YAxisDown = true;
-			}
+                if (y > 0 && !_YAxisUp_previous)
+                {
+                    _YAxisUp = true;
+                }
+                else if (y < 0 && !_YAxisDown_previous)
+                {
+                    _YAxisDown = true;
+                }
+            }
 
 			_joystickStates [i] = new JoystickState (i, _buttonA, _buttonY, _buttonB, _YAxisUp, _YAxisDown);
 		}
@@ -111,7 +123,10 @@ public class GameManager : MonoBehaviour
 		currentState.Update ();
 	}
 
-	public void SwitchState (GameState newState)
+    //#################################################
+    //
+    //#################################################
+    public void SwitchState (GameState newState)
 	{
 		if (currentState != null) {
 			currentState.Exit ();
