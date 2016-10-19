@@ -51,11 +51,19 @@ public class GameManager : MonoBehaviour
 
 		if (Input.GetKeyDown (KeyCode.LeftControl)) {
 			foreach (HeroController character in characters) {
-				character.Slide ();
+				character.SlideStart ();
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.A)) {
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            foreach (HeroController character in characters)
+            {
+                character.SlideStop();
+            }
+        }
+
+        if (Input.GetKeyDown (KeyCode.A)) {
 			foreach (HeroController character in characters) {
 				// character.StartMove();
 			}
