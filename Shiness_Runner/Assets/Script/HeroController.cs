@@ -56,7 +56,6 @@ public class HeroController : MonoBehaviour {
             {
                 if (_jumpMaxReached == false)
                 {
-                    Debug.Log("plane");
                     _jumpMaxReached = true;
                     _jumpMaxReachedX = transform.position.x;
                 }
@@ -64,7 +63,6 @@ public class HeroController : MonoBehaviour {
                 if (transform.position.x - _jumpMaxReachedX  >= diveWidth)
                 {
                     _jumpCancel = true;
-                    Debug.Log("cancel");
                 }
                 _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed/4, 0);
 
@@ -153,7 +151,6 @@ public class HeroController : MonoBehaviour {
         {
             _rb.velocity +=  new Vector3(0, jumpForce, 0);
             _jumpStartLocation = transform.position.y;
-            Debug.Log("jump");
         }
     }
 
