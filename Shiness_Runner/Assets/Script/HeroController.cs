@@ -196,4 +196,23 @@ public class HeroController : MonoBehaviour {
             _laneTargetPosition = transform.localPosition.z - 3;
         }
     }
+
+    public void Ability()
+    {
+
+        if (GetComponent<HeadButt>())
+        {
+            GetComponent<HeadButt>().Attack();
+        }
+
+        if (GetComponent<LightAttack>())
+        {
+            GetComponent<LightAttack>().Attack(); ;
+        }
+
+        if (GetComponent<WindAttack>())
+        {
+            GetComponent<WindAttack>().Attack();
+        }
+    }
 }
