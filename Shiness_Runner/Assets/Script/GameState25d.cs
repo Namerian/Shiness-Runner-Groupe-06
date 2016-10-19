@@ -26,7 +26,8 @@ public class GameState25d : GameState
         for (int i = 0; i < joystickStates.Length; i++)
         {
             JoystickState _stickState = joystickStates[i];
-            HeroController _character = gameManager.characters[_stickState.characterIndex];
+            PlayerInfo _playerInfo = gameManager.GetPlayerInfo(_stickState.characterIndex);
+            HeroController _character = _playerInfo.character;
 
             //
             if (_character.gameObject.name != "Character" + (_stickState.characterIndex+1))
@@ -70,7 +71,8 @@ public class GameState25d : GameState
                 if (_charLane != 2)
                 {
                     int _otherLane = _charLane + 1;
-                    HeroController _otherChar = gameManager.characters[_lanes[_otherLane]];
+                    PlayerInfo _otherPlayerInfo = gameManager.GetPlayerInfo(_lanes[_otherLane]);
+                    HeroController _otherChar = _otherPlayerInfo.character;
 
                     if (!_character.transitioning && !_otherChar.transitioning)
                     {
@@ -95,7 +97,8 @@ public class GameState25d : GameState
                 if(_charLane != 0)
                 {
                     int _otherLane = _charLane - 1;
-                    HeroController _otherChar = gameManager.characters[_lanes[_otherLane]];
+                    PlayerInfo _otherPlayerInfo = gameManager.GetPlayerInfo(_lanes[_otherLane]);
+                    HeroController _otherChar = _otherPlayerInfo.character;
 
                     if (!_character.transitioning && !_otherChar.transitioning)
                     {
