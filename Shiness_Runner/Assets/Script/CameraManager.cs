@@ -41,7 +41,7 @@ public class CameraManager : MonoBehaviour
 				isTransitioning = false;
 			}
 
-			transitionTimer += Time.deltaTime * 1000f;
+			transitionTimer += Time.deltaTime;
 			float _transitionProgress = transitionTimer / transitionTime;
 
 			//###############################
@@ -109,7 +109,7 @@ public class CameraManager : MonoBehaviour
 		transitionSourceSize = Camera.main.orthographicSize;
 		transitionTargetSize = targetSize;
 
-		transitionTime = time * 1000f;
+		transitionTime = time;
 		transitionTimer = 0f;
 
 		//camera.transform.position = new Vector3(xPosition, camera.transform.position.y, camera.transform.position.z);

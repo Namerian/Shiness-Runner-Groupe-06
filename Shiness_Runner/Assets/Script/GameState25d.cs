@@ -5,26 +5,28 @@ using System.Collections.Generic;
 
 public class GameState25d : GameState
 {
-    public GameState25d(GameManager gameManager) : base(gameManager)
-    {
-    }
+	public GameState25d (GameManager gameManager) : base (gameManager)
+	{
+	}
 
-    protected override void OnEnter()
-    {
+	protected override void OnEnter ()
+	{
         
-    }
+	}
 
-    protected override void OnExit()
-    {
+	protected override void OnExit ()
+	{
         
-    }
+	}
 
-    protected override void OnHandleInput(JoystickState[] joystickStates)
-    {
-    }
+	protected override void OnHandleInput (JoystickState[] joystickStates)
+	{
+	}
 
-    protected override void OnUpdate()
-    {
-        
-    }
+	protected override void OnUpdate ()
+	{
+		if (Input.GetKeyDown (KeyCode.T)) {
+			gameManager.SwitchState (new GameStateTransitionTo2d (gameManager));
+		}
+	}
 }
