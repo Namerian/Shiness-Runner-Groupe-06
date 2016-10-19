@@ -63,7 +63,15 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.LeftControl)) {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            foreach (HeroController character in characters)
+            {
+                character.JumpCancel();
+            }
+        }
+
+        if (Input.GetKeyDown (KeyCode.LeftControl)) {
 			foreach (HeroController character in characters) {
 				character.SlideStart ();
 			}

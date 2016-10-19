@@ -4,12 +4,14 @@ using System.Collections;
 public class HeroController : MonoBehaviour {
 
     //public variables and properties
-    public float jumpHeight = 2.0f;
-    public float jumpForce = 8.0f;
-    public float fallSpeed = 5.0f;
-    public float gravity = 9.0f;
-    public float stunWidth = 2.0f;
-    public float slideWidth = 5.0f;
+    public float jumpHeight;
+    public float jumpMin;
+    public float jumpForce;
+    public float fallSpeed;
+    public float gravity;
+    public float stunWidth;
+    public float slideWidth;
+    bool transitioning;
 
     //intern variables
     ReferenceBodyController _parent;
@@ -23,7 +25,9 @@ public class HeroController : MonoBehaviour {
     float _jumpStartLocation;
     float _transitionTimer;
     float _transitionTime;
-    bool _transitioning;
+    float _jumpMaxReachedX;
+    bool _jumpMaxReached;
+    bool _jumpCancel;
 
 
     void Start()
@@ -34,7 +38,10 @@ public class HeroController : MonoBehaviour {
         _distToGround = _collider.bounds.extents.y;
         _hitPositionStart = 0.0f;
         _slidePositionStart = 0.0f;
-        _transitioning = false;
+        _jumpMaxReachedX = 0.0f;
+        _jumpMaxReached = false;
+        transitioning = false;
+        _jumpCancel = false;
         _transitionTime = 1;
         transform.localEulerAngles = new Vector3(0, 0, 0);
     }
@@ -45,15 +52,35 @@ public class HeroController : MonoBehaviour {
         //gestion du saut
         if(_rb.velocity.y < 0)
         {
-            _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed, 0);
+            if (_jumpCancel == false)
+            {
+                if (_jumpMaxReached == false)
+                {
+                    _jumpMaxReached = true;
+                    _jumpMaxReachedX = transform.position.x;
+                }
+
+                if (transform.position.x - _jumpMaxReachedX  <= 20)
+                {
+                    _jumpCancel = true;
+                    _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed/100, 0);
+                    Debug.Log("test");
+                }
+
+            }
+            else
+            {
+                _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed, 0);
+                _jumpCancel = false;
+            }
         }
-        else if ((_rb.transform.position.y - _jumpStartLocation) >= jumpHeight && !IsGrounded())
+        else if (((_rb.transform.position.y - _jumpStartLocation) >= jumpHeight && !IsGrounded()) || (_jumpCancel && (_rb.transform.position.y - _jumpStartLocation) >= jumpMin))
         {
-            _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed, 0);
+            _rb.velocity -= new Vector3(0, fallSpeed, 0); //si on a atteint la hauteur max ou qu'on cancel le saut
         }
         else
         {
-            _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, 0);
+            _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, 0); //en temps normal
         }
 
         //gestion du stun
@@ -95,11 +122,11 @@ public class HeroController : MonoBehaviour {
         }*/
 
         //gestion transition lane
-        if (_transitioning)
+        if (transitioning)
         {
             if (_transitionTimer >= _transitionTime)
             {
-                _transitioning = false;
+                transitioning = false;
             }
 
             _transitionTimer += Time.deltaTime;
@@ -118,8 +145,16 @@ public class HeroController : MonoBehaviour {
     {
         if (IsGrounded())
         {
-            _rb.velocity =  new Vector3(_rb.velocity.x, jumpForce, 0);
+            _rb.velocity +=  new Vector3(0, jumpForce, 0);
             _jumpStartLocation = transform.position.y;
+        }
+    }
+
+    public void JumpCancel()
+    {
+        if (!IsGrounded())
+        {
+            _jumpCancel = true;
         }
     }
 
@@ -135,15 +170,21 @@ public class HeroController : MonoBehaviour {
 
     public void LaneUp()
     {
-        _transitioning = true;
-        _transitionTimer = 0;
-        _laneTargetPosition = transform.localPosition.z + 3;
+        if (!transitioning)
+        {
+            transitioning = true;
+            _transitionTimer = 0;
+            _laneTargetPosition = transform.localPosition.z + 3;
+        }
     }
 
     public void LaneDown()
     {
-        _transitioning = true;
-        _transitionTimer = 0;
-        _laneTargetPosition = transform.localPosition.z - 3;
+        if (!transitioning)
+        {
+            transitioning = true;
+            _transitionTimer = 0;
+            _laneTargetPosition = transform.localPosition.z - 3;
+        }
     }
 }
