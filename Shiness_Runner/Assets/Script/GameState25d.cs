@@ -27,7 +27,7 @@ public class GameState25d : GameState
             HeroController _character = gameManager.characters[i];
 
             //
-            if (_character.gameObject.name != "Character" + _stickState.CharacterIndex)
+            if (_character.gameObject.name != "Character" + (_stickState.CharacterIndex+1))
             {
                 Debug.LogError("GameState25d: OnHandleInput: character index (" + _character.gameObject.name + " != joystick index" + _stickState.CharacterIndex);
             }
