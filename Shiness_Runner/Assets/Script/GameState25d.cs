@@ -29,6 +29,11 @@ public class GameState25d : GameState
             PlayerInfo _playerInfo = gameManager.GetPlayerInfo(_stickState.characterIndex);
             HeroController _character = _playerInfo.character;
 
+            if (_playerInfo.isDead)
+            {
+                continue;
+            }
+
             //
             if (_character.gameObject.name != "Character" + (_stickState.characterIndex+1))
             {

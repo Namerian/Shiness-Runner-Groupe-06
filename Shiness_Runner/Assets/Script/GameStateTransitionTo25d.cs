@@ -25,6 +25,12 @@ public class GameStateTransitionTo25d : GameState
 
 	protected override void OnExit ()
 	{
+        for(int i = 0;i < 3; i++)
+        {
+            PlayerInfo _playerInfo = gameManager.GetPlayerInfo(i);
+
+            _playerInfo.isDead = false;
+        }
 	}
 
 	protected override void OnHandleInput (JoystickState[] joystickStates)
