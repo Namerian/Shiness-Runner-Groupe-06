@@ -8,9 +8,9 @@ public class HeroController : MonoBehaviour {
     public float jumpMin;
     public float jumpForce;
     public float fallSpeed;
-    public float gravity;
     public float stunWidth;
     public float slideWidth;
+    public float diveWidth;
     public bool transitioning { get; private set; }
 
     //intern variables
@@ -56,21 +56,21 @@ public class HeroController : MonoBehaviour {
             {
                 if (_jumpMaxReached == false)
                 {
+                    Debug.Log("plane");
                     _jumpMaxReached = true;
                     _jumpMaxReachedX = transform.position.x;
                 }
 
-                if (transform.position.x - _jumpMaxReachedX  <= 20)
+                if (transform.position.x - _jumpMaxReachedX  >= diveWidth)
                 {
                     _jumpCancel = true;
-                    _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed/100, 0);
+                    Debug.Log("cancel");
                 }
 
             }
             else
             {
-                _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed*1.5f, 0);
-                _jumpCancel = false;
+                _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed, 0);
             }
         }
         else if (((_rb.transform.position.y - _jumpStartLocation) >= jumpHeight && !IsGrounded()) || (_jumpCancel && (_rb.transform.position.y - _jumpStartLocation) >= jumpMin))
@@ -80,7 +80,13 @@ public class HeroController : MonoBehaviour {
         else
         {
             _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, 0); //en temps normal
+            if (IsGrounded())
+            {
+                _jumpCancel = false;
+                _jumpMaxReached = false;
+            }
         }
+        
 
         //gestion du stun
         if(_rb.velocity.x < 0)
@@ -146,6 +152,7 @@ public class HeroController : MonoBehaviour {
         {
             _rb.velocity +=  new Vector3(0, jumpForce, 0);
             _jumpStartLocation = transform.position.y;
+            Debug.Log("jump");
         }
     }
 
@@ -160,10 +167,12 @@ public class HeroController : MonoBehaviour {
     public void SlideStart()
     {
         transform.localEulerAngles = new Vector3(0, 0, -90);
+        transform.localPosition -= new Vector3(0, 0.3f, 0);
     }
 
     public void SlideStop()
     {
+        transform.localPosition += new Vector3(0, 0.3f, 0);
         transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
