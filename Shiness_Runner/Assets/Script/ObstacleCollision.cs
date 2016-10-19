@@ -20,6 +20,7 @@ public class ObstacleCollision : MonoBehaviour {
             {
                 _rb.velocity -= new Vector3(2, 1, 0);
                 _gm.Extase -= 5;
+                _gm.uicanvas.GetComponent<UI>().HitShake(col.gameObject.name);
             }
         }
     }
