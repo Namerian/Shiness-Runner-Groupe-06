@@ -11,7 +11,7 @@ public class HeroController : MonoBehaviour {
     public float gravity;
     public float stunWidth;
     public float slideWidth;
-    bool transitioning;
+    public bool transitioning { get; private set; }
 
     //intern variables
     ReferenceBodyController _parent;

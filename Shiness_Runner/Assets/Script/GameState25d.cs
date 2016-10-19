@@ -70,10 +70,12 @@ public class GameState25d : GameState
                     int _otherLane = _charLane + 1;
                     HeroController _otherChar = gameManager.characters[_lanes[_otherLane]];
 
-                    //TODO: if
-                    gameManager.SwitchLanes(_charLane, _otherLane);
-                    _character.LaneUp();
-                    _otherChar.LaneDown();
+                    if (!_character.transitioning && !_otherChar.transitioning)
+                    {
+                        gameManager.SwitchLanes(_charLane, _otherLane);
+                        _character.LaneUp();
+                        _otherChar.LaneDown();
+                    }
                 }
             }
             else if (_stickState.yAxisDown)
@@ -93,10 +95,12 @@ public class GameState25d : GameState
                     int _otherLane = _charLane - 1;
                     HeroController _otherChar = gameManager.characters[_lanes[_otherLane]];
 
-                    //TODO: if
-                    gameManager.SwitchLanes(_charLane, _otherLane);
-                    _character.LaneDown();
-                    _otherChar.LaneUp();
+                    if (!_character.transitioning && !_otherChar.transitioning)
+                    {
+                        gameManager.SwitchLanes(_charLane, _otherLane);
+                        _character.LaneDown();
+                        _otherChar.LaneUp();
+                    }
                 }
             }
         }
