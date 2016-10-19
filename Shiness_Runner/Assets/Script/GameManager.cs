@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     private JoystickState[] previousJoystickStates;
 
+    public float extasePerSecond;
+
     //#################################################
 
     public float Extase
@@ -265,5 +267,19 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("GamaManager: GetPlayerInfo: fail! index=" + index);
         return null;
+    }
+
+    //#################################################
+    //
+    //#################################################
+    public PlayerInfo[] GetAllPlayerInfos()
+    {
+        PlayerInfo[] _array = new PlayerInfo[3];
+        for(int i = 0; i < 3; i++)
+        {
+            _array[i] = playerInfoArray[i];
+        }
+
+        return _array;
     }
 }

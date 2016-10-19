@@ -4,6 +4,12 @@ using System.Collections;
 public class ObstacleCollision : MonoBehaviour {
 
     Rigidbody _rb;
+    GameManager _gm;
+
+    void Start()
+    {
+        _gm = FindObjectOfType<GameManager>();
+    }
 
     void OnTriggerEnter(Collider col)
     {
@@ -11,6 +17,7 @@ public class ObstacleCollision : MonoBehaviour {
         {
             _rb = col.gameObject.GetComponent<Rigidbody>();
             _rb.velocity -= new Vector3(2, 1, 0);
+            _gm.Extase -= 5;
         }
     }
 }
