@@ -71,6 +71,7 @@ public class HeroController : MonoBehaviour {
             }
         }
 
+        /*
         //gestion du slide
         if(transform.localEulerAngles != new Vector3(0, 0, 0))
         {
@@ -86,7 +87,7 @@ public class HeroController : MonoBehaviour {
                     _slidePositionStart = 0.0f;
                 }
             }
-        }
+        }*/
     }
 
     bool IsGrounded() {
@@ -102,9 +103,14 @@ public class HeroController : MonoBehaviour {
         }
     }
 
-    public void Slide()
+    public void SlideStart()
     {
         transform.localEulerAngles = new Vector3(0, 0, -90);
+    }
+
+    public void SlideStop()
+    {
+        transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
     public void LineUp()
