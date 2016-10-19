@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public class GameState25d : GameState
 {
-    private const float extasePerSecond = 2f;
 
     public GameState25d(GameManager gameManager) : base(gameManager)
     {
@@ -28,6 +27,11 @@ public class GameState25d : GameState
             JoystickState _stickState = joystickStates[i];
             PlayerInfo _playerInfo = gameManager.GetPlayerInfo(_stickState.characterIndex);
             HeroController _character = _playerInfo.character;
+
+            if (_playerInfo.isDead)
+            {
+                continue;
+            }
 
             //
             if (_character.gameObject.name != "Character" + (_stickState.characterIndex+1))
@@ -119,6 +123,6 @@ public class GameState25d : GameState
         }
 
         //extase
-        gameManager.Extase += extasePerSecond * Time.deltaTime;
+        gameManager.Extase += gameManager.extasePerSecond * Time.deltaTime;
     }
 }

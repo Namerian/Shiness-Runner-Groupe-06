@@ -9,6 +9,8 @@ public class PlayerInfo {
 
     public bool isDead { get; set; }
 
+    public float previous25dX { get; set; }
+
     public PlayerInfo(HeroController character, string joystick, int index)
     {
         this.character = character;
@@ -16,5 +18,6 @@ public class PlayerInfo {
         this.index = index;
 
         isDead = false;
+        previous25dX = 0;
     }
 }
