@@ -21,7 +21,7 @@ public class LightAttackController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.name == "Enemy_Bat")
+        if (col.gameObject.name.Contains("Enemy_Bat"))
         {
             Destroy(col.gameObject);
         }

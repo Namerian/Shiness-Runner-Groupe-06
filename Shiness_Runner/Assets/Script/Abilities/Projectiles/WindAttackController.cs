@@ -21,7 +21,7 @@ public class WindAttackController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.name == "Enemy_Essaim")
+        if (col.gameObject.name.Contains("Enemy_Essaim"))
         {
             Destroy(col.gameObject);
         }

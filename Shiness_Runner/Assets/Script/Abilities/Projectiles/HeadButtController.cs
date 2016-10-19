@@ -20,7 +20,7 @@ public class HeadButtController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.name == "Enemy_Golem")
+        if (col.gameObject.name.Contains("Enemy_Golem"))
         {
             Destroy(col.gameObject);
         }
