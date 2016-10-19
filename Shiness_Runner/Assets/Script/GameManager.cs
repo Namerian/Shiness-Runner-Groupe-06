@@ -128,21 +128,21 @@ public class GameManager : MonoBehaviour
             if (joystickNames[i] != null && joystickNames[i] != "")
             {
                 //button A
-                if (Input.GetKeyDown("joystick " + (i + 1) + " button 0"))
+                if (Input.GetKeyDown("joystick " + (i + 1) + " button 3"))
                 {
                     _buttonA_down = true;
                 }
-                else if (Input.GetKeyUp("joystick " + (i + 1) + " button 0"))
+                else if (Input.GetKeyUp("joystick " + (i + 1) + " button 3"))
                 {
                     _buttonA_up = true;
                 }
 
                 //button Y
-                if (Input.GetKeyDown("joystick " + (i + 1) + " button 3"))
+                if (Input.GetKeyDown("joystick " + (i + 1) + " button 0"))
                 {
                     _buttonY_down = true;
                 }
-                else if (Input.GetKeyUp("joystick " + (i + 1) + " button 3"))
+                else if (Input.GetKeyUp("joystick " + (i + 1) + " button 0"))
                 {
                     _buttonY_up = true;
                 }
