@@ -6,9 +6,9 @@ public class GameManager : MonoBehaviour
 {
     private string[] joystickNames;
     public HeroController[] characters { get; private set; }
-
     public CameraManager cameraManager { get; private set; }
 
+    public int[] lanes { get; private set; } //this represents the lines (going up), the values are the indexes of the characters in their array
 
     private GameState currentState;
 
@@ -40,11 +40,13 @@ public class GameManager : MonoBehaviour
 
         //characters = new HeroController[joystickNames.Length];
         characters = new HeroController[3];
+        lanes = new int[3];
 
         //for(int i = 0; i < joystickNames.Length; i++)
         for (int i = 0; i < 3; i++)
         {
             characters[i] = GameObject.Find("Character" + (i + 1)).GetComponent<HeroController>();
+            lanes[i] = i;
         }
 
         currentState = new GameState25d(this);
@@ -191,5 +193,17 @@ public class GameManager : MonoBehaviour
 
         currentState = newState;
         currentState.Enter();
+    }
+
+    //#################################################
+    //
+    //#################################################
+    public void SwitchLanes(int laneA, int laneB)
+    {
+        int charA = lanes[laneA];
+
+        lanes[laneA] = lanes[laneB];
+
+        lanes[laneB] = charA;
     }
 }

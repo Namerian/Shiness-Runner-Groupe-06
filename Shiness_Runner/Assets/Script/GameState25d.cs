@@ -24,7 +24,7 @@ public class GameState25d : GameState
         for (int i = 0; i < joystickStates.Length; i++)
         {
             JoystickState _stickState = joystickStates[i];
-            HeroController _character = gameManager.characters[i];
+            HeroController _character = gameManager.characters[_stickState.characterIndex];
 
             //
             if (_character.gameObject.name != "Character" + (_stickState.characterIndex+1))
@@ -37,9 +37,68 @@ public class GameState25d : GameState
             {
                 _character.Jump();
             }
+            else if (_stickState.buttonY_up)
+            {
+                //
+            }
 
             //slide
-            
+            if (_stickState.buttonA_down)
+            {
+                _character.SlideStart();
+            }
+            else if (_stickState.buttonA_up)
+            {
+                _character.SlideStop();
+            }
+
+            //switch lane
+            if (_stickState.yAxisUp )
+            {
+                int _charLane = -1;
+                int[] _lanes = gameManager.lanes;
+                for (int lane = 0; lane < _lanes.Length; lane++)
+                {
+                    if (_lanes[lane] == _stickState.characterIndex)
+                    {
+                        _charLane = lane;
+                    }
+                }
+
+                if (_charLane != 2)
+                {
+                    int _otherLane = _charLane + 1;
+                    HeroController _otherChar = gameManager.characters[_lanes[_otherLane]];
+
+                    //TODO: if
+                    gameManager.SwitchLanes(_charLane, _otherLane);
+                    _character.LaneUp();
+                    _otherChar.LaneDown();
+                }
+            }
+            else if (_stickState.yAxisDown)
+            {
+                int _charLane = -1;
+                int[] _lanes = gameManager.lanes;
+                for (int lane = 0; lane < _lanes.Length; lane++)
+                {
+                    if (_lanes[lane] == _stickState.characterIndex)
+                    {
+                        _charLane = lane;
+                    }
+                }
+
+                if(_charLane != 0)
+                {
+                    int _otherLane = _charLane - 1;
+                    HeroController _otherChar = gameManager.characters[_lanes[_otherLane]];
+
+                    //TODO: if
+                    gameManager.SwitchLanes(_charLane, _otherLane);
+                    _character.LaneDown();
+                    _otherChar.LaneUp();
+                }
+            }
         }
     }
 
