@@ -22,7 +22,8 @@ public class GameState2d : GameState
         for (int i = 0; i < joystickStates.Length; i++)
         {
             JoystickState _stickState = joystickStates[i];
-            HeroController _character = gameManager.characters[i];
+            PlayerInfo _playerInfo = gameManager.GetPlayerInfo(_stickState.characterIndex);
+            HeroController _character = _playerInfo.character;
 
             //
             if (_character.gameObject.name != "Character" + (_stickState.characterIndex + 1))

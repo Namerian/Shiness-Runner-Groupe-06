@@ -6,8 +6,10 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    private string[] joystickNames;
-    public HeroController[] characters { get; private set; }
+    //private string[] joystickNames;
+    //public HeroController[] characters { get; private set; }
+
+    private PlayerInfo[] playerInfoArray;
 
     public CameraManager cameraManager { get; private set; }
     private Slider extaseSliderView;
@@ -30,10 +32,12 @@ public class GameManager : MonoBehaviour
             if (value < 0)
             {
                 extase = 0;
-            }else if (value > 100)
+            }
+            else if (value > 100)
             {
                 extase = 100;
-            }else
+            }
+            else
             {
                 extase = value;
             }
@@ -50,9 +54,30 @@ public class GameManager : MonoBehaviour
         cameraManager = GameObject.Find("MainCamera").GetComponent<CameraManager>();
         extaseSliderView = GameObject.Find("UI/ExtaseBarUI/ExtaseSlider").GetComponent<Slider>();
 
+        playerInfoArray = new PlayerInfo[3];
         string[] _joysticks = Input.GetJoystickNames();
-        Debug.Log("There are " + _joysticks.Length + " Joysticks available.");
-        joystickNames = new string[3];
+        lanes = new int[3];
+
+        for (int i = 0; i < 3; i++)
+        {
+            string _joystick = "";
+            HeroController _character;
+
+            if (_joysticks.Length > i && _joysticks[i] != null && _joysticks[i] != "")
+            {
+                _joystick = _joysticks[i];
+            }
+
+            _character = GameObject.Find("Character" + (i + 1)).GetComponent<HeroController>();
+
+            playerInfoArray[i] = new PlayerInfo(_character, _joystick);
+            lanes[i] = i;
+        }
+
+
+        /////////////////////////////////////////////////////
+
+        /*joystickNames = new string[3];
 
         for (int i = 0; i < 3; i++)
         {
@@ -76,7 +101,7 @@ public class GameManager : MonoBehaviour
         {
             characters[i] = GameObject.Find("Character" + (i + 1)).GetComponent<HeroController>();
             lanes[i] = i;
-        }
+        }*/
 
         currentState = new GameState25d(this);
         currentState.Enter();
@@ -90,57 +115,41 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            foreach (HeroController character in characters)
+            foreach (PlayerInfo info in playerInfoArray)
             {
-                character.Jump();
+                info.character.Jump();
             }
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            foreach (HeroController character in characters)
+            foreach (PlayerInfo info in playerInfoArray)
             {
-                character.JumpCancel();
+                info.character.JumpCancel();
             }
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            foreach (HeroController character in characters)
+            foreach (PlayerInfo info in playerInfoArray)
             {
-                character.SlideStart();
+                info.character.SlideStart();
             }
         }
 
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            foreach (HeroController character in characters)
+            foreach (PlayerInfo info in playerInfoArray)
             {
-                character.SlideStop();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            foreach (HeroController character in characters)
-            {
-                // character.StartMove();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            foreach (HeroController character in characters)
-            {
-                //character.StopMove();
+                info.character.SlideStop();
             }
         }
 
         //#################################################
 
-        JoystickState[] _joystickStates = new JoystickState[characters.Length];
+        JoystickState[] _joystickStates = new JoystickState[3];
 
-        for (int i = 0; i < characters.Length; i++)
+        for (int i = 0; i < 3; i++)
         {
             bool _buttonA_down = false;
             bool _buttonA_up = false;
@@ -162,7 +171,7 @@ public class GameManager : MonoBehaviour
                 _YAxisDown_previous = previousJoystickStates[i].yAxisDown;
             }
 
-            if (joystickNames[i] != null && joystickNames[i] != "")
+            if (playerInfoArray[i].joystick != "")
             {
                 //button A
                 if (Input.GetKeyDown("joystick " + (i + 1) + " button 0"))
@@ -242,5 +251,19 @@ public class GameManager : MonoBehaviour
         lanes[laneA] = lanes[laneB];
 
         lanes[laneB] = charA;
+    }
+
+    //#################################################
+    //
+    //#################################################
+    public PlayerInfo GetPlayerInfo(int index)
+    {
+        if (index >= 0 && index < 3)
+        {
+            return playerInfoArray[index];
+        }
+
+        Debug.Log("GamaManager: GetPlayerInfo: fail! index=" + index);
+        return null;
     }
 }
