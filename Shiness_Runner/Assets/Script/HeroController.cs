@@ -64,13 +64,12 @@ public class HeroController : MonoBehaviour {
                 {
                     _jumpCancel = true;
                     _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed/100, 0);
-                    Debug.Log("test");
                 }
 
             }
             else
             {
-                _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed, 0);
+                _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed*1.5f, 0);
                 _jumpCancel = false;
             }
         }
