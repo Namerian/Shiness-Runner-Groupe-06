@@ -129,9 +129,17 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		//#################################################
+        if (Input.GetKey(KeyCode.Z))
+        {
+            foreach (PlayerInfo info in playerInfoArray)
+            {
+                info.character.Ability();
+            }
+        }
 
-		JoystickState[] _joystickStates = new JoystickState[3];
+        //#################################################
+
+        JoystickState[] _joystickStates = new JoystickState[3];
 
 		for (int i = 0; i < 3; i++) {
 			bool _buttonA_down = false;
