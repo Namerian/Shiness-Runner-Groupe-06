@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public class GameState25d : GameState
 {
-    private const float extasePerSecond = 2f;
 
     public GameState25d(GameManager gameManager) : base(gameManager)
     {
@@ -124,6 +123,6 @@ public class GameState25d : GameState
         }
 
         //extase
-        gameManager.Extase += extasePerSecond * Time.deltaTime;
+        gameManager.Extase += gameManager.extasePerSecond * Time.deltaTime;
     }
 }

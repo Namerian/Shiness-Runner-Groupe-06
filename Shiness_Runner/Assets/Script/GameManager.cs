@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     private JoystickState[] previousJoystickStates;
 
+    public float extasePerSecond;
+
     //#################################################
 
     public float Extase
