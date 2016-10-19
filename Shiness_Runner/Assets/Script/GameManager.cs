@@ -21,7 +21,21 @@ public class GameManager : MonoBehaviour
 	{
 		cameraManager = GameObject.Find ("MainCamera").GetComponent<CameraManager> ();
 
-		joystickNames = Input.GetJoystickNames ();
+        string[] _joysticks = Input.GetJoystickNames();
+        joystickNames = new string[3];
+
+        for(int i = 0; i < 3; i++)
+        {
+            if(_joysticks.Length > i && _joysticks[i] != null && _joysticks[i] != "")
+            {
+                joystickNames[i] = _joysticks[i];
+            }
+            else
+            {
+                joystickNames[i] = "";
+                Debug.LogError("No Controller for Player " + (i + 1) + "!");
+            }
+        }
 
 		Debug.Log ("There are " + joystickNames.Length + " Joysticks available.");
 
@@ -79,7 +93,7 @@ public class GameManager : MonoBehaviour
 
 		JoystickState[] _joystickStates = new JoystickState[characters.Length];
 
-		for (int i = 0; i < joystickNames.Length; i++) {
+		for (int i = 0; i < characters.Length; i++) {
 			bool _buttonA, _buttonY, _buttonB, _YAxisUp, _YAxisDown, _YAxisUp_previous, _YAxisDown_previous;
 			float y;
 
@@ -90,7 +104,7 @@ public class GameManager : MonoBehaviour
 				_YAxisDown_previous = previousJoystickStates [i].YAxisDown;
 			}
 
-            if (joystickNames[i] != null)
+            if (joystickNames[i] != null && joystickNames[i] != "")
             {
                 if (Input.GetKeyDown("joystick " + (i + 1) + " button 0"))
                 {
