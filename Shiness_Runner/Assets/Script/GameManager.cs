@@ -160,11 +160,11 @@ public class GameManager : MonoBehaviour
                 //axis Y
                 axisY_pos = Input.GetAxis("Joy1_Vertical");
 
-                if (axisY_pos > 0 && !_YAxisUp_previous)
+                if (axisY_pos < 0 && !_YAxisUp_previous)
                 {
                     _YAxisUp = true;
                 }
-                else if (axisY_pos < 0 && !_YAxisDown_previous)
+                else if (axisY_pos > 0 && !_YAxisDown_previous)
                 {
                     _YAxisDown = true;
                 }
