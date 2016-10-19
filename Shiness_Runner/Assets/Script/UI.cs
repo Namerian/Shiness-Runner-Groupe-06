@@ -16,27 +16,24 @@ public class UI : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        RotateScoreLeft();
-	
+        RotateScoreLeft();	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
         score = Mathf.Round(10 * Time.time * 1f) / 1f; ;
-        scoretext.text = "" + score;
-
-       
+        scoretext.text = "" + score;     
 
     }
 
     void RotateScoreLeft()
     {
-        scoretext.transform.DOLocalRotate(new Vector3(0, 0, 4), 1.5f).SetId("RotateLeft").SetEase(Ease.InOutCubic).OnComplete(RotateScoreRight);
+        scoretext.transform.DOLocalRotate(new Vector3(0, 0, 3), 2f).SetId("RotateLeft").SetEase(Ease.Linear).OnComplete(RotateScoreRight);
     }
 
     void RotateScoreRight()
     {
-        scoretext.transform.DOLocalRotate(new Vector3(0, 0, -4), 1.5f).SetId("RotateRight").SetEase(Ease.InOutCubic).OnComplete(RotateScoreLeft);
+        scoretext.transform.DOLocalRotate(new Vector3(0, 0, -3), 2f).SetId("RotateRight").SetEase(Ease.Linear).OnComplete(RotateScoreLeft);
     }
 }
