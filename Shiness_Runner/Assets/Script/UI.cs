@@ -86,7 +86,7 @@ public class UI : MonoBehaviour {
 
     void ScoreBlue()
     {
-        scoretext.DOBlendableColor(Color.blue, 0.5f).OnComplete(ScoreRed);
+        scoretext.DOBlendableColor(Color.cyan, 0.5f).OnComplete(ScoreRed);
     }
 
 
@@ -116,25 +116,50 @@ public class UI : MonoBehaviour {
         players[playernumber-1].GetComponentInChildren<Image>().DOBlendableColor(new Color32(0x54, 0x54, 0x54, 0xFF), 1f);
     }
 
+    //REVIVE FEEDBACK (à appeler quand un joueur est revive)
     public void GoWhite(int playernumber)
     {
         players[playernumber - 1].GetComponentInChildren<Image>().DOBlendableColor(Color.white,1f);
     }
 
+    //HIT FEEDBACK (à appeler quand le joueur est hit)
     public void HitShake(string playername)
     {
         switch (playername)
         {
             case "Character1":
-                players[0].transform.DOShakePosition(0.5f, 2.5f, 10, 90, false, true);
+                players[0].transform.FindChild("profile").DOShakePosition(0.5f, 5f, 18, 90, false, true);
                 break;
             case "Character2":
-                players[1].transform.DOShakePosition(0.5f, 2.5f, 10, 90, false, true);
+                players[1].transform.FindChild("profile").DOShakePosition(0.5f, 5f, 18, 90, false, true);
                 break;
             case "Character3":
-                players[2].transform.DOShakePosition(0.5f, 2.5f, 10, 90, false, true);
+                players[2].transform.FindChild("profile").DOShakePosition(0.5f, 5f, 18, 90, false, true);
+                break;
+        }       
+    }
+
+    //MVP FEEDBACK (à appeler en update pour distinguer le joueur qui a le meilleur score)
+    public void ScaleProfileUp(string playername)
+    {
+        switch (playername)
+        {
+            case "Character1":
+                players[0].transform.FindChild("profile").DOScale(new Vector3(1.25f, 1.25f, 1), 1f).SetId("UpProfile");
+                players[1].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
+                players[2].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
+                break;
+            case "Character2":
+                players[1].transform.FindChild("profile").DOScale(new Vector3(1.25f, 1.25f, 1), 1f).SetId("UpProfile"); ;
+                players[0].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
+                players[2].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
+                break;
+            case "Character3":
+                players[2].transform.FindChild("profile").DOScale(new Vector3(1.25f, 1.25f, 1), 1f).SetId("UpProfile"); ;
+                players[1].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
+                players[3].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
                 break;
         }
-       
     }
+
 }
