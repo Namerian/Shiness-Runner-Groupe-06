@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,13 +8,39 @@ public class GameManager : MonoBehaviour
 {
     private string[] joystickNames;
     public HeroController[] characters { get; private set; }
+
     public CameraManager cameraManager { get; private set; }
+    private Slider extaseSliderView;
 
     public int[] lanes { get; private set; } //this represents the lines (going up), the values are the indexes of the characters in their array
 
     private GameState currentState;
 
+    private float extase;
+
     private JoystickState[] previousJoystickStates;
+
+    //#################################################
+
+    public float Extase
+    {
+        get { return extase; }
+        set
+        {
+            if (value < 0)
+            {
+                extase = 0;
+            }else if (value > 100)
+            {
+                extase = 100;
+            }else
+            {
+                extase = value;
+            }
+
+            extaseSliderView.value = extase;
+        }
+    }
 
     //#################################################
     // Use this for initialization
@@ -20,6 +48,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         cameraManager = GameObject.Find("MainCamera").GetComponent<CameraManager>();
+        extaseSliderView = GameObject.Find("UI/ExtaseBarUI/ExtaseSlider").GetComponent<Slider>();
 
         string[] _joysticks = Input.GetJoystickNames();
         Debug.Log("There are " + _joysticks.Length + " Joysticks available.");
