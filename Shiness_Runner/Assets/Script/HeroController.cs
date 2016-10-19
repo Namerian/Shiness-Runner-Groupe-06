@@ -15,11 +15,15 @@ public class HeroController : MonoBehaviour {
     ReferenceBodyController _parent;
     Rigidbody _rb;
     Collider _collider;
+    Color _tempColor;
+    float _laneTargetPosition;
     float _distToGround;
     float _hitPositionStart;
     float _slidePositionStart;
     float _jumpStartLocation;
-    Color tempColor;
+    float _transitionTimer;
+    float _transitionTime;
+    bool _transitioning;
 
 
     void Start()
@@ -30,7 +34,8 @@ public class HeroController : MonoBehaviour {
         _distToGround = _collider.bounds.extents.y;
         _hitPositionStart = 0.0f;
         _slidePositionStart = 0.0f;
-
+        _transitioning = false;
+        _transitionTime = 1;
         transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
@@ -56,7 +61,7 @@ public class HeroController : MonoBehaviour {
         {
             if(_hitPositionStart == 0.0f)
             {
-                tempColor = GetComponent<Renderer>().material.color;
+                _tempColor = GetComponent<Renderer>().material.color;
                 GetComponent<Renderer>().material.color = new Color(255, 182, 182);
                 _hitPositionStart = transform.position.x;
             }
@@ -66,7 +71,7 @@ public class HeroController : MonoBehaviour {
                 {
                     _rb.velocity = new Vector3(0, 0, 0);
                     _hitPositionStart = 0.0f;
-                    GetComponent<Renderer>().material.color = tempColor;
+                    GetComponent<Renderer>().material.color = _tempColor;
                 }
             }
         }
@@ -88,6 +93,21 @@ public class HeroController : MonoBehaviour {
                 }
             }
         }*/
+
+        //gestion transition lane
+        if (_transitioning)
+        {
+            if (_transitionTimer >= _transitionTime)
+            {
+                _transitioning = false;
+            }
+
+            _transitionTimer += Time.deltaTime;
+            float _transitionProgress = _transitionTimer / _transitionTime;
+            float _mZ = Mathf.SmoothStep(transform.position.z, _laneTargetPosition, _transitionProgress);
+
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, _mZ);
+        }
     }
 
     bool IsGrounded() {
@@ -113,13 +133,17 @@ public class HeroController : MonoBehaviour {
         transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
-    public void LineUp()
+    public void LaneUp()
     {
-
+        _transitioning = true;
+        _transitionTimer = 0;
+        _laneTargetPosition = transform.localPosition.z + 3;
     }
 
-    public void LineDown()
+    public void LaneDown()
     {
-
+        _transitioning = true;
+        _transitionTimer = 0;
+        _laneTargetPosition = transform.localPosition.z - 3;
     }
 }
