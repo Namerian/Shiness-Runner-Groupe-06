@@ -55,6 +55,13 @@ public class UI : MonoBehaviour {
             extaz.transform.localScale = new Vector3(1, 1, 1);
         }
 
+        if (gameManager.GetPlayerInfo(0).score > gameManager.GetPlayerInfo(1).score && gameManager.GetPlayerInfo(0).score > gameManager.GetPlayerInfo(2).score)
+            ScaleProfileUp("Character1");
+        else if (gameManager.GetPlayerInfo(1).score > gameManager.GetPlayerInfo(0).score && gameManager.GetPlayerInfo(1).score > gameManager.GetPlayerInfo(2).score)
+            ScaleProfileUp("Character2");
+        else if (gameManager.GetPlayerInfo(2).score > gameManager.GetPlayerInfo(0).score && gameManager.GetPlayerInfo(2).score > gameManager.GetPlayerInfo(1).score)
+            ScaleProfileUp("Character3");
+
     }
 
 

@@ -23,7 +23,6 @@ public class GameStateTransitionTo25d : GameState
     {
         GameObject _extazModeHolder = GameObject.Find("2D Extaz");
         Transform[] _extazHolderChildren = _extazModeHolder.transform.GetComponentsInChildren<Transform>();
-        Debug.Log("GameStateTransitionTo25d: OnEnter: " + _extazHolderChildren.Length + " objects to deactivate");
 
         foreach (Transform childTransform in _extazHolderChildren)
         {
@@ -38,6 +37,7 @@ public class GameStateTransitionTo25d : GameState
         playerInfos = gameManager.GetAllPlayerInfos();
         fromX = new float[3];
         toX = new float[3];
+        UI _uiScript = GameObject.Find("UI").GetComponent<UI>();
 
         for (int i = 0; i < 3; i++)
         {
@@ -47,6 +47,7 @@ public class GameStateTransitionTo25d : GameState
             {
                 _info.character.gameObject.SetActive(true);
                 _info.isDead = true;
+                _uiScript.GoWhite(_info.index);
             }
 
             fromX[i] = _info.character.transform.localPosition.x;
@@ -55,6 +56,23 @@ public class GameStateTransitionTo25d : GameState
             if (toX[i] == -10f)
             {
                 toX[i] = 0;
+            }
+
+            Vector3 _charLocPos = _info.character.transform.localPosition;
+            if (_info.currentLane == 0 && _charLocPos.z != -3f)
+            {
+                _charLocPos.z = -3f;
+                _info.character.transform.localPosition = _charLocPos;
+            }
+            else if(_info.currentLane == 1 && _charLocPos.z != 0f)
+            {
+                _charLocPos.z = 0f;
+                _info.character.transform.localPosition = _charLocPos;
+            }
+            else if (_info.currentLane == 2 && _charLocPos.z != 3f)
+            {
+                _charLocPos.z = 3f;
+                _info.character.transform.localPosition = _charLocPos;
             }
         }
 
@@ -68,7 +86,6 @@ public class GameStateTransitionTo25d : GameState
     {
         GameObject _brawlModeHolder = GameObject.Find("2.5D Brawl");
         Transform[] _brawlHolderChildren = _brawlModeHolder.transform.GetComponentsInChildren<Transform>(true);
-        Debug.Log("GameStateTransitionTo25d: OnExit: " + _brawlHolderChildren.Length + " objects to activate");
 
         foreach (Transform childTransform in _brawlHolderChildren)
         {

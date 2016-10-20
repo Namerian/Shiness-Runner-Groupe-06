@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     private Slider extaseSliderView;
 
-    private GameState currentState;
+    public GameState currentState;
 
     private float extase;
 
@@ -92,7 +92,6 @@ public class GameManager : MonoBehaviour
 
         GameObject _extazModeHolder = GameObject.Find("2D Extaz");
         Transform[] _extazHolderChildren = _extazModeHolder.transform.GetComponentsInChildren<Transform>();
-        Debug.Log("GameStateTransitionTo25d: OnEnter: " + _extazHolderChildren.Length + " objects to deactivate");
 
         foreach (Transform childTransform in _extazHolderChildren)
         {
@@ -106,6 +105,10 @@ public class GameManager : MonoBehaviour
 
         currentState = new GameState25d(this);
         currentState.Enter();
+        
+        GameObject _gameOverUI;
+        _gameOverUI = uicanvas.transform.FindChild("GameOver").gameObject;
+        _gameOverUI.SetActive(false);
     }
 
     //#################################################
@@ -113,6 +116,15 @@ public class GameManager : MonoBehaviour
     //#################################################
     void Update()
     {
+        bool _gameOver = true;
+        foreach(PlayerInfo p in playerInfoArray)
+        {
+            if (!p.isDead)
+            {
+                _gameOver = false;
+            }
+        }
+        if (_gameOver) GameOver();  //partie terminée
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -340,5 +352,11 @@ public class GameManager : MonoBehaviour
         float _newScore = _info.score + (scoreMultiplier * score);
 
         _info.score = _newScore;
+    }
+
+    void GameOver()
+    {
+        FindObjectOfType<ReferenceBodyController>().StopMove();
+        SwitchState(new GameStateGameOver(this));
     }
 }

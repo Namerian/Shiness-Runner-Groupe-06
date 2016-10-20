@@ -183,7 +183,6 @@ public class HeroController : MonoBehaviour {
 
     public void Ability()
     {
-        _anim.SetTrigger("RunToPunch");
         if (GetComponent<HeadButt>())
         {
             GetComponent<HeadButt>().Attack();
