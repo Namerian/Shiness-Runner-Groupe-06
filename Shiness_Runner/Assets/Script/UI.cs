@@ -27,7 +27,7 @@ public class UI : MonoBehaviour {
 	void Update () {
 
         ScorePlayer();
-        score = gameManager.GetPlayerInfo(0).score + gameManager.GetPlayerInfo(1).score + gameManager.GetPlayerInfo(2).score;
+        score = Mathf.Round(gameManager.GetPlayerInfo(0).score) + Mathf.Round(gameManager.GetPlayerInfo(1).score) + Mathf.Round(gameManager.GetPlayerInfo(2).score);
 
         if(score < 10)
             scoretext.text = "00000" + score;
@@ -172,29 +172,12 @@ public class UI : MonoBehaviour {
 
     public void ScorePlayer()
     {
-        players[0].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(0).score;
-        players[1].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(1).score;
-        players[2].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(2).score;
+        players[0].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(gameManager.GetPlayerInfo(0).score);
+        players[1].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(gameManager.GetPlayerInfo(1).score);
+        players[2].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(gameManager.GetPlayerInfo(2).score);
     }
 
     /************
     **GAME OVER**
     ************/
-
-    public void ButtonOver(string buttonname)
-    {
-        switch (buttonname)
-        {
-            case "TryAgain":
-                TryAgainButton.GetComponent<Text>().color = Color.cyan;
-                Debug.Log("TryAgain");
-                break;
-
-            case "Quit":
-                Debug.Log("Quit");
-
-                break;
-
-        }
-    }
 }

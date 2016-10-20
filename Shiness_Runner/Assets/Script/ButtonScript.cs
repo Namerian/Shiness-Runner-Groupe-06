@@ -14,8 +14,13 @@ public class ButtonScript : MonoBehaviour {
 	
 	}
 
-    void OnMouseEnter()
+    public void OnMouseEnter(string buttonname)
     {
-       
+        switch (buttonname)
+        {
+            case "TryAgain":
+                Debug.Log("fok");
+                break;
+        }
     }
 }
