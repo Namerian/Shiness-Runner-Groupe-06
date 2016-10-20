@@ -10,9 +10,11 @@ public class GameStateCharacterSelection : GameState
 
     protected override void OnEnter()
     {
+        Debug.Log("GameStateCharacterSelection: OnEnter: called");
+
         GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().ChangeSpeed(0f);
 
-        GameObject.Find("UI/CharacterSelection").SetActive(true);
+        GameObject.Find("UI").transform.FindChild("CharacterSelection").gameObject.SetActive(true);
     }
 
     protected override void OnExit()
