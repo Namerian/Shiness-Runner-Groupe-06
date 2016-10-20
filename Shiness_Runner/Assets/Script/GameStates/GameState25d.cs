@@ -30,7 +30,13 @@ public class GameState25d : GameState
 	{
         //##################################
         //extase check
-        //if(joystickStates[0].axisLT && joys)
+        foreach(JoystickState state in joystickStates)
+        {
+            if(state.axisLT && state.axisRT)
+            {
+                Debug.Log("Character " + state.characterIndex + " has presed LT and RT");
+            }
+        }
 
         //##################################
         //normal input
