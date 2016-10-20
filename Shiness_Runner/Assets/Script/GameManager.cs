@@ -230,6 +230,7 @@ public class GameManager : MonoBehaviour
 
                 //axis LT
                 _axisLT_pos = Input.GetAxis("Joy" + (i + 1) + "_LT");
+                Debug.Log("GamaManager: player" + i + " axisLT=" + _axisLT_pos);
 
                 if (_axisLT_pos > 0)
                 {
@@ -238,6 +239,7 @@ public class GameManager : MonoBehaviour
 
                 //axis RT
                 _axisRT_pos = Input.GetAxis("Joy" + (i + 1) + "_RT");
+                Debug.Log("GamaManager: player" + i + " axisRT=" + _axisRT_pos);
 
                 if (_axisRT_pos > 0)
                 {
