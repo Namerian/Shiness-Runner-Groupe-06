@@ -5,125 +5,163 @@ using System.Collections.Generic;
 
 public class GameState25d : GameState
 {
-	private PlayerInfo[] lanes;
+    private PlayerInfo[] lanes;
 
-	public GameState25d (GameManager gameManager) : base (gameManager)
-	{
-	}
+    public GameState25d(GameManager gameManager) : base(gameManager)
+    {
+    }
 
-	protected override void OnEnter ()
-	{
-		lanes = new PlayerInfo[3];
+    protected override void OnEnter()
+    {
+        lanes = new PlayerInfo[3];
 
-		for (int i = 0; i < 3; i++) {
-			PlayerInfo _info = gameManager.GetPlayerInfo (i);
-			lanes [_info.currentLane] = _info;
-		}
-	}
-
-	protected override void OnExit ()
-	{
-
-	}
-
-	protected override void OnHandleInput (JoystickState[] joystickStates)
-	{
-        //##################################
-        //extase check
-        foreach(JoystickState state in joystickStates)
+        for (int i = 0; i < 3; i++)
         {
-            if(state.axisLT && state.axisRT)
-            {
-                Debug.Log("Character " + state.characterIndex + " has presed LT and RT");
-            }
+            PlayerInfo _info = gameManager.GetPlayerInfo(i);
+            lanes[_info.currentLane] = _info;
         }
 
+        gameManager.ScoreMultiplier = 1f;
+    }
+
+    protected override void OnExit()
+    {
+
+    }
+
+    protected override void OnHandleInput(JoystickState[] joystickStates)
+    {
         //##################################
-        //normal input
-        for (int i = 0; i < joystickStates.Length; i++) {
-			JoystickState _stickState = joystickStates [i];
-			PlayerInfo _playerInfo = gameManager.GetPlayerInfo (_stickState.characterIndex);
-			HeroController _character = _playerInfo.character;
+        //extase check
+        if (gameManager.Extase == 100f)
+        {
+            bool _switchMode = true;
 
-			if (_playerInfo.isDead) {
-				continue;
-			}
-
-			//
-			if (_character.gameObject.name != "Character" + (_stickState.characterIndex + 1)) {
-				Debug.LogError ("GameState25d: OnHandleInput: character index (" + _character.gameObject.name + " != joystick index" + _stickState.characterIndex);
-			}
-
-            //attack
-            if (_stickState.buttonX_down)
+            foreach (JoystickState state in joystickStates)
             {
-                _character.Ability();
+                PlayerInfo _info = gameManager.GetPlayerInfo(state.characterIndex);
+
+                if (!_info.isDead && _info.joystick != "")
+                {
+                    if (!state.axisLT || !state.axisRT)
+                    {
+                        _switchMode = false;
+                    }
+                }
             }
 
-			//jump
-			if (_stickState.buttonA_down) {
-				_character.Jump();
-			} else if (_stickState.buttonA_up) {
-                _character.JumpCancel();
-			}
+            if (_switchMode)
+            {
+                gameManager.SwitchState(new GameStateTransitionTo2d(gameManager));
+            }
+        }
+        //##################################
+        //normal input
+        else
+        {
+            for (int i = 0; i < joystickStates.Length; i++)
+            {
+                JoystickState _stickState = joystickStates[i];
+                PlayerInfo _playerInfo = gameManager.GetPlayerInfo(_stickState.characterIndex);
+                HeroController _character = _playerInfo.character;
 
-			//slide
-			if (_stickState.buttonB_down) {
-				_character.SlideStart ();
-			} else if (_stickState.buttonB_up) {
-				_character.SlideStop ();
-			}
+                if (_playerInfo.isDead)
+                {
+                    continue;
+                }
 
-			//switch lane
-			if (_stickState.yAxisUp) {
-				int _charLane = _playerInfo.currentLane;
+                //
+                if (_character.gameObject.name != "Character" + (_stickState.characterIndex + 1))
+                {
+                    Debug.LogError("GameState25d: OnHandleInput: character index (" + _character.gameObject.name + " != joystick index" + _stickState.characterIndex);
+                }
 
-				if (_charLane != 2) {
-					int _otherLane = _charLane + 1;
-					PlayerInfo _otherPlayerInfo = lanes [_otherLane];
-					HeroController _otherChar = _otherPlayerInfo.character;
+                //attack
+                if (_stickState.buttonX_down)
+                {
+                    _character.Ability();
+                }
 
-					if (!_character.transitioning && !_otherChar.transitioning) {
-						_playerInfo.currentLane = _otherLane;
-						_otherPlayerInfo.currentLane = _charLane;
+                //jump
+                if (_stickState.buttonA_down)
+                {
+                    _character.Jump();
+                }
+                else if (_stickState.buttonA_up)
+                {
+                    _character.JumpCancel();
+                }
 
-						lanes [_charLane] = _otherPlayerInfo;
-						lanes [_otherLane] = _playerInfo;
+                //slide
+                if (_stickState.buttonB_down)
+                {
+                    _character.SlideStart();
+                }
+                else if (_stickState.buttonB_up)
+                {
+                    _character.SlideStop();
+                }
 
-						_character.LaneUp ();
-						_otherChar.LaneDown ();
-					}
-				}
-			} else if (_stickState.yAxisDown) {
-				int _charLane = _playerInfo.currentLane;
+                //switch lane
+                if (_stickState.yAxisUp)
+                {
+                    int _charLane = _playerInfo.currentLane;
 
-				if (_charLane != 0) {
-					int _otherLane = _charLane - 1;
-					PlayerInfo _otherPlayerInfo = lanes [_otherLane];
-					HeroController _otherChar = _otherPlayerInfo.character;
+                    if (_charLane != 2)
+                    {
+                        int _otherLane = _charLane + 1;
+                        PlayerInfo _otherPlayerInfo = lanes[_otherLane];
+                        HeroController _otherChar = _otherPlayerInfo.character;
 
-					if (!_character.transitioning && !_otherChar.transitioning) {
-						_playerInfo.currentLane = _otherLane;
-						_otherPlayerInfo.currentLane = _charLane;
+                        if (!_character.transitioning && !_otherChar.transitioning)
+                        {
+                            _playerInfo.currentLane = _otherLane;
+                            _otherPlayerInfo.currentLane = _charLane;
 
-						lanes [_charLane] = _otherPlayerInfo;
-						lanes [_otherLane] = _playerInfo;
+                            lanes[_charLane] = _otherPlayerInfo;
+                            lanes[_otherLane] = _playerInfo;
 
-						_character.LaneDown ();
-						_otherChar.LaneUp ();
-					}
-				}
-			}
-		}
-	}
+                            _character.LaneUp();
+                            _otherChar.LaneDown();
+                        }
+                    }
+                }
+                else if (_stickState.yAxisDown)
+                {
+                    int _charLane = _playerInfo.currentLane;
 
-	protected override void OnUpdate ()
-	{
-		if (Input.GetKeyDown (KeyCode.T)) {
-			gameManager.SwitchState (new GameStateTransitionTo2d (gameManager));
-		}
+                    if (_charLane != 0)
+                    {
+                        int _otherLane = _charLane - 1;
+                        PlayerInfo _otherPlayerInfo = lanes[_otherLane];
+                        HeroController _otherChar = _otherPlayerInfo.character;
 
-		//extase
-		gameManager.Extase += gameManager.extasePerSecond * Time.deltaTime;
-	}
+                        if (!_character.transitioning && !_otherChar.transitioning)
+                        {
+                            _playerInfo.currentLane = _otherLane;
+                            _otherPlayerInfo.currentLane = _charLane;
+
+                            lanes[_charLane] = _otherPlayerInfo;
+                            lanes[_otherLane] = _playerInfo;
+
+                            _character.LaneDown();
+                            _otherChar.LaneUp();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected override void OnUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            gameManager.SwitchState(new GameStateTransitionTo2d(gameManager));
+            Debug.LogError("You cheated! You shall be punished!");
+        }
+
+        //extase
+        gameManager.Extase += gameManager.extasePerSecond * Time.deltaTime;
+    }
 }

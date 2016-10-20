@@ -11,6 +11,7 @@ public class GameState2d : GameState
 
 	protected override void OnEnter ()
 	{
+        gameManager.ScoreMultiplier = 2f;
 	}
 
 	protected override void OnExit ()
@@ -62,6 +63,30 @@ public class GameState2d : GameState
 	{
 		if (Input.GetKeyDown (KeyCode.Y)) {
 			gameManager.SwitchState (new GameStateTransitionTo25d (gameManager));
+            Debug.LogError("You cheated! You shall be punished!");
 		}
-	}
+
+        //are players dead
+        bool _allPlayersDead = true;
+        foreach(PlayerInfo info in gameManager.GetAllPlayerInfos())
+        {
+            if (!info.isDead)
+            {
+                _allPlayersDead = false;
+            }
+        }
+
+        if (_allPlayersDead)
+        {
+            gameManager.SwitchState(new GameStateTransitionTo25d(gameManager));
+        }
+
+        //extase
+        gameManager.Extase -= gameManager.extasePerSecond * Time.deltaTime;
+
+        if(gameManager.Extase == 0)
+        {
+            gameManager.SwitchState(new GameStateTransitionTo25d(gameManager));
+        }
+    }
 }
