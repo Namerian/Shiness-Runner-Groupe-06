@@ -12,6 +12,7 @@ public class GameState2d : GameState
 	protected override void OnEnter ()
 	{
         gameManager.ScoreMultiplier = 2f;
+        GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().moveSpeed = 8f;
 	}
 
 	protected override void OnExit ()
@@ -79,6 +80,7 @@ public class GameState2d : GameState
 
         if (_allPlayersDead)
         {
+            gameManager.Extase = 0;
             gameManager.SwitchState(new GameStateTransitionTo25d(gameManager));
         }
 
