@@ -23,20 +23,32 @@ public class PlayerDeathDetector : MonoBehaviour {
         {
             if(_otherGameObject.name == "Character1")
             {
-                gameManager.GetPlayerInfo(0).isDead = true;
+                gameManager.PlayerDied(_otherGameObject.GetComponent<HeroController>());
+
+                _otherGameObject.GetComponent<HeroController>().GetComponent<WindAttack>().cooldownFeedback.value = 0;
+
                 gameManager.uicanvas.GetComponent<UI>().GoGrey(0);
+
                 Debug.Log("Character1 died");
             }
             else if(_otherGameObject.name == "Character2")
             {
-                gameManager.GetPlayerInfo(1).isDead = true;
+                gameManager.PlayerDied(_otherGameObject.GetComponent<HeroController>());
+
+                _otherGameObject.GetComponent<HeroController>().GetComponent<LightAttack>().cooldownFeedback.value = 0;
+
                 gameManager.uicanvas.GetComponent<UI>().GoGrey(1);
+
                 Debug.Log("Character2 died");
             }
             else if (_otherGameObject.name == "Character3")
             {
-                gameManager.GetPlayerInfo(2).isDead = true;
+                gameManager.PlayerDied(_otherGameObject.GetComponent<HeroController>());
+
+                _otherGameObject.GetComponent<HeroController>().GetComponent<HeadButt>().cooldownFeedback.value = 0;
+
                 gameManager.uicanvas.GetComponent<UI>().GoGrey(2);
+
                 Debug.Log("Character3 died");
             }
         }

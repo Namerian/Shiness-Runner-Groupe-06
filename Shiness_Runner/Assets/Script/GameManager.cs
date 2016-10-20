@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour
         set
         {
             scoreMultiplier = value;
-
-            //TODO: update UI
         }
     }
 
@@ -89,6 +87,22 @@ public class GameManager : MonoBehaviour
 
             playerInfoArray[i] = new PlayerInfo(_character, _joystick, i, i);
         }
+
+        //#################################################
+
+        GameObject _extazModeHolder = GameObject.Find("2D Extaz");
+        Transform[] _extazHolderChildren = _extazModeHolder.transform.GetComponentsInChildren<Transform>();
+        Debug.Log("GameStateTransitionTo25d: OnEnter: " + _extazHolderChildren.Length + " objects to deactivate");
+
+        foreach (Transform childTransform in _extazHolderChildren)
+        {
+            if (childTransform != _extazModeHolder.transform)
+            {
+                childTransform.gameObject.SetActive(false);
+            }
+        }
+
+        //#################################################
 
         currentState = new GameState25d(this);
         currentState.Enter();
@@ -236,6 +250,16 @@ public class GameManager : MonoBehaviour
         //#################################################
 
         currentState.Update();
+
+        //#################################################
+        
+        foreach(PlayerInfo info in playerInfoArray)
+        {
+            if (!info.isDead)
+            {
+                info.score += Time.deltaTime;
+            }
+        }
     }
 
     //#################################################
@@ -261,7 +285,7 @@ public class GameManager : MonoBehaviour
         {
             if(hero == info.character)
             {
-                info.isDead = true;
+                currentState.PlayerDied(info);
                 return;
             }
         }
@@ -314,8 +338,6 @@ public class GameManager : MonoBehaviour
         }
 
         float _newScore = _info.score + (scoreMultiplier * score);
-
-        //TODO: update UI
 
         _info.score = _newScore;
     }

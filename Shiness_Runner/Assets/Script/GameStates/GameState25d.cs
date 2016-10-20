@@ -22,6 +22,7 @@ public class GameState25d : GameState
         }
 
         gameManager.ScoreMultiplier = 1f;
+        GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().moveSpeed = 6f;
     }
 
     protected override void OnExit()
@@ -110,6 +111,8 @@ public class GameState25d : GameState
                     if (_charLane != 2)
                     {
                         int _otherLane = _charLane + 1;
+
+
                         PlayerInfo _otherPlayerInfo = lanes[_otherLane];
                         HeroController _otherChar = _otherPlayerInfo.character;
 
@@ -158,10 +161,17 @@ public class GameState25d : GameState
         if (Input.GetKeyDown(KeyCode.T))
         {
             gameManager.SwitchState(new GameStateTransitionTo2d(gameManager));
+            gameManager.Extase = 100;
             Debug.LogError("You cheated! You shall be punished!");
         }
 
         //extase
         gameManager.Extase += gameManager.extasePerSecond * Time.deltaTime;
+    }
+
+    protected override void OnPlayerDied(PlayerInfo player)
+    {
+        player.isDead = true;
+        player.character.gameObject.SetActive(false);
     }
 }

@@ -12,6 +12,7 @@ public class GameState2d : GameState
 	protected override void OnEnter ()
 	{
         gameManager.ScoreMultiplier = 2f;
+        GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().moveSpeed = 8f;
 	}
 
 	protected override void OnExit ()
@@ -63,7 +64,9 @@ public class GameState2d : GameState
 	{
 		if (Input.GetKeyDown (KeyCode.Y)) {
 			gameManager.SwitchState (new GameStateTransitionTo25d (gameManager));
+            gameManager.Extase = 0;
             Debug.LogError("You cheated! You shall be punished!");
+            return;
 		}
 
         //are players dead
@@ -78,7 +81,9 @@ public class GameState2d : GameState
 
         if (_allPlayersDead)
         {
+            gameManager.Extase = 0;
             gameManager.SwitchState(new GameStateTransitionTo25d(gameManager));
+            return;
         }
 
         //extase
@@ -87,6 +92,13 @@ public class GameState2d : GameState
         if(gameManager.Extase == 0)
         {
             gameManager.SwitchState(new GameStateTransitionTo25d(gameManager));
+            return;
         }
+    }
+
+    protected override void OnPlayerDied(PlayerInfo player)
+    {
+        player.isDead = true;
+        player.character.gameObject.SetActive(false);
     }
 }
