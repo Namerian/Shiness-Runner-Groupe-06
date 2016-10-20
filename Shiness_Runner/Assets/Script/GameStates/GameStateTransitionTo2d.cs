@@ -122,7 +122,7 @@ public class GameStateTransitionTo2d : GameState
                 {
                     childTransform.gameObject.SetActive(true);
                 }
-                else if (childTransform.localPosition.x >= gameManager.cameraManager.transform.position.x + 5)
+                else if (childTransform.localPosition.x >= gameManager.cameraManager.transform.position.x + 7)
                 {
                     childTransform.gameObject.SetActive(true);
                 }

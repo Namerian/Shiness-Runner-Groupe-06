@@ -41,13 +41,13 @@ public class SpeedLines_Opacity : MonoBehaviour {
 	//##########################################################################
 
 
-	void RemoveSpeedLines ()
+	public void RemoveSpeedLines ()
 	{
 		StartCoroutine("DecreaseOpacity");
 		gameObject.GetComponent<MeshRenderer>().enabled = !gameObject.GetComponent<MeshRenderer>().enabled;
 	}
 
-	void AddSpeedLines ()
+	public void AddSpeedLines ()
 	{
 		StartCoroutine("IncreaseOpacity");
 		gameObject.GetComponent<MeshRenderer>().enabled = gameObject.GetComponent<MeshRenderer>().enabled;

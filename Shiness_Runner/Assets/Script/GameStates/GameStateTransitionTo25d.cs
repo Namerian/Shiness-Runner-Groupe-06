@@ -95,7 +95,7 @@ public class GameStateTransitionTo25d : GameState
                 {
                     childTransform.gameObject.SetActive(true);
                 }
-                else if (childTransform.localPosition.x >= gameManager.cameraManager.transform.position.x + 5f)
+                else if (childTransform.localPosition.x >= gameManager.cameraManager.transform.position.x + 7f)
                 {
                     childTransform.gameObject.SetActive(true);
                 }
