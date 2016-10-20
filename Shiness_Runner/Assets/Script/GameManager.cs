@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             foreach (PlayerInfo info in playerInfoArray)
             {
