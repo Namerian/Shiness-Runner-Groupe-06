@@ -28,7 +28,19 @@ public class GameState25d : GameState
 
 	protected override void OnHandleInput (JoystickState[] joystickStates)
 	{
-		for (int i = 0; i < joystickStates.Length; i++) {
+        //##################################
+        //extase check
+        foreach(JoystickState state in joystickStates)
+        {
+            if(state.axisLT && state.axisRT)
+            {
+                Debug.Log("Character " + state.characterIndex + " has presed LT and RT");
+            }
+        }
+
+        //##################################
+        //normal input
+        for (int i = 0; i < joystickStates.Length; i++) {
 			JoystickState _stickState = joystickStates [i];
 			PlayerInfo _playerInfo = gameManager.GetPlayerInfo (_stickState.characterIndex);
 			HeroController _character = _playerInfo.character;

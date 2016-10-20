@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 //axis Y
-                _axisY_pos = Input.GetAxis("Joy"+(i+1)+"_Vertical");
+                _axisY_pos = Input.GetAxis("Joy"+(i+1)+"_Yaxis");
 
                 if (_axisY_pos < 0 && !_YAxisUp_previous)
                 {
