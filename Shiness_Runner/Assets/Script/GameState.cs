@@ -46,8 +46,17 @@ public abstract class GameState {
         }
     }
 
+    public void PlayerDied(PlayerInfo player)
+    {
+        if (isActive)
+        {
+            OnPlayerDied(player);
+        }
+    }
+
     protected abstract void OnEnter();
     protected abstract void OnExit();
     protected abstract void OnUpdate();
     protected abstract void OnHandleInput(JoystickState[] joystickStates);
+    protected abstract void OnPlayerDied(PlayerInfo player);
 }
