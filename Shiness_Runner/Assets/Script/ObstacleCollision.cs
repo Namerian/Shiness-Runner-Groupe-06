@@ -25,9 +25,25 @@ public class ObstacleCollision : MonoBehaviour {
         }else
         if(col.gameObject.tag == "Player" && tag == "Extaz mode obstacles")
         {
-            if(tag == "Enemy")
+            if(name.Contains("Enemy"))
             {
-                Destroy(gameObject);
+                if (name.Contains("Bat"))
+                {
+                    _gm.AddScore(_gm.enemyBatScoreValue, col.gameObject.GetComponent<HeroController>());
+                    Destroy(gameObject);
+                }
+                else
+                if (name.Contains("Golem"))
+                {
+                    _gm.AddScore(_gm.enemyGolemScoreValue, col.gameObject.GetComponent<HeroController>());
+                    Destroy(gameObject);
+                }
+                else
+                if (name.Contains("Essaim"))
+                {
+                    _gm.AddScore(_gm.enemyEssaimScoreValue, col.gameObject.GetComponent<HeroController>());
+                    Destroy(gameObject);
+                }
             }else
             {
                 _gm.PlayerDied(col.gameObject.GetComponent<HeroController>());

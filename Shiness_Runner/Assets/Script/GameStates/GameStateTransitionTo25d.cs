@@ -40,6 +40,11 @@ public class GameStateTransitionTo25d : GameState
 			PlayerInfo _info = playerInfos [i];
 			fromX [i] = _info.character.transform.localPosition.x;
 			toX [i] = _info.previous25dX;
+
+            if(toX[i] < -6.75f)
+            {
+                toX[i] = 0;
+            }
 		}
 
 		stateTimer = 0f;
