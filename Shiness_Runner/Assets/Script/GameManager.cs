@@ -112,6 +112,15 @@ public class GameManager : MonoBehaviour
     //#################################################
     void Update()
     {
+        bool _gameOver = true;
+        foreach(PlayerInfo p in playerInfoArray)
+        {
+            if (!p.isDead)
+            {
+                _gameOver = false;
+            }
+        }
+        if (_gameOver) GameOver();  //partie terminée
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -339,5 +348,11 @@ public class GameManager : MonoBehaviour
         float _newScore = _info.score + (scoreMultiplier * score);
 
         _info.score = _newScore;
+    }
+
+    void GameOver()
+    {
+        FindObjectOfType<ReferenceBodyController>().StopMove();
+        SwitchState(new GameStateGameOver(this));
     }
 }
