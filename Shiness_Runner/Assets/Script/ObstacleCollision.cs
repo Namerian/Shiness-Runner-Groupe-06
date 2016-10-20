@@ -27,8 +27,23 @@ public class ObstacleCollision : MonoBehaviour {
         {
             if(name.Contains("Enemy"))
             {
-                //add score enemy
-                Destroy(gameObject);
+                if (name.Contains("Bat"))
+                {
+                    _gm.AddScore(_gm.enemyBatScoreValue);
+                    Destroy(gameObject);
+                }
+                else
+                if (name.Contains("Golem"))
+                {
+                    _gm.AddScore(_gm.enemyGolemScoreValue);
+                    Destroy(gameObject);
+                }
+                else
+                if (name.Contains("Essaim"))
+                {
+                    _gm.AddScore(_gm.enemyEssaimScoreValue);
+                    Destroy(gameObject);
+                }
             }else
             {
                 _gm.PlayerDied(col.gameObject.GetComponent<HeroController>());
