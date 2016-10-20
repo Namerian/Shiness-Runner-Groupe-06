@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public Canvas uicanvas;
 
+    public float scoreMultiplier;
+
     //#################################################
 
     public float Extase
@@ -43,6 +45,17 @@ public class GameManager : MonoBehaviour
             }
 
             extaseSliderView.value = extase;
+        }
+    }
+
+    public float ScoreMultiplier
+    {
+        get { return scoreMultiplier; }
+        set
+        {
+            scoreMultiplier = value;
+
+            //TODO: update UI
         }
     }
 
@@ -133,7 +146,7 @@ public class GameManager : MonoBehaviour
             bool _buttonA_up = false;
             bool _buttonB_down = false;
             bool _buttonB_up = false;
-            bool _buttonX = false;
+            bool _buttonX_down = false;
 
             bool _YAxisUp = false;
             bool _YAxisDown = false;
@@ -176,9 +189,9 @@ public class GameManager : MonoBehaviour
                 }
 
                 //button X
-                if (Input.GetKey("joystick " + (i + 1) + " button 2"))
+                if (Input.GetKeyDown("joystick " + (i + 1) + " button 2"))
                 {
-                    _buttonX = true;
+                    _buttonX_down = true;
                 }
 
                 //axis Y
@@ -210,7 +223,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            _joystickStates[i] = new JoystickState(i, _buttonA_down, _buttonA_up, _buttonB_down, _buttonB_up, _buttonX, _YAxisUp, _YAxisDown, _axisLT, _axisRT);
+            _joystickStates[i] = new JoystickState(i, _buttonA_down, _buttonA_up, _buttonB_down, _buttonB_up, _buttonX_down, _YAxisUp, _YAxisDown, _axisLT, _axisRT);
         }
 
         currentState.HandleInput(_joystickStates);
@@ -242,8 +255,14 @@ public class GameManager : MonoBehaviour
     {
         foreach(PlayerInfo info in playerInfoArray)
         {
-
+            if(hero == info.character)
+            {
+                info.isDead = true;
+                return;
+            }
         }
+
+        Debug.LogError("GameManager: PlayerDied: unknown hero died (" + hero.gameObject.name + ")");
     }
 
     //#################################################
@@ -279,6 +298,21 @@ public class GameManager : MonoBehaviour
     //#################################################
     public void AddScore(float score, HeroController hero)
     {
+        PlayerInfo _info = null;
 
+        foreach(PlayerInfo info in playerInfoArray)
+        {
+            if(hero == info.character)
+            {
+                _info = info;
+                break;
+            }
+        }
+
+        float _newScore = _info.score + (scoreMultiplier * score);
+
+        //TODO: update UI
+
+        _info.score = _newScore;
     }
 }

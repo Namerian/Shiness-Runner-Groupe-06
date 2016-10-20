@@ -32,11 +32,11 @@ public class GameStateTransitionTo2d : GameState
 			brawlObstacle.SetActive (false);
 		}
 
-        /*GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in _enemies)
         {
             enemy.SetActive(false);
-        }*/
+        }
 
 
         PlayerInfo[] _playerInfos = gameManager.GetAllPlayerInfos ();
@@ -94,12 +94,12 @@ public class GameStateTransitionTo2d : GameState
 			}
 		}
 
-        /*GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in _enemies)
         {
             enemy.SetActive(true);
-        }*/
-        
+        }
+
         for (int i = 0; i < 3; i++) {
 			PlayerInfo _playerInfo = gameManager.GetPlayerInfo (i);
 
