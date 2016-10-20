@@ -10,10 +10,15 @@ public class GameStateCharacterSelection : GameState
 
     protected override void OnEnter()
     {
+        GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().ChangeSpeed(0f);
+
+        GameObject.Find("UI").SetActive(true);
+        GameObject.Find("CharacterSelectionCanvas").SetActive(true);
     }
 
     protected override void OnExit()
     {
+        GameObject.Find("UI").SetActive(false);
     }
 
     protected override void OnHandleInput(JoystickState[] joystickStates)
@@ -26,5 +31,9 @@ public class GameStateCharacterSelection : GameState
 
     protected override void OnUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            gameManager.SwitchState(new GameState25d(gameManager));
+        }
     }
 }

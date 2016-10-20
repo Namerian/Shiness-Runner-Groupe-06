@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
 
         //#################################################
 
+        //currentState = new GameStateCharacterSelection(this);
         currentState = new GameState25d(this);
         currentState.Enter();
         
