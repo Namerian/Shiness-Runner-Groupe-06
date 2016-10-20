@@ -23,6 +23,7 @@ public class LightAttackController : MonoBehaviour {
     {
         if (col.gameObject.name.Contains("Enemy_Bat"))
         {
+            //add score enemy
             Destroy(col.gameObject);
         }
         Destroy(gameObject);
