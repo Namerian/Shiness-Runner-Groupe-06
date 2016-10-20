@@ -22,7 +22,7 @@ public class GameState25d : GameState
         }
 
         gameManager.ScoreMultiplier = 1f;
-        GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().moveSpeed = 6f;
+        GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().ChangeSpeed(6f);
     }
 
     protected override void OnExit()

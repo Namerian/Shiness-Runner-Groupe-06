@@ -12,7 +12,7 @@ public class GameState2d : GameState
 	protected override void OnEnter ()
 	{
         gameManager.ScoreMultiplier = 2f;
-        GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().moveSpeed = 8f;
+        GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().ChangeSpeed(8f);
 	}
 
 	protected override void OnExit ()
