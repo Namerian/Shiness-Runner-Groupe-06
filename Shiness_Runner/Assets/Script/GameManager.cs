@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     private Slider extaseSliderView;
 
-    private GameState currentState;
+    public GameState currentState;
 
     private float extase;
 
