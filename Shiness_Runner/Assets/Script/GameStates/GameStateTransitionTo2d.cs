@@ -32,16 +32,22 @@ public class GameStateTransitionTo2d : GameState
 			brawlObstacle.SetActive (false);
 		}
 
+        /*GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in _enemies)
+        {
+            enemy.SetActive(false);
+        }*/
 
-		PlayerInfo[] _playerInfos = gameManager.GetAllPlayerInfos ();
+
+        PlayerInfo[] _playerInfos = gameManager.GetAllPlayerInfos ();
 
 		for (int i = 0; i < 3; i++) {
 			_playerInfos [i].previous25dX = _playerInfos [i].character.transform.localPosition.x;
 		}
 
 		firstToX = 0f;
-		secondToX = -1.5f;
-		thirdToX = -3f;
+		secondToX = -1f;
+		thirdToX = -2f;
 
 		List<PlayerInfo> _unsortedPlayerInfos = new List<PlayerInfo> (_playerInfos);
 		List<PlayerInfo> _sortedPlayerInfos = new List<PlayerInfo> ();
@@ -88,7 +94,13 @@ public class GameStateTransitionTo2d : GameState
 			}
 		}
 
-		for (int i = 0; i < 3; i++) {
+        /*GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in _enemies)
+        {
+            enemy.SetActive(true);
+        }*/
+        
+        for (int i = 0; i < 3; i++) {
 			PlayerInfo _playerInfo = gameManager.GetPlayerInfo (i);
 
 			_playerInfo.isDead = false;
