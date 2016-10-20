@@ -143,14 +143,14 @@ public class HeroController : MonoBehaviour {
 
     public void SlideStart()
     {
-        transform.localEulerAngles = new Vector3(0, 0, -90);
-        transform.localPosition -= new Vector3(0, 0.3f, 0);
+        transform.localEulerAngles += new Vector3(-90, 0, 0);
+        transform.localPosition += new Vector3(0, 0.5f, 0);
     }
 
     public void SlideStop()
     {
-        transform.localPosition += new Vector3(0, 0.3f, 0);
-        transform.localEulerAngles = new Vector3(0, 0, 0);
+        transform.localEulerAngles += new Vector3(-90, 0, 0);
+        transform.localPosition += new Vector3(0, 0.25f, 0);
     }
 
     public void LaneUp()
