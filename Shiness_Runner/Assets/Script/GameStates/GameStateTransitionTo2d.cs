@@ -38,18 +38,7 @@ public class GameStateTransitionTo2d : GameState
             }
         }
 
-        /*GameObject[] _brawlModeObstacles = GameObject.FindGameObjectsWithTag("Brawl mode obstacles");
-        foreach (GameObject brawlObstacle in _brawlModeObstacles)
-        {
-            brawlObstacle.SetActive(false);
-        }
-
-        GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in _enemies)
-        {
-            enemy.SetActive(false);
-        }*/
-
+        //################################################
 
         PlayerInfo[] _playerInfos = gameManager.GetAllPlayerInfos();
 
@@ -69,6 +58,8 @@ public class GameStateTransitionTo2d : GameState
                 info.previous25dX = info.character.transform.localPosition.x;
             }
         }
+
+        //################################################
 
         firstToX = 0f;
         secondToX = -1f;
@@ -110,6 +101,8 @@ public class GameStateTransitionTo2d : GameState
         firstFromX = firstCharacter.previous25dX;
         secondFromX = secondCharacter.previous25dX;
         thirdFromX = thirdCharacter.previous25dX;
+
+        //################################################
 
         stateTimer = 0f;
         gameManager.cameraManager.StartTransition(transitionTo2DPosition, transitionTo2DRotation, transitionTo2dSize, transitionTo2dTime);

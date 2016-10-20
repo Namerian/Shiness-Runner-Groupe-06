@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public Canvas uicanvas;
 
-    private float scoreMultiplier;
+    public float scoreMultiplier;
 
     public float enemyBatScoreValue;
     public float enemyGolemScoreValue;
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             foreach (PlayerInfo info in playerInfoArray)
             {
