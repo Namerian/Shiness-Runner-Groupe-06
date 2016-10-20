@@ -37,21 +37,21 @@ public class GameState2d : GameState
             }
 
             //jump
-            if (_stickState.buttonY_down)
+            if (_stickState.buttonA_down)
             {
                 _character.Jump();
             }
-            else if (_stickState.buttonY_up)
+            else if (_stickState.buttonA_up)
             {
-                //
+                _character.JumpCancel();
             }
 
             //slide
-            if (_stickState.buttonA_down)
+            if (_stickState.buttonB_down)
             {
                 _character.SlideStart();
             }
-            else if (_stickState.buttonA_up)
+            else if (_stickState.buttonB_up)
             {
                 _character.SlideStop();
             }

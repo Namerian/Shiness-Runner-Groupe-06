@@ -8,7 +8,7 @@ public class GameStateTransitionTo25d : GameState
 	private Vector3 transitionTo25dPosition = new Vector3 (1.5f, 6.5f, -7.5f);
 	private Vector3 transitionTo25dRotation = new Vector3 (35f, 0f, 0f);
 	private const float transitionTo25dSize = 4.5f;
-	private const float transitionTo25dTime = 1.5f;
+	private const float transitionTo25dTime = 1f;
 
 	private float stateTimer;
 	private PlayerInfo[] playerInfos;
@@ -26,7 +26,13 @@ public class GameStateTransitionTo25d : GameState
 			extazObstacle.SetActive (false);
 		}
 
-		playerInfos = gameManager.GetAllPlayerInfos ();
+        GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in _enemies)
+        {
+            enemy.SetActive(false);
+        }
+
+        playerInfos = gameManager.GetAllPlayerInfos ();
 		fromX = new float[3];
 		toX = new float[3];
 
@@ -50,7 +56,13 @@ public class GameStateTransitionTo25d : GameState
 			}
 		}
 
-		for (int i = 0; i < 3; i++) {
+        GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in _enemies)
+        {
+            enemy.SetActive(true);
+        }
+
+        for (int i = 0; i < 3; i++) {
 			PlayerInfo _playerInfo = gameManager.GetPlayerInfo (i);
 
 			_playerInfo.isDead = false;
