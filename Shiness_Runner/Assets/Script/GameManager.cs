@@ -238,14 +238,13 @@ public class GameManager : MonoBehaviour
     //#################################################
     //
     //#################################################
-    /*public void SwitchLanes (int laneA, int laneB)
-	{
-		int charA = lanes [laneA];
+    public void PlayerDied(HeroController hero)
+    {
+        foreach(PlayerInfo info in playerInfoArray)
+        {
 
-		lanes [laneA] = lanes [laneB];
-
-		lanes [laneB] = charA;
-	}*/
+        }
+    }
 
     //#################################################
     //
@@ -273,5 +272,13 @@ public class GameManager : MonoBehaviour
         }
 
         return _array;
+    }
+
+    //#################################################
+    //
+    //#################################################
+    public void AddScore(float score, HeroController hero)
+    {
+
     }
 }
