@@ -43,7 +43,7 @@ public class GameState25d : GameState
 			}
 
             //attack
-            if (_stickState.buttonX)
+            if (_stickState.buttonX_down)
             {
                 _character.Ability();
             }
