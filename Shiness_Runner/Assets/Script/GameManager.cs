@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
 
         currentState = new GameStateCharacterSelection(this);
         currentState.Enter();
-        
+
         GameObject _gameOverUI;
         _gameOverUI = uicanvas.transform.FindChild("GameOver").gameObject;
         _gameOverUI.SetActive(false);
@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 //axis Y
-                _axisY_pos = Input.GetAxis("Joy"+(i+1)+"_Yaxis");
+                _axisY_pos = Input.GetAxis("Joy" + (i + 1) + "_Yaxis");
 
                 if (_axisY_pos < 0 && !_YAxisUp_previous)
                 {
@@ -231,7 +231,7 @@ public class GameManager : MonoBehaviour
                 //axis LT
                 _axisLT_pos = Input.GetAxis("Joy" + (i + 1) + "_LT");
 
-                if(_axisLT_pos > 0)
+                if (_axisLT_pos > 0)
                 {
                     _axisLT = true;
                 }
@@ -239,7 +239,7 @@ public class GameManager : MonoBehaviour
                 //axis RT
                 _axisRT_pos = Input.GetAxis("Joy" + (i + 1) + "_RT");
 
-                if(_axisRT_pos > 0)
+                if (_axisRT_pos > 0)
                 {
                     _axisRT = true;
                 }
@@ -275,9 +275,9 @@ public class GameManager : MonoBehaviour
     //#################################################
     public void PlayerDied(HeroController hero)
     {
-        foreach(PlayerInfo info in playerInfoArray)
+        foreach (PlayerInfo info in playerInfoArray)
         {
-            if(hero == info.character)
+            if (hero == info.character)
             {
                 currentState.PlayerDied(info);
                 return;
@@ -322,9 +322,9 @@ public class GameManager : MonoBehaviour
     {
         PlayerInfo _info = null;
 
-        foreach(PlayerInfo info in playerInfoArray)
+        foreach (PlayerInfo info in playerInfoArray)
         {
-            if(hero == info.character)
+            if (hero == info.character)
             {
                 _info = info;
                 break;
