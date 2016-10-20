@@ -92,7 +92,6 @@ public class GameManager : MonoBehaviour
 
         GameObject _extazModeHolder = GameObject.Find("2D Extaz");
         Transform[] _extazHolderChildren = _extazModeHolder.transform.GetComponentsInChildren<Transform>();
-        Debug.Log("GameStateTransitionTo25d: OnEnter: " + _extazHolderChildren.Length + " objects to deactivate");
 
         foreach (Transform childTransform in _extazHolderChildren)
         {
@@ -146,7 +145,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             foreach (PlayerInfo info in playerInfoArray)
             {
