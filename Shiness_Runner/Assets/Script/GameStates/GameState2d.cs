@@ -94,6 +94,15 @@ public class GameState2d : GameState
             gameManager.SwitchState(new GameStateTransitionTo25d(gameManager));
             return;
         }
+
+        //score
+        foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+        {
+            if (!info.isDead)
+            {
+                info.score += 10 * Time.deltaTime;
+            }
+        }
     }
 
     protected override void OnPlayerDied(PlayerInfo player)

@@ -12,13 +12,12 @@ public class GameStateCharacterSelection : GameState
     {
         GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().ChangeSpeed(0f);
 
-        GameObject.Find("UI").SetActive(true);
-        GameObject.Find("CharacterSelectionCanvas").SetActive(true);
+        GameObject.Find("UI/CharacterSelection").SetActive(true);
     }
 
     protected override void OnExit()
     {
-        GameObject.Find("UI").SetActive(false);
+        GameObject.Find("UI/CharacterSelection").SetActive(false);
     }
 
     protected override void OnHandleInput(JoystickState[] joystickStates)

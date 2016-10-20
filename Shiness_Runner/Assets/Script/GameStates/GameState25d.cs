@@ -54,101 +54,100 @@ public class GameState25d : GameState
             if (_switchMode)
             {
                 gameManager.SwitchState(new GameStateTransitionTo2d(gameManager));
+                return;
             }
         }
+
         //##################################
         //normal input
-        else
+        for (int i = 0; i < joystickStates.Length; i++)
         {
-            for (int i = 0; i < joystickStates.Length; i++)
+            JoystickState _stickState = joystickStates[i];
+            PlayerInfo _playerInfo = gameManager.GetPlayerInfo(_stickState.characterIndex);
+            HeroController _character = _playerInfo.character;
+
+            if (_playerInfo.isDead)
             {
-                JoystickState _stickState = joystickStates[i];
-                PlayerInfo _playerInfo = gameManager.GetPlayerInfo(_stickState.characterIndex);
-                HeroController _character = _playerInfo.character;
+                continue;
+            }
 
-                if (_playerInfo.isDead)
-                {
-                    continue;
-                }
+            //
+            if (_character.gameObject.name != "Character" + (_stickState.characterIndex + 1))
+            {
+                Debug.LogError("GameState25d: OnHandleInput: character index (" + _character.gameObject.name + " != joystick index" + _stickState.characterIndex);
+            }
 
-                //
-                if (_character.gameObject.name != "Character" + (_stickState.characterIndex + 1))
-                {
-                    Debug.LogError("GameState25d: OnHandleInput: character index (" + _character.gameObject.name + " != joystick index" + _stickState.characterIndex);
-                }
+            //attack
+            if (_stickState.buttonX_down)
+            {
+                _character.Ability();
+            }
 
-                //attack
-                if (_stickState.buttonX_down)
-                {
-                    _character.Ability();
-                }
+            //jump
+            if (_stickState.buttonA_down)
+            {
+                _character.Jump();
+            }
+            else if (_stickState.buttonA_up)
+            {
+                _character.JumpCancel();
+            }
 
-                //jump
-                if (_stickState.buttonA_down)
-                {
-                    _character.Jump();
-                }
-                else if (_stickState.buttonA_up)
-                {
-                    _character.JumpCancel();
-                }
+            //slide
+            if (_stickState.buttonB_down)
+            {
+                _character.SlideStart();
+            }
+            else if (_stickState.buttonB_up)
+            {
+                _character.SlideStop();
+            }
 
-                //slide
-                if (_stickState.buttonB_down)
-                {
-                    _character.SlideStart();
-                }
-                else if (_stickState.buttonB_up)
-                {
-                    _character.SlideStop();
-                }
+            //switch lane
+            if (_stickState.yAxisUp)
+            {
+                int _charLane = _playerInfo.currentLane;
 
-                //switch lane
-                if (_stickState.yAxisUp)
+                if (_charLane != 2)
                 {
-                    int _charLane = _playerInfo.currentLane;
+                    int _otherLane = _charLane + 1;
 
-                    if (_charLane != 2)
+                    PlayerInfo _otherPlayerInfo = lanes[_otherLane];
+                    HeroController _otherChar = _otherPlayerInfo.character;
+
+                    if (!_character.transitioning && (_otherPlayerInfo.isDead || !_otherChar.transitioning))
                     {
-                        int _otherLane = _charLane + 1;
+                        _playerInfo.currentLane = _otherLane;
+                        _otherPlayerInfo.currentLane = _charLane;
 
-                        PlayerInfo _otherPlayerInfo = lanes[_otherLane];
-                        HeroController _otherChar = _otherPlayerInfo.character;
+                        lanes[_charLane] = _otherPlayerInfo;
+                        lanes[_otherLane] = _playerInfo;
 
-                        if (!_character.transitioning && (_otherPlayerInfo.isDead || !_otherChar.transitioning))
-                        {
-                            _playerInfo.currentLane = _otherLane;
-                            _otherPlayerInfo.currentLane = _charLane;
-
-                            lanes[_charLane] = _otherPlayerInfo;
-                            lanes[_otherLane] = _playerInfo;
-
-                            _character.LaneUp();
-                            _otherChar.LaneDown();
-                        }
+                        _character.LaneUp();
+                        _otherChar.LaneDown();
                     }
                 }
-                else if (_stickState.yAxisDown)
+            }
+            else if (_stickState.yAxisDown)
+            {
+                int _charLane = _playerInfo.currentLane;
+
+                if (_charLane != 0)
                 {
-                    int _charLane = _playerInfo.currentLane;
+                    int _otherLane = _charLane - 1;
+                    PlayerInfo _otherPlayerInfo = lanes[_otherLane];
+                    HeroController _otherChar = _otherPlayerInfo.character;
 
-                    if (_charLane != 0)
+                    if (!_character.transitioning && (_otherPlayerInfo.isDead || !_otherChar.transitioning))
                     {
-                        int _otherLane = _charLane - 1;
-                        PlayerInfo _otherPlayerInfo = lanes[_otherLane];
-                        HeroController _otherChar = _otherPlayerInfo.character;
+                        _playerInfo.currentLane = _otherLane;
+                        _otherPlayerInfo.currentLane = _charLane;
 
-                        if (!_character.transitioning && (_otherPlayerInfo.isDead || !_otherChar.transitioning))
-                        {
-                            _playerInfo.currentLane = _otherLane;
-                            _otherPlayerInfo.currentLane = _charLane;
+                        lanes[_charLane] = _otherPlayerInfo;
+                        lanes[_otherLane] = _playerInfo;
 
-                            lanes[_charLane] = _otherPlayerInfo;
-                            lanes[_otherLane] = _playerInfo;
-
-                            _character.LaneDown();
-                            _otherChar.LaneUp();
-                        }
+                        _character.LaneDown();
+                        _otherChar.LaneUp();
                     }
                 }
             }
@@ -181,6 +180,15 @@ public class GameState25d : GameState
 
             //extase
             gameManager.Extase += gameManager.extasePerSecond * Time.deltaTime;
+
+            //score
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                if (!info.isDead)
+                {
+                    info.score += 10 * Time.deltaTime;
+                }
+            }
         }
     }
 
