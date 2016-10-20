@@ -41,6 +41,7 @@ public class GameStateTransitionTo2d : GameState
         //################################################
 
         PlayerInfo[] _playerInfos = gameManager.GetAllPlayerInfos();
+        UI _uiScript = GameObject.Find("UI").GetComponent<UI>();
 
         foreach (PlayerInfo info in _playerInfos)
         {
@@ -52,6 +53,7 @@ public class GameStateTransitionTo2d : GameState
                 info.character.gameObject.SetActive(true);
                 info.isDead = true;
                 info.previous25dX = -10f;
+                _uiScript.GoWhite(info.index);
             }
             else
             {
@@ -126,22 +128,6 @@ public class GameStateTransitionTo2d : GameState
                 }
             }
         }
-
-        /*GameObject[] _extazModeObstacles = GameObject.FindGameObjectsWithTag("Extaz mode obstacles");
-        float _xLimit = gameManager.cameraManager.transform.position.x + 10;
-        foreach (GameObject extazObstacle in _extazModeObstacles)
-        {
-            if (extazObstacle.transform.position.x >= _xLimit)
-            {
-                extazObstacle.SetActive(true);
-            }
-        }
-
-        GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in _enemies)
-        {
-            enemy.SetActive(true);
-        }*/
     }
 
     protected override void OnHandleInput(JoystickState[] joystickStates)
@@ -157,19 +143,22 @@ public class GameStateTransitionTo2d : GameState
             gameManager.SwitchState(new GameState2d(gameManager));
         }
 
-        float _positioningProgress = stateTimer / transitionTo2dTime;
+        if (stateTimer > 0.05)
+        {
+            float _positioningProgress = (stateTimer-0.05f) / (transitionTo2dTime-0.05f);
 
-        float _firstX = Mathf.SmoothStep(firstFromX, firstToX, _positioningProgress);
-        float _secondX = Mathf.SmoothStep(secondFromX, secondToX, _positioningProgress);
-        float _thirdX = Mathf.SmoothStep(thirdFromX, thirdToX, _positioningProgress);
+            float _firstX = Mathf.SmoothStep(firstFromX, firstToX, _positioningProgress);
+            float _secondX = Mathf.SmoothStep(secondFromX, secondToX, _positioningProgress);
+            float _thirdX = Mathf.SmoothStep(thirdFromX, thirdToX, _positioningProgress);
 
-        Vector3 _firstPos = firstCharacter.character.transform.localPosition;
-        Vector3 _secondPos = secondCharacter.character.transform.localPosition;
-        Vector3 _thirdPos = thirdCharacter.character.transform.localPosition;
+            Vector3 _firstPos = firstCharacter.character.transform.localPosition;
+            Vector3 _secondPos = secondCharacter.character.transform.localPosition;
+            Vector3 _thirdPos = thirdCharacter.character.transform.localPosition;
 
-        firstCharacter.character.transform.localPosition = new Vector3(_firstX, _firstPos.y, _firstPos.z);
-        secondCharacter.character.transform.localPosition = new Vector3(_secondX, _secondPos.y, _secondPos.z);
-        thirdCharacter.character.transform.localPosition = new Vector3(_thirdX, _thirdPos.y, _thirdPos.z);
+            firstCharacter.character.transform.localPosition = new Vector3(_firstX, _firstPos.y, _firstPos.z);
+            secondCharacter.character.transform.localPosition = new Vector3(_secondX, _secondPos.y, _secondPos.z);
+            thirdCharacter.character.transform.localPosition = new Vector3(_thirdX, _thirdPos.y, _thirdPos.z);
+        }
     }
 
     protected override void OnPlayerDied(PlayerInfo player)
