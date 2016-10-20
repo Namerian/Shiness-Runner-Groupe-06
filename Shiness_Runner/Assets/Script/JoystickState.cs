@@ -39,5 +39,8 @@ public class JoystickState
 
         this.yAxisUp = yAxisUp;
         this.yAxisDown = yAxisDown;
+
+        this.axisLT = axisLT;
+        this.axisRT = axisRT;
     }
 }
