@@ -103,8 +103,7 @@ public class GameManager : MonoBehaviour
 
         //#################################################
 
-        //currentState = new GameStateCharacterSelection(this);
-        currentState = new GameState25d(this);
+        currentState = new GameStateCharacterSelection(this);
         currentState.Enter();
         
         GameObject _gameOverUI;
@@ -117,16 +116,6 @@ public class GameManager : MonoBehaviour
     //#################################################
     void Update()
     {
-        bool _gameOver = true;
-        foreach(PlayerInfo p in playerInfoArray)
-        {
-            if (!p.isDead)
-            {
-                _gameOver = false;
-            }
-        }
-        if (_gameOver) GameOver();  //partie terminée
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             foreach (PlayerInfo info in playerInfoArray)
@@ -263,16 +252,6 @@ public class GameManager : MonoBehaviour
         //#################################################
 
         currentState.Update();
-
-        //#################################################
-        
-        foreach(PlayerInfo info in playerInfoArray)
-        {
-            if (!info.isDead)
-            {
-                info.score += 10 * Time.deltaTime;
-            }
-        }
     }
 
     //#################################################
