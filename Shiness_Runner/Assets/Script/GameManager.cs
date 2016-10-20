@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour
         set
         {
             scoreMultiplier = value;
-
-            //TODO: update UI
         }
     }
 
@@ -324,8 +322,6 @@ public class GameManager : MonoBehaviour
         }
 
         float _newScore = _info.score + (scoreMultiplier * score);
-
-        //TODO: update UI
 
         _info.score = _newScore;
     }
