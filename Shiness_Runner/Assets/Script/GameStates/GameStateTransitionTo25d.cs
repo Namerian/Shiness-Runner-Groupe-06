@@ -57,6 +57,23 @@ public class GameStateTransitionTo25d : GameState
             {
                 toX[i] = 0;
             }
+
+            Vector3 _charLocPos = _info.character.transform.localPosition;
+            if (_info.currentLane == 0 && _charLocPos.z != -3f)
+            {
+                _charLocPos.z = -3f;
+                _info.character.transform.localPosition = _charLocPos;
+            }
+            else if(_info.currentLane == 1 && _charLocPos.z != 0f)
+            {
+                _charLocPos.z = 0f;
+                _info.character.transform.localPosition = _charLocPos;
+            }
+            else if (_info.currentLane == 2 && _charLocPos.z != 3f)
+            {
+                _charLocPos.z = 3f;
+                _info.character.transform.localPosition = _charLocPos;
+            }
         }
 
         //################################################

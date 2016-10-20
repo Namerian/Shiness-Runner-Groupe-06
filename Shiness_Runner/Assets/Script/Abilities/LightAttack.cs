@@ -20,14 +20,14 @@ public class LightAttack : MonoBehaviour {
             GameObject go = Instantiate(lightProjectile, transform.position + new Vector3(1, 0.75f, 0), transform.rotation) as GameObject;
             go.transform.parent = transform;
             _timeStamp = Time.time + coolDownPeriod;
-            //cooldownFeedback.value = coolDownPeriod;
+            cooldownFeedback.value = coolDownPeriod;
             _anim.SetTrigger("PunchToRun");
         }
     }
 
     void Update()
     {
-        //cooldownFeedback.value -= Time.deltaTime;
+        cooldownFeedback.value -= Time.deltaTime;
     }
 
 }
