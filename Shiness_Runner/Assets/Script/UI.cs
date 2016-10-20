@@ -10,6 +10,8 @@ public class UI : MonoBehaviour {
     public Text multiplier;
     public Slider extaz;
     public List<GameObject> players = new List<GameObject>();
+    public GameObject QuitButton;
+    public GameObject TryAgainButton;
     private GameManager gameManager;
 
     float score;
@@ -24,7 +26,8 @@ public class UI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        score = Mathf.Round(10 * Time.time * 1f) / 1f;
+        ScorePlayer();
+        score = gameManager.GetPlayerInfo(0).score + gameManager.GetPlayerInfo(1).score + gameManager.GetPlayerInfo(2).score;
 
         if(score < 10)
             scoretext.text = "00000" + score;
@@ -167,4 +170,31 @@ public class UI : MonoBehaviour {
         }
     }
 
+    public void ScorePlayer()
+    {
+        players[0].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(0).score;
+        players[1].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(1).score;
+        players[2].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(2).score;
+    }
+
+    /************
+    **GAME OVER**
+    ************/
+
+    public void ButtonOver(string buttonname)
+    {
+        switch (buttonname)
+        {
+            case "TryAgain":
+                TryAgainButton.GetComponent<Text>().color = Color.cyan;
+                Debug.Log("TryAgain");
+                break;
+
+            case "Quit":
+                Debug.Log("Quit");
+
+                break;
+
+        }
+    }
 }
