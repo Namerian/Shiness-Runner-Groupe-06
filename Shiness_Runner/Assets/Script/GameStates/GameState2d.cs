@@ -63,6 +63,7 @@ public class GameState2d : GameState
 	{
 		if (Input.GetKeyDown (KeyCode.Y)) {
 			gameManager.SwitchState (new GameStateTransitionTo25d (gameManager));
+            gameManager.Extase = 0;
             Debug.LogError("You cheated! You shall be punished!");
 		}
 
@@ -88,5 +89,11 @@ public class GameState2d : GameState
         {
             gameManager.SwitchState(new GameStateTransitionTo25d(gameManager));
         }
+    }
+
+    protected override void OnPlayerDied(PlayerInfo player)
+    {
+        player.isDead = true;
+        player.character.gameObject.SetActive(false);
     }
 }

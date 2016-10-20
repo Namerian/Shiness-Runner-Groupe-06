@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour
         set
         {
             scoreMultiplier = value;
-
-            //TODO: update UI
         }
     }
 
@@ -236,6 +234,16 @@ public class GameManager : MonoBehaviour
         //#################################################
 
         currentState.Update();
+
+        //#################################################
+        
+        foreach(PlayerInfo info in playerInfoArray)
+        {
+            if (!info.isDead)
+            {
+                info.score += Time.deltaTime;
+            }
+        }
     }
 
     //#################################################
@@ -261,7 +269,7 @@ public class GameManager : MonoBehaviour
         {
             if(hero == info.character)
             {
-                info.isDead = true;
+                currentState.PlayerDied(info);
                 return;
             }
         }
@@ -314,8 +322,6 @@ public class GameManager : MonoBehaviour
         }
 
         float _newScore = _info.score + (scoreMultiplier * score);
-
-        //TODO: update UI
 
         _info.score = _newScore;
     }

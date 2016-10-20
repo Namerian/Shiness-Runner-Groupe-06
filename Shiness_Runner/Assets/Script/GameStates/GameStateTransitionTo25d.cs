@@ -41,7 +41,7 @@ public class GameStateTransitionTo25d : GameState
 			fromX [i] = _info.character.transform.localPosition.x;
 			toX [i] = _info.previous25dX;
 
-            if(toX[i] < -6.75f)
+            if(toX[i] == -10f)
             {
                 toX[i] = 0;
             }
@@ -102,4 +102,8 @@ public class GameStateTransitionTo25d : GameState
 			playerInfos [2].character.transform.localPosition = new Vector3 (_thirdX, _thirdPos.y, _thirdPos.z);
 		}
 	}
+
+    protected override void OnPlayerDied(PlayerInfo player)
+    {
+    }
 }
