@@ -70,7 +70,9 @@ public class GameManager : MonoBehaviour
         extaseSliderView = GameObject.Find("UI/ExtaseBarUI/ExtaseSlider").GetComponent<Slider>();
         uicanvas = GameObject.Find("UI").GetComponent<Canvas>();
 
-        //GameObject.Find("ReferenceBody/Speedlines_Foreground").GetComponent<SpeedLines_Opacity>().RemoveSpeedLines();
+		////Trying to add/remove the speedlines
+        //GameObject.Find("ReferenceBody/MainCamera/Speedlines_Foreground").GetComponent<SpeedLines_Opacity>().RemoveSpeedLines();
+		//GameObject.Find("GameManager/Speedlines_Background").GetComponent<SpeedLines_Opacity>().RemoveSpeedLines();
 
         playerInfoArray = new PlayerInfo[3];
         string[] _joysticks = Input.GetJoystickNames();
