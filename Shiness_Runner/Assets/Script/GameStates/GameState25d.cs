@@ -157,15 +157,31 @@ public class GameState25d : GameState
 
     protected override void OnUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        bool _gameOver = true;
+        foreach (PlayerInfo p in gameManager.GetAllPlayerInfos())
         {
-            gameManager.SwitchState(new GameStateTransitionTo2d(gameManager));
-            gameManager.Extase = 100;
-            Debug.LogError("You cheated! You shall be punished!");
+            if (!p.isDead)
+            {
+                _gameOver = false;
+            }
         }
 
-        //extase
-        gameManager.Extase += gameManager.extasePerSecond * Time.deltaTime;
+        if (_gameOver)
+        {
+            gameManager.SwitchState(new GameStateGameOver(gameManager));
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                gameManager.SwitchState(new GameStateTransitionTo2d(gameManager));
+                gameManager.Extase = 100;
+                Debug.LogError("You cheated! You shall be punished!");
+            }
+
+            //extase
+            gameManager.Extase += gameManager.extasePerSecond * Time.deltaTime;
+        }
     }
 
     protected override void OnPlayerDied(PlayerInfo player)

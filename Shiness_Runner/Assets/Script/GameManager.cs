@@ -117,16 +117,6 @@ public class GameManager : MonoBehaviour
     //#################################################
     void Update()
     {
-        bool _gameOver = true;
-        foreach(PlayerInfo p in playerInfoArray)
-        {
-            if (!p.isDead)
-            {
-                _gameOver = false;
-            }
-        }
-        if (_gameOver) GameOver();  //partie terminée
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             foreach (PlayerInfo info in playerInfoArray)
