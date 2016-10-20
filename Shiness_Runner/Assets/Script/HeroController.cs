@@ -17,6 +17,8 @@ public class HeroController : MonoBehaviour {
     Rigidbody _rb;
     Collider _collider;
     Color _tempColor;
+    BoxCollider _bc;
+    Animator _anim;
     float _laneTargetPosition;
     float _distToGround;
     float _hitPositionStart;
@@ -30,8 +32,10 @@ public class HeroController : MonoBehaviour {
 
     void Start()
     {
+        _anim = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
         _rb = GetComponent<Rigidbody>();
+        _bc = GetComponent<BoxCollider>();
         _distToGround = _collider.bounds.extents.y;
         _hitPositionStart = 0.0f;
         //_slidePositionStart = 0.0f;
@@ -67,6 +71,7 @@ public class HeroController : MonoBehaviour {
             else
             {
                 _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed, 0);
+                _anim.SetTrigger("JumpToRun");
             }
         }
         else if (((_rb.transform.position.y - _jumpStartLocation) >= jumpHeight && !IsGrounded()) || (_jumpCancel && (_rb.transform.position.y - _jumpStartLocation) >= jumpMin))
@@ -121,13 +126,14 @@ public class HeroController : MonoBehaviour {
     }
 
     bool IsGrounded() {
-        return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.1f);
+        return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.4f);
     }
 
     public void Jump()
     {
         if (IsGrounded())
         {
+            _anim.SetTrigger("RunToJump");
             _rb.velocity +=  new Vector3(0, jumpForce, 0);
             _jumpStartLocation = transform.position.y;
         }
@@ -143,14 +149,16 @@ public class HeroController : MonoBehaviour {
 
     public void SlideStart()
     {
-        transform.localEulerAngles += new Vector3(-90, 0, 0);
-        transform.localPosition += new Vector3(0, 0.5f, 0);
+        _bc.center = new Vector3(_bc.center.x, _bc.center.y, 0.2f);
+        _bc.size = new Vector3(_bc.size.x, _bc.size.y, 0.5f);
+        _anim.SetTrigger("RunToSlide");
     }
 
     public void SlideStop()
     {
-        transform.localEulerAngles += new Vector3(-90, 0, 0);
-        transform.localPosition += new Vector3(0, 0.25f, 0);
+        _bc.center = new Vector3(_bc.center.x, _bc.center.y, 0.5f);
+        _bc.size = new Vector3(_bc.size.x, _bc.size.y, 1f);
+        _anim.SetTrigger("SlideToRun");
     }
 
     public void LaneUp()
@@ -175,7 +183,6 @@ public class HeroController : MonoBehaviour {
 
     public void Ability()
     {
-
         if (GetComponent<HeadButt>())
         {
             GetComponent<HeadButt>().Attack();
@@ -190,5 +197,6 @@ public class HeroController : MonoBehaviour {
         {
             GetComponent<WindAttack>().Attack();
         }
+        _anim.SetTrigger("PunchToRun");
     }
 }

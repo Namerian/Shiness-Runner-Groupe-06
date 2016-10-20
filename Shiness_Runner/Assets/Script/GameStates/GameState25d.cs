@@ -112,11 +112,10 @@ public class GameState25d : GameState
                     {
                         int _otherLane = _charLane + 1;
 
-
                         PlayerInfo _otherPlayerInfo = lanes[_otherLane];
                         HeroController _otherChar = _otherPlayerInfo.character;
 
-                        if (!_character.transitioning && !_otherChar.transitioning)
+                        if (!_character.transitioning && (_otherPlayerInfo.isDead || !_otherChar.transitioning))
                         {
                             _playerInfo.currentLane = _otherLane;
                             _otherPlayerInfo.currentLane = _charLane;
@@ -139,7 +138,7 @@ public class GameState25d : GameState
                         PlayerInfo _otherPlayerInfo = lanes[_otherLane];
                         HeroController _otherChar = _otherPlayerInfo.character;
 
-                        if (!_character.transitioning && !_otherChar.transitioning)
+                        if (!_character.transitioning && (_otherPlayerInfo.isDead || !_otherChar.transitioning))
                         {
                             _playerInfo.currentLane = _otherLane;
                             _otherPlayerInfo.currentLane = _charLane;

@@ -27,6 +27,7 @@ public class UI : MonoBehaviour {
 	void Update () {
 
         ScorePlayer();
+        multiplier.text = "x" + gameManager.scoreMultiplier;
         score = Mathf.Round(gameManager.GetPlayerInfo(0).score) + Mathf.Round(gameManager.GetPlayerInfo(1).score) + Mathf.Round(gameManager.GetPlayerInfo(2).score);
 
         if(score < 10)
@@ -53,6 +54,13 @@ public class UI : MonoBehaviour {
             extazcanwow = true;
             extaz.transform.localScale = new Vector3(1, 1, 1);
         }
+
+        if (gameManager.GetPlayerInfo(0).score > gameManager.GetPlayerInfo(1).score && gameManager.GetPlayerInfo(0).score > gameManager.GetPlayerInfo(2).score)
+            ScaleProfileUp("Character1");
+        else if (gameManager.GetPlayerInfo(1).score > gameManager.GetPlayerInfo(0).score && gameManager.GetPlayerInfo(1).score > gameManager.GetPlayerInfo(2).score)
+            ScaleProfileUp("Character2");
+        else if (gameManager.GetPlayerInfo(2).score > gameManager.GetPlayerInfo(0).score && gameManager.GetPlayerInfo(2).score > gameManager.GetPlayerInfo(1).score)
+            ScaleProfileUp("Character3");
 
     }
 
