@@ -1,0 +1,2 @@
+ - Période d'invincibilité
+ - Saut dont la durée peut changer
