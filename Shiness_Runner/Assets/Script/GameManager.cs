@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public Canvas uicanvas;
 
-    public float scoreMultiplier;
+    private float scoreMultiplier;
 
     public float enemyBatScoreValue;
     public float enemyGolemScoreValue;
