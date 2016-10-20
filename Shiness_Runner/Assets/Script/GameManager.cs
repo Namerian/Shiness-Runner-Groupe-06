@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
 
     public float scoreMultiplier;
 
+    public float enemyBatScoreValue;
+    public float enemyGolemScoreValue;
+    public float enemyEssaimScoreValue;
+
     //#################################################
 
     public float Extase
