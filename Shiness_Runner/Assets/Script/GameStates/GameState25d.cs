@@ -28,7 +28,13 @@ public class GameState25d : GameState
 
 	protected override void OnHandleInput (JoystickState[] joystickStates)
 	{
-		for (int i = 0; i < joystickStates.Length; i++) {
+        //##################################
+        //extase check
+        //if(joystickStates[0].axisLT && joys)
+
+        //##################################
+        //normal input
+        for (int i = 0; i < joystickStates.Length; i++) {
 			JoystickState _stickState = joystickStates [i];
 			PlayerInfo _playerInfo = gameManager.GetPlayerInfo (_stickState.characterIndex);
 			HeroController _character = _playerInfo.character;
