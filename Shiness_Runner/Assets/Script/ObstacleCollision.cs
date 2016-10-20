@@ -29,7 +29,8 @@ public class ObstacleCollision : MonoBehaviour {
         }else
         if(col.gameObject.tag == "Player" && tag == "Extaz mode obstacles")
         {
-            if(name.Contains("Enemy"))
+            _anim = col.gameObject.GetComponent<Animator>();
+            if (name.Contains("Enemy"))
             {
                 if (name.Contains("Bat"))
                 {
