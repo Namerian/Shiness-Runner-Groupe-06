@@ -27,7 +27,18 @@ public class GameStateTransitionTo2d : GameState
 
     protected override void OnEnter()
     {
-        GameObject[] _brawlModeObstacles = GameObject.FindGameObjectsWithTag("Brawl mode obstacles");
+        GameObject _brawlModeHolder = GameObject.Find("2.5D Brawl");
+        
+
+        foreach (Transform childTransform in _brawlModeHolder.transform.GetComponentsInChildren<Transform>())
+        {
+            if (childTransform != _brawlModeHolder.transform)
+            {
+                childTransform.gameObject.SetActive(false);
+            }
+        }
+
+        /*GameObject[] _brawlModeObstacles = GameObject.FindGameObjectsWithTag("Brawl mode obstacles");
         foreach (GameObject brawlObstacle in _brawlModeObstacles)
         {
             brawlObstacle.SetActive(false);
@@ -37,7 +48,7 @@ public class GameStateTransitionTo2d : GameState
         foreach (GameObject enemy in _enemies)
         {
             enemy.SetActive(false);
-        }
+        }*/
 
 
         PlayerInfo[] _playerInfos = gameManager.GetAllPlayerInfos();
@@ -106,7 +117,24 @@ public class GameStateTransitionTo2d : GameState
 
     protected override void OnExit()
     {
-        GameObject[] _extazModeObstacles = GameObject.FindGameObjectsWithTag("Extaz mode obstacles");
+        GameObject _extazModeHolder = GameObject.Find("2D Extaz");
+
+        foreach (Transform childTransform in _extazModeHolder.transform.GetComponentsInChildren<Transform>(true))
+        {
+            if (childTransform != _extazModeHolder.transform)
+            {
+                if (childTransform.GetComponent<BoxCollider>() == null)
+                {
+                    childTransform.gameObject.SetActive(true);
+                }
+                else if (childTransform.localPosition.x >= gameManager.cameraManager.transform.position.x + 5)
+                {
+                    childTransform.gameObject.SetActive(true);
+                }
+            }
+        }
+
+        /*GameObject[] _extazModeObstacles = GameObject.FindGameObjectsWithTag("Extaz mode obstacles");
         float _xLimit = gameManager.cameraManager.transform.position.x + 10;
         foreach (GameObject extazObstacle in _extazModeObstacles)
         {
@@ -120,7 +148,7 @@ public class GameStateTransitionTo2d : GameState
         foreach (GameObject enemy in _enemies)
         {
             enemy.SetActive(true);
-        }
+        }*/
     }
 
     protected override void OnHandleInput(JoystickState[] joystickStates)

@@ -21,7 +21,19 @@ public class GameStateTransitionTo25d : GameState
 
     protected override void OnEnter()
     {
-        GameObject[] _extazModeObstacles = GameObject.FindGameObjectsWithTag("Extaz mode obstacles");
+        GameObject _extazModeHolder = GameObject.Find("2D Extaz");
+        Transform[] _extazHolderChildren = _extazModeHolder.transform.GetComponentsInChildren<Transform>();
+        Debug.Log("GameStateTransitionTo25d: OnEnter: " + _extazHolderChildren.Length + " objects to deactivate");
+
+        foreach (Transform childTransform in _extazHolderChildren)
+        {
+            if (childTransform != _extazModeHolder.transform)
+            {
+                childTransform.gameObject.SetActive(false);
+            }
+        }
+
+        /*GameObject[] _extazModeObstacles = GameObject.FindGameObjectsWithTag("Extaz mode obstacles");
         foreach (GameObject extazObstacle in _extazModeObstacles)
         {
             extazObstacle.SetActive(false);
@@ -31,7 +43,7 @@ public class GameStateTransitionTo25d : GameState
         foreach (GameObject enemy in _enemies)
         {
             enemy.SetActive(false);
-        }
+        }*/
 
         playerInfos = gameManager.GetAllPlayerInfos();
         fromX = new float[3];
@@ -55,7 +67,26 @@ public class GameStateTransitionTo25d : GameState
 
     protected override void OnExit()
     {
-        GameObject[] _brawlModeObstacles = GameObject.FindGameObjectsWithTag("Brawl mode obstacles");
+        GameObject _brawlModeHolder = GameObject.Find("2.5D Brawl");
+        Transform[] _brawlHolderChildren = _brawlModeHolder.transform.GetComponentsInChildren<Transform>(true);
+        Debug.Log("GameStateTransitionTo25d: OnExit: " + _brawlHolderChildren.Length + " objects to activate");
+
+        foreach (Transform childTransform in _brawlHolderChildren)
+        {
+            if (childTransform != _brawlModeHolder.transform)
+            {
+                if(childTransform.GetComponent<BoxCollider>() == null)
+                {
+                    childTransform.gameObject.SetActive(true);
+                }
+                else if (childTransform.localPosition.x >= gameManager.cameraManager.transform.position.x + 5f)
+                {
+                    childTransform.gameObject.SetActive(true);
+                }
+            }
+        }
+
+        /*GameObject[] _brawlModeObstacles = GameObject.FindGameObjectsWithTag("Brawl mode obstacles");
         float _xLimit = gameManager.cameraManager.transform.position.x + 5f;
         foreach (GameObject brawlObstacle in _brawlModeObstacles)
         {
@@ -69,7 +100,7 @@ public class GameStateTransitionTo25d : GameState
         foreach (GameObject enemy in _enemies)
         {
             enemy.SetActive(true);
-        }
+        }*/
 
         for (int i = 0; i < 3; i++)
         {

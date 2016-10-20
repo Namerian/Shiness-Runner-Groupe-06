@@ -66,6 +66,7 @@ public class GameState2d : GameState
 			gameManager.SwitchState (new GameStateTransitionTo25d (gameManager));
             gameManager.Extase = 0;
             Debug.LogError("You cheated! You shall be punished!");
+            return;
 		}
 
         //are players dead
@@ -82,6 +83,7 @@ public class GameState2d : GameState
         {
             gameManager.Extase = 0;
             gameManager.SwitchState(new GameStateTransitionTo25d(gameManager));
+            return;
         }
 
         //extase
@@ -90,6 +92,7 @@ public class GameState2d : GameState
         if(gameManager.Extase == 0)
         {
             gameManager.SwitchState(new GameStateTransitionTo25d(gameManager));
+            return;
         }
     }
 
