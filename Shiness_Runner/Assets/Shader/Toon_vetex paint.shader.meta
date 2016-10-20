@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 36f0db31d5b160a489a30e424a0cc787
+timeCreated: 1476984355
+licenseType: Pro
+ShaderImporter:
+  defaultTextures:
+  - _ShadowRamp: {fileID: 2800000, guid: ae7a10612705c364eb2bcd74761863a6, type: 3}
+  - _GroundDiff: {fileID: 2800000, guid: 00ffc86b8ebac634f8696108a1658b88, type: 3}
+  - _SandDiff: {fileID: 2800000, guid: 01431a9220e65ea42bcccfe8d0888af4, type: 3}
+  - _Diffuse: {fileID: 2800000, guid: b66bceaf0cc0ace4e9bdc92f14bba709, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
