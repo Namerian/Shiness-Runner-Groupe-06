@@ -270,7 +270,7 @@ public class GameManager : MonoBehaviour
         {
             if (!info.isDead)
             {
-                info.score += Time.deltaTime;
+                info.score += 10 * Time.deltaTime;
             }
         }
     }

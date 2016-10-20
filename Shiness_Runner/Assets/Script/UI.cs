@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -11,7 +12,7 @@ public class UI : MonoBehaviour {
     public Slider extaz;
     public List<GameObject> players = new List<GameObject>();
     public GameObject QuitButton;
-    public GameObject TryAgainButton;
+    public GameObject RetryButton;
     private GameManager gameManager;
 
     float score;
@@ -188,4 +189,53 @@ public class UI : MonoBehaviour {
     /************
     **GAME OVER**
     ************/
+
+    //FEEDBACK QUAND POINTER EST SUR LE BOUTON
+    public void OverButton(string buttonname)
+    {
+        switch (buttonname)
+        {
+            case "Retry":
+                RetryButton.GetComponent<Text>().color = new Color(0f, 0f, 0f);
+                RetryButton.GetComponent<Outline>().effectColor = new Color(1f, 1f, 1f, 0.75f);
+                break;
+
+            case "Quit":
+                QuitButton.GetComponent<Text>().color = new Color(0f, 0f, 0f);
+                QuitButton.GetComponent<Outline>().effectColor = new Color(1f, 1f, 1f, 0.75f);
+                break;
+        }
+    }
+
+    //FEEDBACK QUAND POINTER QUITE LE BOUTON
+    public void ExitButton(string buttonname)
+    {
+        switch (buttonname)
+        {
+            case "Retry":
+                RetryButton.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+                RetryButton.GetComponent<Outline>().effectColor = new Color(0f, 0f, 0f, 0.75f);
+                break;
+
+            case "Quit":
+                QuitButton.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+                QuitButton.GetComponent<Outline>().effectColor = new Color(0f, 0f, 0f, 0.75f);
+                break;
+        }
+    }
+
+    //FONCTION QUAND CLIC BOUTON
+    public void ClicButton(string buttonname)
+    {
+        switch (buttonname)
+        {
+            case "Retry":
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                break;
+
+            case "Quit":
+                Application.Quit();
+                break;
+        }
+    }
 }
