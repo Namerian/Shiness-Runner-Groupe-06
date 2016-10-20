@@ -33,17 +33,7 @@ public class GameStateTransitionTo25d : GameState
             }
         }
 
-        /*GameObject[] _extazModeObstacles = GameObject.FindGameObjectsWithTag("Extaz mode obstacles");
-        foreach (GameObject extazObstacle in _extazModeObstacles)
-        {
-            extazObstacle.SetActive(false);
-        }
-
-        GameObject[] _enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in _enemies)
-        {
-            enemy.SetActive(false);
-        }*/
+        //################################################
 
         playerInfos = gameManager.GetAllPlayerInfos();
         fromX = new float[3];
@@ -52,6 +42,13 @@ public class GameStateTransitionTo25d : GameState
         for (int i = 0; i < 3; i++)
         {
             PlayerInfo _info = playerInfos[i];
+
+            if (_info.isDead)
+            {
+                _info.character.gameObject.SetActive(true);
+                _info.isDead = true;
+            }
+
             fromX[i] = _info.character.transform.localPosition.x;
             toX[i] = _info.previous25dX;
 
@@ -60,6 +57,8 @@ public class GameStateTransitionTo25d : GameState
                 toX[i] = 0;
             }
         }
+
+        //################################################
 
         stateTimer = 0f;
         gameManager.cameraManager.StartTransition(transitionTo25dPosition, transitionTo25dRotation, transitionTo25dSize, transitionTo25dTime);
