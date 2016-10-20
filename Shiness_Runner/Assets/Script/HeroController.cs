@@ -186,17 +186,19 @@ public class HeroController : MonoBehaviour {
         if (GetComponent<HeadButt>())
         {
             GetComponent<HeadButt>().Attack();
+            _anim.SetTrigger("PunchToRun");
         }
 
         if (GetComponent<LightAttack>())
         {
-            GetComponent<LightAttack>().Attack(); ;
+            GetComponent<LightAttack>().Attack();
+            _anim.SetTrigger("PunchToRun");
         }
 
         if (GetComponent<WindAttack>())
         {
             GetComponent<WindAttack>().Attack();
+            _anim.SetTrigger("PunchToRun");
         }
-        _anim.SetTrigger("PunchToRun");
     }
 }
