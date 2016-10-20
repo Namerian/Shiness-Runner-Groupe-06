@@ -14,14 +14,12 @@ public class HeroController : MonoBehaviour {
     public bool transitioning { get; private set; }
 
     //intern variables
-    ReferenceBodyController _parent;
     Rigidbody _rb;
     Collider _collider;
     Color _tempColor;
     float _laneTargetPosition;
     float _distToGround;
     float _hitPositionStart;
-    float _slidePositionStart;
     float _jumpStartLocation;
     float _transitionTimer;
     float _transitionTime;
@@ -32,12 +30,11 @@ public class HeroController : MonoBehaviour {
 
     void Start()
     {
-        _parent = transform.parent.GetComponent<ReferenceBodyController>();
         _collider = GetComponent<Collider>();
         _rb = GetComponent<Rigidbody>();
         _distToGround = _collider.bounds.extents.y;
         _hitPositionStart = 0.0f;
-        _slidePositionStart = 0.0f;
+        //_slidePositionStart = 0.0f;
         _jumpMaxReachedX = 0.0f;
         _jumpMaxReached = false;
         transitioning = false;
@@ -56,7 +53,6 @@ public class HeroController : MonoBehaviour {
             {
                 if (_jumpMaxReached == false)
                 {
-                    Debug.Log("plane");
                     _jumpMaxReached = true;
                     _jumpMaxReachedX = transform.position.x;
                 }
@@ -64,7 +60,6 @@ public class HeroController : MonoBehaviour {
                 if (transform.position.x - _jumpMaxReachedX  >= diveWidth)
                 {
                     _jumpCancel = true;
-                    Debug.Log("cancel");
                 }
                 _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed/4, 0);
 
@@ -109,24 +104,6 @@ public class HeroController : MonoBehaviour {
             }
         }
 
-        /*
-        //gestion du slide
-        if(transform.localEulerAngles != new Vector3(0, 0, 0))
-        {
-            if (_slidePositionStart == 0.0f)
-            {
-                _slidePositionStart = transform.position.x;
-            }
-            else
-            {
-                if (transform.position.x - _slidePositionStart  >= slideWidth)
-                {
-                    transform.localEulerAngles = new Vector3(0, 0, 0);
-                    _slidePositionStart = 0.0f;
-                }
-            }
-        }*/
-
         //gestion transition lane
         if (transitioning)
         {
@@ -153,7 +130,6 @@ public class HeroController : MonoBehaviour {
         {
             _rb.velocity +=  new Vector3(0, jumpForce, 0);
             _jumpStartLocation = transform.position.y;
-            Debug.Log("jump");
         }
     }
 
