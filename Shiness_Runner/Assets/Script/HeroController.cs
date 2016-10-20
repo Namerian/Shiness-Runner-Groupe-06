@@ -43,12 +43,8 @@ public class HeroController : MonoBehaviour {
         _jumpMaxReached = false;
         transitioning = false;
         _jumpCancel = false;
-<<<<<<< HEAD
-        _transitionTime = 1;
-=======
         _transitionTime = 0.2f;
         //transform.localEulerAngles = new Vector3(0, 0, 0);
->>>>>>> 6017ee404bfe495a62c5e3f21b2af3cf6f8b98e2
     }
 
 
