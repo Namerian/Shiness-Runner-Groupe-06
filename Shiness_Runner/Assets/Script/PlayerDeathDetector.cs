@@ -35,7 +35,7 @@ public class PlayerDeathDetector : MonoBehaviour {
             {
                 gameManager.PlayerDied(_otherGameObject.GetComponent<HeroController>());
 
-                _otherGameObject.GetComponent<HeroController>().GetComponent<WindAttack>().cooldownFeedback.value = 1;
+                _otherGameObject.GetComponent<HeroController>().GetComponent<LightAttack>().cooldownFeedback.value = 0;
 
                 gameManager.uicanvas.GetComponent<UI>().GoGrey(1);
 
@@ -45,7 +45,7 @@ public class PlayerDeathDetector : MonoBehaviour {
             {
                 gameManager.PlayerDied(_otherGameObject.GetComponent<HeroController>());
 
-                _otherGameObject.GetComponent<HeroController>().GetComponent<WindAttack>().cooldownFeedback.value = 2;
+                _otherGameObject.GetComponent<HeroController>().GetComponent<HeadButt>().cooldownFeedback.value = 0;
 
                 gameManager.uicanvas.GetComponent<UI>().GoGrey(2);
 
