@@ -27,6 +27,7 @@ public class UI : MonoBehaviour {
 	void Update () {
 
         ScorePlayer();
+        multiplier.text = "x" + gameManager.scoreMultiplier;
         score = Mathf.Round(gameManager.GetPlayerInfo(0).score) + Mathf.Round(gameManager.GetPlayerInfo(1).score) + Mathf.Round(gameManager.GetPlayerInfo(2).score);
 
         if(score < 10)
