@@ -71,6 +71,7 @@ public class HeroController : MonoBehaviour {
             else
             {
                 _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed, 0);
+                _anim.SetTrigger("JumpToRun");
             }
         }
         else if (((_rb.transform.position.y - _jumpStartLocation) >= jumpHeight && !IsGrounded()) || (_jumpCancel && (_rb.transform.position.y - _jumpStartLocation) >= jumpMin))
@@ -125,17 +126,16 @@ public class HeroController : MonoBehaviour {
     }
 
     bool IsGrounded() {
-        return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.1f);
+        return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.4f);
     }
 
     public void Jump()
     {
         if (IsGrounded())
         {
+            _anim.SetTrigger("RunToJump");
             _rb.velocity +=  new Vector3(0, jumpForce, 0);
             _jumpStartLocation = transform.position.y;
-            //_anim.SetTrigger("RunToJump");
-            //_anim.SetTrigger("JumpToRun");
         }
     }
 
