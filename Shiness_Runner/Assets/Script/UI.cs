@@ -51,6 +51,7 @@ public class UI : MonoBehaviour {
         if (extaz.value >= 100 && extazcanwow == true)
         {
             ScaleSliderUp();
+			frameFullAnimation ();
             extazcanwow = false;
         }else if(extaz.value < 100)
         {
