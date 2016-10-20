@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c9f51eac1cf000c46a3fda68d525b584
-timeCreated: 1476982431
+guid: 8492aa50c64133b43896030e83e23cdf
+timeCreated: 1476984219
 licenseType: Pro
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -10,7 +10,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - MichiNoInku
+  - LeviReBrushed
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
