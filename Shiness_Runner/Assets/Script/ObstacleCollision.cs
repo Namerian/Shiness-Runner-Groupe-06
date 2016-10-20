@@ -25,8 +25,9 @@ public class ObstacleCollision : MonoBehaviour {
         }else
         if(col.gameObject.tag == "Player" && tag == "Extaz mode obstacles")
         {
-            if(tag == "Enemy")
+            if(name.Contains("Enemy"))
             {
+                //add score enemy
                 Destroy(gameObject);
             }else
             {

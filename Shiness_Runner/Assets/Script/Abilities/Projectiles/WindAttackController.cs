@@ -23,6 +23,7 @@ public class WindAttackController : MonoBehaviour {
     {
         if (col.gameObject.name.Contains("Enemy_Essaim"))
         {
+            //add score enemy
             Destroy(col.gameObject);
         }
         Destroy(gameObject);
