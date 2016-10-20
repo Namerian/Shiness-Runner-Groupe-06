@@ -10,6 +10,7 @@ public class UI : MonoBehaviour {
     public Text multiplier;
     public Slider extaz;
     public List<GameObject> players = new List<GameObject>();
+    private GameManager gameManager;
 
     float score;
     bool extazcanwow = true;
@@ -17,7 +18,8 @@ public class UI : MonoBehaviour {
     // Use this for initialization
     void Start () {
         RotateScoreLeft();
-	}
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -113,13 +115,13 @@ public class UI : MonoBehaviour {
     //DEATH FEEDBACK (à appeler quand un joueur meurt)
     public void GoGrey(int playernumber) 
     {
-        players[playernumber-1].GetComponentInChildren<Image>().DOBlendableColor(new Color32(0x54, 0x54, 0x54, 0xFF), 1f);
+        players[playernumber].GetComponentInChildren<Image>().DOBlendableColor(new Color32(0x54, 0x54, 0x54, 0xFF), 1f);
     }
 
     //REVIVE FEEDBACK (à appeler quand un joueur est revive)
     public void GoWhite(int playernumber)
     {
-        players[playernumber - 1].GetComponentInChildren<Image>().DOBlendableColor(Color.white,1f);
+        players[playernumber].GetComponentInChildren<Image>().DOBlendableColor(Color.white,1f);
     }
 
     //HIT FEEDBACK (à appeler quand le joueur est hit)
@@ -128,13 +130,16 @@ public class UI : MonoBehaviour {
         switch (playername)
         {
             case "Character1":
-                players[0].transform.FindChild("profile").DOShakePosition(0.5f, 5f, 18, 90, false, true);
+                if(gameManager.GetPlayerInfo(0).isDead == false)
+                    players[0].transform.FindChild("profile").DOShakePosition(0.5f, 5f, 18, 90, false, true);
                 break;
             case "Character2":
-                players[1].transform.FindChild("profile").DOShakePosition(0.5f, 5f, 18, 90, false, true);
+                if (gameManager.GetPlayerInfo(1).isDead == false)
+                    players[1].transform.FindChild("profile").DOShakePosition(0.5f, 5f, 18, 90, false, true);
                 break;
             case "Character3":
-                players[2].transform.FindChild("profile").DOShakePosition(0.5f, 5f, 18, 90, false, true);
+                if (gameManager.GetPlayerInfo(2).isDead == false)
+                    players[2].transform.FindChild("profile").DOShakePosition(0.5f, 5f, 18, 90, false, true);
                 break;
         }       
     }
