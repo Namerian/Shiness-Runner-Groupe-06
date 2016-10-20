@@ -11,6 +11,8 @@ public class UI : MonoBehaviour {
     public Text multiplier;
     public Slider extaz;
     public List<GameObject> players = new List<GameObject>();
+    public List<Sprite> playersImage = new List<Sprite>();
+    public List<GameObject> ranks = new List<GameObject>();
     public GameObject QuitButton;
     public GameObject RetryButton;
     private GameManager gameManager;
@@ -246,6 +248,74 @@ public class UI : MonoBehaviour {
             case "Quit":
                 Application.Quit();
                 break;
+        }
+    }
+
+    /************
+    **GAME OVER**
+    ************/
+
+    public void Ranking()
+    {
+        if (gameManager.GetPlayerInfo(0).score > gameManager.GetPlayerInfo(1).score && gameManager.GetPlayerInfo(0).score > gameManager.GetPlayerInfo(2).score)
+        {
+            ranks[0].GetComponent<Image>().sprite = playersImage[0];
+            ranks[0].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(0).score;
+
+            if (gameManager.GetPlayerInfo(1).score > gameManager.GetPlayerInfo(2).score)
+            {
+                ranks[1].GetComponent<Image>().sprite = playersImage[1];
+                ranks[1].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(1).score;
+                ranks[2].GetComponent<Image>().sprite = playersImage[2];
+                ranks[2].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(2).score;
+            }
+            else if (gameManager.GetPlayerInfo(1).score < gameManager.GetPlayerInfo(2).score)
+            {
+                ranks[1].GetComponent<Image>().sprite = playersImage[2];
+                ranks[1].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(2).score;
+                ranks[2].GetComponent<Image>().sprite = playersImage[1];
+                ranks[2].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(1).score;
+            }
+        }
+        else if (gameManager.GetPlayerInfo(1).score > gameManager.GetPlayerInfo(0).score && gameManager.GetPlayerInfo(1).score > gameManager.GetPlayerInfo(2).score)
+        {
+            ranks[0].GetComponent<Image>().sprite = playersImage[1];
+            ranks[0].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(1).score;
+
+            if (gameManager.GetPlayerInfo(0).score > gameManager.GetPlayerInfo(2).score)
+            {
+                ranks[1].GetComponent<Image>().sprite = playersImage[0];
+                ranks[1].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(0).score;
+                ranks[2].GetComponent<Image>().sprite = playersImage[2];
+                ranks[2].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(2).score;
+            }
+            else if (gameManager.GetPlayerInfo(0).score < gameManager.GetPlayerInfo(2).score)
+            {
+                ranks[1].GetComponent<Image>().sprite = playersImage[2];
+                ranks[1].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(2).score;
+                ranks[2].GetComponent<Image>().sprite = playersImage[0];
+                ranks[2].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(0).score;
+            }
+        }
+        else if (gameManager.GetPlayerInfo(2).score > gameManager.GetPlayerInfo(0).score && gameManager.GetPlayerInfo(2).score > gameManager.GetPlayerInfo(1).score)
+        {
+            ranks[0].GetComponent<Image>().sprite = playersImage[2];
+            ranks[0].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(2).score;
+
+            if (gameManager.GetPlayerInfo(0).score > gameManager.GetPlayerInfo(1).score)
+            {
+                ranks[1].GetComponent<Image>().sprite = playersImage[0];
+                ranks[1].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(0).score;
+                ranks[2].GetComponent<Image>().sprite = playersImage[1];
+                ranks[2].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(1).score;
+            }
+            else if (gameManager.GetPlayerInfo(0).score < gameManager.GetPlayerInfo(1).score)
+            {
+                ranks[1].GetComponent<Image>().sprite = playersImage[1];
+                ranks[1].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(1).score;
+                ranks[2].GetComponent<Image>().sprite = playersImage[0];
+                ranks[2].transform.FindChild("score").GetComponent<Text>().text = "" + gameManager.GetPlayerInfo(0).score;
+            }
         }
     }
 }
