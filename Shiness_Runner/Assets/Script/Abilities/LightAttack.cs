@@ -7,18 +7,21 @@ public class LightAttack : MonoBehaviour {
     public GameObject lightProjectile;
     public float coolDownPeriod;
     public Slider cooldownFeedback;
+    Animator _anim;
 
     float _timeStamp;
 
     public void Attack()
     {
-
+        _anim = gameObject.GetComponent<Animator>();
         if (_timeStamp <= Time.time)
         {
+            _anim.SetTrigger("RunToPunch");
             GameObject go = Instantiate(lightProjectile, transform.position + new Vector3(1, 0.75f, 0), transform.rotation) as GameObject;
             go.transform.parent = transform;
             _timeStamp = Time.time + coolDownPeriod;
             //cooldownFeedback.value = coolDownPeriod;
+            _anim.SetTrigger("PunchToRun");
         }
     }
 
