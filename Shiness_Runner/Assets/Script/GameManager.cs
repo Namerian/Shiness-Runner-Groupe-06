@@ -103,8 +103,7 @@ public class GameManager : MonoBehaviour
 
         //#################################################
 
-        //currentState = new GameStateCharacterSelection(this);
-        currentState = new GameState25d(this);
+        currentState = new GameStateCharacterSelection(this);
         currentState.Enter();
         
         GameObject _gameOverUI;
@@ -253,16 +252,6 @@ public class GameManager : MonoBehaviour
         //#################################################
 
         currentState.Update();
-
-        //#################################################
-        
-        foreach(PlayerInfo info in playerInfoArray)
-        {
-            if (!info.isDead)
-            {
-                info.score += 10 * Time.deltaTime;
-            }
-        }
     }
 
     //#################################################
