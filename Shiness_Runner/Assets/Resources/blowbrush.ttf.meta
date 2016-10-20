@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 5f6013e77391b8d42bb442e2b4d56328
-timeCreated: 1476982446
+guid: 589b1ba26d99f7e459df93a83631dae5
+timeCreated: 1476984913
 licenseType: Pro
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -10,7 +10,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Piou Font
+  - BlowBrush
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
