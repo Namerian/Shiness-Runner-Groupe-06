@@ -15,6 +15,10 @@ public class UI : MonoBehaviour {
     public GameObject RetryButton;
     private GameManager gameManager;
 
+	public Sprite frameNotFull;
+	public Sprite frameFull;
+	public GameObject referenceToExtazFrame;
+
     float score;
     bool extazcanwow = true;
 
@@ -119,6 +123,11 @@ public class UI : MonoBehaviour {
         extaz.transform.DOScale(1f, 0.75f).SetId("ScaleDown").SetEase(Ease.Linear).OnComplete(ScaleSliderUp);
     }
 
+	public IEnumerator frameFullAnimation()
+	{
+		referenceToExtazFrame.GetComponent<Image>().sprite = frameFull;
+		yield return null;
+	}
 
     /*********************
     **PLAYER ANITMATIONS**
