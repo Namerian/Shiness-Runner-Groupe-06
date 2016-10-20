@@ -29,19 +29,19 @@ public class ObstacleCollision : MonoBehaviour {
             {
                 if (name.Contains("Bat"))
                 {
-                    _gm.AddScore(_gm.enemyBatScoreValue);
+                    _gm.AddScore(_gm.enemyBatScoreValue, GetComponent<HeroController>());
                     Destroy(gameObject);
                 }
                 else
                 if (name.Contains("Golem"))
                 {
-                    _gm.AddScore(_gm.enemyGolemScoreValue);
+                    _gm.AddScore(_gm.enemyGolemScoreValue, GetComponent<HeroController>());
                     Destroy(gameObject);
                 }
                 else
                 if (name.Contains("Essaim"))
                 {
-                    _gm.AddScore(_gm.enemyEssaimScoreValue);
+                    _gm.AddScore(_gm.enemyEssaimScoreValue, GetComponent<HeroController>());
                     Destroy(gameObject);
                 }
             }else
