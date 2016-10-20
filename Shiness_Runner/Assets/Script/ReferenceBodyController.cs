@@ -33,4 +33,9 @@ public class ReferenceBodyController : MonoBehaviour {
     {
         _movespeed = 0.0f;
     }
+
+    public void ChangeSpeed(float speed)
+    {
+        _movespeed = speed;
+    }
 }
