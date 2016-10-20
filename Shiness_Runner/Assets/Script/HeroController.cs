@@ -17,6 +17,8 @@ public class HeroController : MonoBehaviour {
     Rigidbody _rb;
     Collider _collider;
     Color _tempColor;
+    BoxCollider _bc;
+    Animator _anim;
     float _laneTargetPosition;
     float _distToGround;
     float _hitPositionStart;
@@ -30,8 +32,10 @@ public class HeroController : MonoBehaviour {
 
     void Start()
     {
+        _anim = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
         _rb = GetComponent<Rigidbody>();
+        _bc = GetComponent<BoxCollider>();
         _distToGround = _collider.bounds.extents.y;
         _hitPositionStart = 0.0f;
         //_slidePositionStart = 0.0f;
@@ -40,7 +44,6 @@ public class HeroController : MonoBehaviour {
         transitioning = false;
         _jumpCancel = false;
         _transitionTime = 1;
-        //transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
 
@@ -130,6 +133,8 @@ public class HeroController : MonoBehaviour {
         {
             _rb.velocity +=  new Vector3(0, jumpForce, 0);
             _jumpStartLocation = transform.position.y;
+            //_anim.SetTrigger("RunToJump");
+            //_anim.SetTrigger("JumpToRun");
         }
     }
 
@@ -143,14 +148,16 @@ public class HeroController : MonoBehaviour {
 
     public void SlideStart()
     {
-        transform.localEulerAngles += new Vector3(-90, 0, 0);
-        transform.localPosition += new Vector3(0, 0.5f, 0);
+        _bc.center = new Vector3(_bc.center.x, _bc.center.y, 0.2f);
+        _bc.size = new Vector3(_bc.size.x, _bc.size.y, 0.5f);
+        _anim.SetTrigger("RunToSlide");
     }
 
     public void SlideStop()
     {
-        transform.localEulerAngles += new Vector3(-90, 0, 0);
-        transform.localPosition += new Vector3(0, 0.25f, 0);
+        _bc.center = new Vector3(_bc.center.x, _bc.center.y, 0.5f);
+        _bc.size = new Vector3(_bc.size.x, _bc.size.y, 1f);
+        _anim.SetTrigger("SlideToRun");
     }
 
     public void LaneUp()
