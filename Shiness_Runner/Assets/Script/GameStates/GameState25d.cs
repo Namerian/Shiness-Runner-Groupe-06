@@ -60,9 +60,21 @@ public class GameState25d : GameState
 
         //##################################
         //normal input
-        for (int i = 0; i < joystickStates.Length; i++)
+
+
+        //for (int i = 0; i < joystickStates.Length; i++)
+        foreach(PlayerInfo info in gameManager.GetAllPlayerInfos())
         {
-            JoystickState _stickState = joystickStates[i];
+            JoystickState _stickState = null;
+            foreach(JoystickState state in joystickStates)
+            {
+                if(info.index == state.characterIndex)
+                {
+                    _stickState = state;
+                    break;
+                }
+            }
+
             PlayerInfo _playerInfo = gameManager.GetPlayerInfo(_stickState.characterIndex);
             HeroController _character = _playerInfo.character;
 
