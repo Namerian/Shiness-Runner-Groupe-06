@@ -242,8 +242,14 @@ public class GameManager : MonoBehaviour
     {
         foreach(PlayerInfo info in playerInfoArray)
         {
-
+            if(hero == info.character)
+            {
+                info.isDead = true;
+                return;
+            }
         }
+
+        Debug.LogError("GameManager: PlayerDied: unknown hero died (" + hero.gameObject.name + ")");
     }
 
     //#################################################
