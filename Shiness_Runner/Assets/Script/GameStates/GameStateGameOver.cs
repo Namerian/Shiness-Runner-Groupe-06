@@ -10,7 +10,9 @@ public class GameStateGameOver : GameState
 
     protected override void OnEnter()
     {
-        Debug.Log("Partie Terminée");
+        GameObject _gameOverUI;
+        _gameOverUI = GameObject.FindObjectOfType<Canvas>().transform.FindChild("GameOver").gameObject;
+        _gameOverUI.SetActive(true);
     }
 
     protected override void OnExit()

@@ -105,6 +105,10 @@ public class GameManager : MonoBehaviour
 
         currentState = new GameState25d(this);
         currentState.Enter();
+        
+        GameObject _gameOverUI;
+        _gameOverUI = uicanvas.transform.FindChild("GameOver").gameObject;
+        _gameOverUI.SetActive(false);
     }
 
     //#################################################
