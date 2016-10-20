@@ -13,7 +13,8 @@ public class WindAttack : MonoBehaviour {
         
         if (_timeStamp <= Time.time)
         {
-            Instantiate(windProjectile, transform.position + new Vector3(1, 0, 0), transform.rotation);
+            GameObject _projectile = Instantiate(windProjectile, transform.position + new Vector3(1, 0, 0), transform.rotation) as GameObject;
+            _projectile.transform.parent = gameObject.transform;
             _timeStamp = Time.time + coolDownPeriod;
         }
     }
