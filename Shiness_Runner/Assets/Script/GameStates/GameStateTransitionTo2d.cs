@@ -41,9 +41,22 @@ public class GameStateTransitionTo2d : GameState
 
         PlayerInfo[] _playerInfos = gameManager.GetAllPlayerInfos ();
 
-		for (int i = 0; i < 3; i++) {
-			_playerInfos [i].previous25dX = _playerInfos [i].character.transform.localPosition.x;
-		}
+        foreach(PlayerInfo info in _playerInfos)
+        {
+            if (info.isDead)
+            {
+                Vector3 _charPos = info.character.transform.localPosition;
+                info.character.transform.localPosition = new Vector3(-10f, _charPos.y, _charPos.z);
+
+                info.character.gameObject.SetActive(true);
+                info.isDead = true;
+                info.previous25dX = -10f;
+            }
+            else
+            {
+                info.previous25dX = info.character.transform.localPosition.x;
+            }
+        }
 
 		firstToX = 0f;
 		secondToX = -1f;
@@ -99,12 +112,6 @@ public class GameStateTransitionTo2d : GameState
         {
             enemy.SetActive(true);
         }
-
-        for (int i = 0; i < 3; i++) {
-			PlayerInfo _playerInfo = gameManager.GetPlayerInfo (i);
-
-			_playerInfo.isDead = false;
-		}
 	}
 
 	protected override void OnHandleInput (JoystickState[] joystickStates)
@@ -135,4 +142,8 @@ public class GameStateTransitionTo2d : GameState
 			thirdCharacter.character.transform.localPosition = new Vector3 (_thirdX, _thirdPos.y, _thirdPos.z);
 		}
 	}
+
+    protected override void OnPlayerDied(PlayerInfo player)
+    {
+    }
 }

@@ -158,10 +158,17 @@ public class GameState25d : GameState
         if (Input.GetKeyDown(KeyCode.T))
         {
             gameManager.SwitchState(new GameStateTransitionTo2d(gameManager));
+            gameManager.Extase = 100;
             Debug.LogError("You cheated! You shall be punished!");
         }
 
         //extase
         gameManager.Extase += gameManager.extasePerSecond * Time.deltaTime;
+    }
+
+    protected override void OnPlayerDied(PlayerInfo player)
+    {
+        player.isDead = true;
+        player.character.gameObject.SetActive(false);
     }
 }
