@@ -103,8 +103,13 @@ public class GameManager : MonoBehaviour
 
         //#################################################
 
+        //currentState = new GameStateCharacterSelection(this);
         currentState = new GameState25d(this);
         currentState.Enter();
+        
+        GameObject _gameOverUI;
+        _gameOverUI = uicanvas.transform.FindChild("GameOver").gameObject;
+        _gameOverUI.SetActive(false);
     }
 
     //#################################################
@@ -112,6 +117,15 @@ public class GameManager : MonoBehaviour
     //#################################################
     void Update()
     {
+        bool _gameOver = true;
+        foreach(PlayerInfo p in playerInfoArray)
+        {
+            if (!p.isDead)
+            {
+                _gameOver = false;
+            }
+        }
+        if (_gameOver) GameOver();  //partie terminée
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -339,5 +353,11 @@ public class GameManager : MonoBehaviour
         float _newScore = _info.score + (scoreMultiplier * score);
 
         _info.score = _newScore;
+    }
+
+    void GameOver()
+    {
+        FindObjectOfType<ReferenceBodyController>().StopMove();
+        SwitchState(new GameStateGameOver(this));
     }
 }
