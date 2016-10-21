@@ -202,9 +202,13 @@ public class UI : MonoBehaviour
 
     public void ScorePlayer()
     {
-        players[0].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(gameManager.GetPlayerInfo(0).score);
-        players[1].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(gameManager.GetPlayerInfo(1).score);
-        players[2].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(gameManager.GetPlayerInfo(2).score);
+        PlayerInfo info1 = gameManager.GetPlayerInfo(0);
+        PlayerInfo info2 = gameManager.GetPlayerInfo(1);
+        PlayerInfo info3 = gameManager.GetPlayerInfo(2);
+
+        players[info1.index].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(info1.score);
+        players[info2.index].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(info2.score);
+        players[info3.index].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(info3.score);
     }
 
     /************
