@@ -21,13 +21,14 @@ public class CameraManager : MonoBehaviour
 	{
 		if (isTransitioning) {
 			if (transitionTimer > transitionTime) {
-
-                Camera.main.transform.localPosition = transitionTargetPosition;
-                Camera.main.transform.localEulerAngles = transitionTargetRotation;
-                Camera.main.orthographicSize = transitionTargetSize;
+                //Camera.main.transform.localPosition = transitionTargetPosition;
+                //Camera.main.transform.localEulerAngles = transitionTargetRotation;
+                //Camera.main.orthographicSize = transitionTargetSize;
 
 				isTransitioning = false;
-			}
+
+                Debug.Log("CameraManager: Update: transition is over, timer=" + transitionTimer);
+            }
 
 			transitionTimer += Time.deltaTime;
 			float _transitionProgress = transitionTimer / transitionTime;
@@ -57,7 +58,9 @@ public class CameraManager : MonoBehaviour
 
 	public void StartTransition (Vector3 targetPosition, Vector3 targetRotation, float targetSize, float time)
 	{
-		if (isTransitioning) {
+        Debug.Log("CameraManager: StartTransition: called");
+
+        if (isTransitioning) {
 			return;
 		}
 

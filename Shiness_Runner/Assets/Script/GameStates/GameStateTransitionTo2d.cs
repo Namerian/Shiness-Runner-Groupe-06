@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class GameStateTransitionTo2d : GameState
 {
@@ -27,12 +28,23 @@ public class GameStateTransitionTo2d : GameState
 
     protected override void OnEnter()
     {
+        Debug.Log("GameStateTransitionTo2d: OnEnter: called");
+
         GameObject _brawlModeHolder = GameObject.Find("2.5D Brawl");
         
-
         foreach (Transform childTransform in _brawlModeHolder.transform.GetComponentsInChildren<Transform>())
         {
             if (childTransform != _brawlModeHolder.transform)
+            {
+                childTransform.gameObject.SetActive(false);
+            }
+        }
+
+        GameObject _habillageHolder = GameObject.Find("Habillage level");
+
+        foreach(Transform childTransform in _habillageHolder.transform.GetComponentsInChildren<Transform>())
+        {
+            if(childTransform.tag == "Brawl mode obstacles")
             {
                 childTransform.gameObject.SetActive(false);
             }
@@ -107,11 +119,16 @@ public class GameStateTransitionTo2d : GameState
         //################################################
 
         stateTimer = 0f;
-        gameManager.cameraManager.StartTransition(transitionTo2DPosition, transitionTo2DRotation, transitionTo2dSize, transitionTo2dTime);
+        //gameManager.cameraManager.StartTransition(transitionTo2DPosition, transitionTo2DRotation, transitionTo2dSize, transitionTo2dTime);
+        gameManager.cameraManager.transform.DOLocalMove(transitionTo2DPosition, transitionTo2dTime);
+        gameManager.cameraManager.transform.DOLocalRotate(transitionTo2DRotation, transitionTo2dTime);
+        Camera.main.DOOrthoSize(transitionTo2dSize, transitionTo2dTime);
     }
 
     protected override void OnExit()
     {
+        Debug.Log("GameStateTransitionTo2d: OnExit: called");
+
         GameObject _extazModeHolder = GameObject.Find("2D Extaz");
 
         foreach (Transform childTransform in _extazModeHolder.transform.GetComponentsInChildren<Transform>(true))
@@ -141,18 +158,6 @@ public class GameStateTransitionTo2d : GameState
         if (stateTimer > transitionTo2dTime + 0.05f)
         {
             gameManager.SwitchState(new GameState2d(gameManager));
-
-            float _firstX = Mathf.SmoothStep(firstFromX, firstToX, 1);
-            float _secondX = Mathf.SmoothStep(secondFromX, secondToX, 1);
-            float _thirdX = Mathf.SmoothStep(thirdFromX, thirdToX, 1);
-
-            Vector3 _firstPos = firstCharacter.character.transform.localPosition;
-            Vector3 _secondPos = secondCharacter.character.transform.localPosition;
-            Vector3 _thirdPos = thirdCharacter.character.transform.localPosition;
-
-            firstCharacter.character.transform.localPosition = new Vector3(_firstX, _firstPos.y, _firstPos.z);
-            secondCharacter.character.transform.localPosition = new Vector3(_secondX, _secondPos.y, _secondPos.z);
-            thirdCharacter.character.transform.localPosition = new Vector3(_thirdX, _thirdPos.y, _thirdPos.z);
         }
 
         if (stateTimer > 0.05f)
