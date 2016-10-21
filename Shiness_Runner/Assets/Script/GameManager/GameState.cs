@@ -54,9 +54,18 @@ public abstract class GameState {
         }
     }
 
+    public void ButtonPressed(string buttonName)
+    {
+        if (isActive)
+        {
+            OnButtonPressed(buttonName);
+        }
+    }
+
     protected abstract void OnEnter();
     protected abstract void OnExit();
     protected abstract void OnUpdate();
     protected abstract void OnHandleInput(JoystickState[] joystickStates);
     protected abstract void OnPlayerDied(PlayerInfo player);
+    protected abstract void OnButtonPressed(string buttonName);
 }
