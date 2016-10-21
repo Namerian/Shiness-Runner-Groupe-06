@@ -134,7 +134,9 @@ public class GameManager : MonoBehaviour
             bool _YAxisDown_previous = false;
 
             bool _axisLT = false;
+            bool _axisLT_previous = false;
             bool _axisRT = false;
+            bool _axisRT_previous = false;
 
             float _axisY_pos;
             float _axisLT_pos;
@@ -144,6 +146,8 @@ public class GameManager : MonoBehaviour
             {
                 _YAxisUp_previous = previousJoystickStates[i].yAxisUp;
                 _YAxisDown_previous = previousJoystickStates[i].yAxisDown;
+                _axisLT_previous = previousJoystickStates[i].axisLT;
+                _axisRT_previous = previousJoystickStates[i].axisRT;
             }
 
             if (playerInfoArray[i].joystick != "")
@@ -188,18 +192,26 @@ public class GameManager : MonoBehaviour
 
                 //axis LT
                 _axisLT_pos = Input.GetAxis("Joy" + (i + 1) + "_LT");
-                //Debug.Log("GamaManager: player" + i + " axisLT=" + _axisLT_pos);
+                Debug.Log("GamaManager: player" + i + " axisLT=" + _axisLT_pos);
 
                 if (_axisLT_pos > 0)
+                {
+                    _axisLT = true;
+                }
+                else if (_axisLT_previous && _axisLT_pos != 0)
                 {
                     _axisLT = true;
                 }
 
                 //axis RT
                 _axisRT_pos = Input.GetAxis("Joy" + (i + 1) + "_RT");
-                //Debug.Log("GamaManager: player" + i + " axisRT=" + _axisRT_pos);
+                Debug.Log("GamaManager: player" + i + " axisRT=" + _axisRT_pos);
 
                 if (_axisRT_pos > 0)
+                {
+                    _axisRT = true;
+                }
+                else if (_axisRT_previous && _axisRT_pos != 0)
                 {
                     _axisRT = true;
                 }
