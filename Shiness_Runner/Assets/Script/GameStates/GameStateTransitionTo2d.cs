@@ -44,10 +44,9 @@ public class GameStateTransitionTo2d : GameState
 
         foreach(Transform childTransform in _habillageHolder.transform.GetComponentsInChildren<Transform>())
         {
-            if(childTransform.tag == "Brawl mode obstacles")
-            {
+            
                 childTransform.gameObject.SetActive(false);
-            }
+            
         }
 
         //################################################

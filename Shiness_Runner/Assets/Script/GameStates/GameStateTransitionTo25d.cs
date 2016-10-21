@@ -114,10 +114,9 @@ public class GameStateTransitionTo25d : GameState
 
         foreach (Transform childTransform in _habillageHolder.transform.GetComponentsInChildren<Transform>(true))
         {
-            if (childTransform.tag == "Brawl mode obstacles")
-            {
+            if(!childTransform.name.Contains("Light"))
                 childTransform.gameObject.SetActive(true);
-            }
+            
         }
 
         /*GameObject[] _brawlModeObstacles = GameObject.FindGameObjectsWithTag("Brawl mode obstacles");
