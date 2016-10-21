@@ -186,7 +186,7 @@ public class UI : MonoBehaviour {
             case "Character3":
                 players[2].transform.FindChild("profile").DOScale(new Vector3(1.25f, 1.25f, 1), 1f).SetId("UpProfile"); ;
                 players[1].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
-                players[3].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
+                players[0].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
                 break;
         }
     }
