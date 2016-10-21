@@ -297,10 +297,4 @@ public class GameManager : MonoBehaviour
 
         _info.score = _newScore;
     }
-
-    void GameOver()
-    {
-        FindObjectOfType<ReferenceBodyController>().StopMove();
-        SwitchState(new GameStateGameOver(this));
-    }
 }

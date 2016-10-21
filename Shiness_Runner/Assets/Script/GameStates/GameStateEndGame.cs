@@ -10,7 +10,7 @@ public class GameStateEndGame : GameState
 
     protected override void OnEnter()
     {
-        GameObject.FindObjectOfType<ReferenceBodyController>().StopMove();
+        GameObject.FindObjectOfType<ReferenceBodyController>().ChangeSpeed(0f);
 
         GameObject _endGameUI;
         _endGameUI = GameObject.FindObjectOfType<Canvas>().transform.FindChild("EndGame").gameObject;
