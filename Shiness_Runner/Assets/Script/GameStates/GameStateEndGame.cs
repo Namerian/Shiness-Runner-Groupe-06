@@ -16,6 +16,7 @@ public class GameStateEndGame : GameState
 
         GameObject _endGameUI;
         _endGameUI = GameObject.FindObjectOfType<Canvas>().transform.FindChild("EndGame").gameObject;
+        GameObject.FindObjectOfType<Canvas>().GetComponent<UI>().Ranking();
         _endGameUI.SetActive(true);
     }
 

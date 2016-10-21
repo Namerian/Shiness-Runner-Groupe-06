@@ -5,7 +5,9 @@ public class PlayerInfo
 {
     public HeroController character { get; private set; }
 
-    public string joystick { get; private set; }
+    public bool activeJoystick { get; private set; }
+
+    public int joystickIndex { get; private set; }
 
     public int index { get; private set; }
 
@@ -18,10 +20,11 @@ public class PlayerInfo
 
     public float score { get; set; }
 
-    public PlayerInfo(HeroController character, string joystick, int index, int lane)
+    public PlayerInfo(HeroController character, bool activeJoystick, int joystickIndex, int index, int lane)
     {
         this.character = character;
-        this.joystick = joystick;
+        this.activeJoystick = activeJoystick;
+        this.joystickIndex = joystickIndex;
         this.index = index;
         this.currentLane = lane;
 

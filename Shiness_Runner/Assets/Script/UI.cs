@@ -5,7 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 
-public class UI : MonoBehaviour {
+public class UI : MonoBehaviour
+{
 
     public Text scoretext;
     public Text multiplier;
@@ -17,29 +18,36 @@ public class UI : MonoBehaviour {
     public GameObject RetryButton;
     private GameManager gameManager;
 
-	public Sprite frameNotFull;
-	public Sprite frameFull;
-	public GameObject referenceToExtazFrame;
+    public Sprite frameNotFull;
+    public Sprite frameFull;
+    public GameObject referenceToExtazFrame;
 
     float score;
     bool extazcanwow = true;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         RotateScoreLeft();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (gameManager.GetPlayerInfo(0) == null || gameManager.GetPlayerInfo(1) == null || gameManager.GetPlayerInfo(2) == null)
+        {
+            return;
+        }
 
         ScorePlayer();
         multiplier.text = "x" + gameManager.scoreMultiplier;
+
         score = Mathf.Round(gameManager.GetPlayerInfo(0).score) + Mathf.Round(gameManager.GetPlayerInfo(1).score) + Mathf.Round(gameManager.GetPlayerInfo(2).score);
 
-        if(score < 10)
+        if (score < 10)
             scoretext.text = "00000" + score;
-        else if(score >= 10 && score < 100)
+        else if (score >= 10 && score < 100)
             scoretext.text = "0000" + score;
         else if (score >= 100 && score < 1000)
             scoretext.text = "000" + score;
@@ -53,9 +61,10 @@ public class UI : MonoBehaviour {
         if (extaz.value >= 100 && extazcanwow == true)
         {
             ScaleSliderUp();
-			frameFullAnimation ();
+            frameFullAnimation();
             extazcanwow = false;
-        }else if(extaz.value < 100)
+        }
+        else if (extaz.value < 100)
         {
             DOTween.Kill("ScaleUp");
             DOTween.Kill("ScaleDown");
@@ -126,18 +135,18 @@ public class UI : MonoBehaviour {
         extaz.transform.DOScale(1f, 0.75f).SetId("ScaleDown").SetEase(Ease.Linear).OnComplete(ScaleSliderUp);
     }
 
-	public IEnumerator frameFullAnimation()
-	{
-		referenceToExtazFrame.GetComponent<Image>().sprite = frameFull;
-		yield return null;
-	}
+    public IEnumerator frameFullAnimation()
+    {
+        referenceToExtazFrame.GetComponent<Image>().sprite = frameFull;
+        yield return null;
+    }
 
     /*********************
     **PLAYER ANITMATIONS**
     *********************/
 
     //DEATH FEEDBACK (à appeler quand un joueur meurt)
-    public void GoGrey(int playernumber) 
+    public void GoGrey(int playernumber)
     {
         players[playernumber].GetComponentInChildren<Image>().DOBlendableColor(new Color32(0x54, 0x54, 0x54, 0xFF), 1f);
     }
@@ -145,7 +154,7 @@ public class UI : MonoBehaviour {
     //REVIVE FEEDBACK (à appeler quand un joueur est revive)
     public void GoWhite(int playernumber)
     {
-        players[playernumber].GetComponentInChildren<Image>().DOBlendableColor(Color.white,1f);
+        players[playernumber].GetComponentInChildren<Image>().DOBlendableColor(Color.white, 1f);
     }
 
     //HIT FEEDBACK (à appeler quand le joueur est hit)
@@ -154,7 +163,7 @@ public class UI : MonoBehaviour {
         switch (playername)
         {
             case "Character1":
-                if(gameManager.GetPlayerInfo(0).isDead == false)
+                if (gameManager.GetPlayerInfo(0).isDead == false)
                     players[0].transform.FindChild("profile").DOShakePosition(0.5f, 5f, 18, 90, false, true);
                 break;
             case "Character2":
@@ -165,7 +174,7 @@ public class UI : MonoBehaviour {
                 if (gameManager.GetPlayerInfo(2).isDead == false)
                     players[2].transform.FindChild("profile").DOShakePosition(0.5f, 5f, 18, 90, false, true);
                 break;
-        }       
+        }
     }
 
     //MVP FEEDBACK (à appeler en update pour distinguer le joueur qui a le meilleur score)
@@ -186,16 +195,20 @@ public class UI : MonoBehaviour {
             case "Character3":
                 players[2].transform.FindChild("profile").DOScale(new Vector3(1.25f, 1.25f, 1), 1f).SetId("UpProfile"); ;
                 players[1].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
-                players[3].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
+                players[0].transform.FindChild("profile").DOScale(new Vector3(1f, 1f, 1), 1f).SetId("DownProfile");
                 break;
         }
     }
 
     public void ScorePlayer()
     {
-        players[0].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(gameManager.GetPlayerInfo(0).score);
-        players[1].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(gameManager.GetPlayerInfo(1).score);
-        players[2].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(gameManager.GetPlayerInfo(2).score);
+        PlayerInfo info1 = gameManager.GetPlayerInfo(0);
+        PlayerInfo info2 = gameManager.GetPlayerInfo(1);
+        PlayerInfo info3 = gameManager.GetPlayerInfo(2);
+
+        players[info1.index].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(info1.score);
+        players[info2.index].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(info2.score);
+        players[info3.index].transform.FindChild("score").GetComponent<Text>().text = "" + Mathf.Round(info3.score);
     }
 
     /************

@@ -3,13 +3,22 @@ using System.Collections;
 
 public class ObstacleCollision : MonoBehaviour {
 
+    GameObject _fx;
     Animator _anim;
     Rigidbody _rb;
     GameManager _gm;
+    bool _enemy;
+
 
     void Start()
     {
         _gm = FindObjectOfType<GameManager>();
+        _enemy = false;
+        if (name.Contains("Enemy"))
+        {
+            _enemy = true;
+            _fx = transform.FindChild("FX_Enemy_Death").gameObject;
+        }
     }
 
     void OnTriggerEnter(Collider col)
@@ -55,6 +64,15 @@ public class ObstacleCollision : MonoBehaviour {
                 _gm.PlayerDied(col.gameObject.GetComponent<HeroController>());
                 _anim.SetTrigger("HitToRun");
             }
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (_enemy)
+        {
+            _fx.transform.parent = null;
+            _fx.SetActive(true);
         }
     }
 }

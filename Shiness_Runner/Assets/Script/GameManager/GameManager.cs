@@ -6,24 +6,18 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    private PlayerInfo[] playerInfoArray;
-
     public CameraManager cameraManager { get; private set; }
-
     private Slider extaseSliderView;
-
-    public GameState currentState;
-
-    private float extase;
-
-    private JoystickState[] previousJoystickStates;
-
-    public float extasePerSecond;
-
     public Canvas uicanvas;
 
-    public float scoreMultiplier;
+    private PlayerInfo[] playerInfoArray;
+    private GameState currentState;
+    private float extase;
+    private JoystickState[] previousJoystickStates;
+    private string[] joystickNames;
 
+    public float extasePerSecond;
+    public float scoreMultiplier;
     public float enemyBatScoreValue;
     public float enemyGolemScoreValue;
     public float enemyEssaimScoreValue;
@@ -69,26 +63,39 @@ public class GameManager : MonoBehaviour
         cameraManager = GameObject.Find("MainCamera").GetComponent<CameraManager>();
         extaseSliderView = GameObject.Find("UI/ExtaseBarUI/ExtaseSlider").GetComponent<Slider>();
         uicanvas = GameObject.Find("UI").GetComponent<Canvas>();
-
         //GameObject.Find("ReferenceBody/Speedlines_Foreground").GetComponent<SpeedLines_Opacity>().RemoveSpeedLines();
+
+        //#################################################
 
         playerInfoArray = new PlayerInfo[3];
         string[] _joysticks = Input.GetJoystickNames();
+        joystickNames = new string[] { "", "", "" };
+        for(int i = 0; i < 3; i++)
+        {
+            if(i < _joysticks.Length && _joysticks[i] != "")
+            {
+                joystickNames[i] = _joysticks[i];
+            }
+            else
+            {
+                break;
+            }
+        }
 
-        for (int i = 0; i < 3; i++)
+        /*for (int i = 0; i < 3; i++)
         {
             string _joystick = "";
             HeroController _character;
 
-            if (_joysticks.Length > i && _joysticks[i] != null && _joysticks[i] != "")
+            if (joystickNames.Length > i && joystickNames[i] != null && joystickNames[i] != "")
             {
-                _joystick = _joysticks[i];
+                _joystick = joystickNames[i];
             }
 
             _character = GameObject.Find("Character" + (i + 1)).GetComponent<HeroController>();
 
             playerInfoArray[i] = new PlayerInfo(_character, _joystick, i, i);
-        }
+        }*/
 
         //#################################################
 
@@ -150,7 +157,7 @@ public class GameManager : MonoBehaviour
                 _axisRT_previous = previousJoystickStates[i].axisRT;
             }
 
-            if (playerInfoArray[i].joystick != "")
+            if (joystickNames[i] != "")
             {
                 //button A
                 if (Input.GetKeyDown("joystick " + (i + 1) + " button 0"))
@@ -180,19 +187,21 @@ public class GameManager : MonoBehaviour
 
                 //axis Y
                 _axisY_pos = Input.GetAxis("Joy" + (i + 1) + "_Yaxis");
+                //Debug.Log("y axis=" + _axisY_pos);
 
                 if (_axisY_pos < 0 && !_YAxisUp_previous)
                 {
                     _YAxisUp = true;
+                    //Debug.Log("Up");
                 }
                 else if (_axisY_pos > 0 && !_YAxisDown_previous)
                 {
                     _YAxisDown = true;
+                    //Debug.Log("Down");
                 }
 
                 //axis LT
                 _axisLT_pos = Input.GetAxis("Joy" + (i + 1) + "_LT");
-                Debug.Log("GamaManager: player" + i + " axisLT=" + _axisLT_pos);
 
                 if (_axisLT_pos > 0)
                 {
@@ -205,7 +214,6 @@ public class GameManager : MonoBehaviour
 
                 //axis RT
                 _axisRT_pos = Input.GetAxis("Joy" + (i + 1) + "_RT");
-                Debug.Log("GamaManager: player" + i + " axisRT=" + _axisRT_pos);
 
                 if (_axisRT_pos > 0)
                 {
@@ -217,7 +225,18 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            _joystickStates[i] = new JoystickState(i, _buttonA_down, _buttonA_up, _buttonB_down, _buttonB_up, _buttonX_down, _YAxisUp, _YAxisDown, _axisLT, _axisRT);
+            PlayerInfo _playerInfo = null;
+            foreach(PlayerInfo info in playerInfoArray)
+            {
+                if(info != null && info.joystickIndex == i)
+                {
+                    _playerInfo = info;
+                    //Debug.Log("GameManager: Update: found PlayerInfo for Joystick");
+                    break;
+                }
+            }
+
+            _joystickStates[i] = new JoystickState(_playerInfo, _buttonA_down, _buttonA_up, _buttonB_down, _buttonB_up, _buttonX_down, _YAxisUp, _YAxisDown, _axisLT, _axisRT);
         }
 
         currentState.HandleInput(_joystickStates);
@@ -314,5 +333,14 @@ public class GameManager : MonoBehaviour
     public void ButtonPressed(string buttonName)
     {
         currentState.ButtonPressed(buttonName);
+    }
+
+    //#################################################
+    //
+    //#################################################
+    public void SetPlayerInfo(int index, PlayerInfo info)
+    {
+        playerInfoArray[index] = info;
+        //Debug.Log("GameManager: SepPlayerInfo: index = " + index);
     }
 }
