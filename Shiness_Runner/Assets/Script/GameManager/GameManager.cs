@@ -192,12 +192,12 @@ public class GameManager : MonoBehaviour
                 if (_axisY_pos < 0 && !_YAxisUp_previous)
                 {
                     _YAxisUp = true;
-                    Debug.Log("Up");
+                    //Debug.Log("Up");
                 }
                 else if (_axisY_pos > 0 && !_YAxisDown_previous)
                 {
                     _YAxisDown = true;
-                    Debug.Log("Down");
+                    //Debug.Log("Down");
                 }
 
                 //axis LT
@@ -231,7 +231,7 @@ public class GameManager : MonoBehaviour
                 if(info != null && info.joystickIndex == i)
                 {
                     _playerInfo = info;
-                    Debug.Log("GameManager: Update: found PlayerInfo for Joystick");
+                    //Debug.Log("GameManager: Update: found PlayerInfo for Joystick");
                     break;
                 }
             }
@@ -341,6 +341,6 @@ public class GameManager : MonoBehaviour
     public void SetPlayerInfo(int index, PlayerInfo info)
     {
         playerInfoArray[index] = info;
-        Debug.Log("GameManager: SepPlayerInfo: index = " + index);
+        //Debug.Log("GameManager: SepPlayerInfo: index = " + index);
     }
 }

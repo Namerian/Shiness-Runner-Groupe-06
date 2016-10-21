@@ -35,16 +35,16 @@ public class GameStateCharacterSelection : GameState
         string[] _joysticknames = Input.GetJoystickNames();
         activeJoysticks = new bool[] { false, false, false };
 
-        foreach (string name in _joysticknames)
+        /*foreach (string name in _joysticknames)
         {
             Debug.Log("joystickname: " + name);
-        }
+        }*/
 
         for (int i = 0; i < 3; i++)
         {
             if (i < _joysticknames.Length && _joysticknames[i] != "")
             {
-                Debug.Log("active joystick recognized, index=" + i);
+                //Debug.Log("active joystick recognized, index=" + i);
                 activeJoysticks[i] = true;
             }
             else
@@ -76,15 +76,15 @@ public class GameStateCharacterSelection : GameState
 
     protected override void OnHandleInput(JoystickState[] joystickStates)
     {
-        Debug.Log("current Joystick:" + currentJoystick);
-        Debug.Log("num of joystickstates:" + joystickStates.Length);
+        //Debug.Log("current Joystick:" + currentJoystick);
+        //Debug.Log("num of joystickstates:" + joystickStates.Length);
         JoystickState _activeJoystick = joystickStates[currentJoystick];
-        Debug.Log("charSel: joyName= " + activeJoysticks[currentJoystick]);
+        //Debug.Log("charSel: joyName= " + activeJoysticks[currentJoystick]);
 
         //
         if (activeJoysticks[currentJoystick] == false || _activeJoystick.buttonA_down)
         {
-            Debug.Log("Character selected: " + currentCharacter);
+            //Debug.Log("Character selected: " + currentCharacter);
             gameManager.SetPlayerInfo(currentJoystick, new PlayerInfo(characters[currentCharacter], activeJoysticks[currentJoystick], currentJoystick, currentCharacter, currentCharacter));
 
             selectedCharacters[currentCharacter] = true;
