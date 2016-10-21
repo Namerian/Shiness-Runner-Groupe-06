@@ -10,7 +10,7 @@ public class GameStateGameOver : GameState
 
     protected override void OnEnter()
     {
-        GameObject.FindObjectOfType<ReferenceBodyController>().StopMove();
+        GameObject.FindObjectOfType<ReferenceBodyController>().ChangeSpeed(0f);
 
         GameObject _gameOverUI;
         _gameOverUI = GameObject.FindObjectOfType<Canvas>().transform.FindChild("GameOver").gameObject;
