@@ -51,7 +51,7 @@ public class GameStateTransitionTo2d : GameState
                 info.character.transform.localPosition = new Vector3(-10f, _charPos.y, _charPos.z);
 
                 info.character.gameObject.SetActive(true);
-                info.isDead = true;
+                info.isDead = false;
                 info.previous25dX = -10f;
                 _uiScript.GoWhite(info.index);
             }
