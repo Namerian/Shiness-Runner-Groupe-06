@@ -2,36 +2,26 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ReferenceBodyController : MonoBehaviour {
-
-    public float moveSpeed;
-    float _movespeed;
+public class ReferenceBodyController : MonoBehaviour
+{
+    private float _movespeed;
     public List<GameObject> Children;
-    
-	void Start () {
-        GetComponent<MeshRenderer>().enabled = false;
-        StartMove();
-         foreach (Transform child in transform)
-         {
-             if (child.tag == "Player")
-             {
-                 Children.Add(child.gameObject);
-             }
-         }
-	}
-	
-	void Update () {
-        transform.position += new Vector3(_movespeed * Time.deltaTime , 0, 0);
-	}
 
-    public void StartMove()
+    void Start()
     {
-        _movespeed = moveSpeed;
+        GetComponent<MeshRenderer>().enabled = false;
+        foreach (Transform child in transform)
+        {
+            if (child.tag == "Player")
+            {
+                Children.Add(child.gameObject);
+            }
+        }
     }
 
-    public void StopMove()
+    void Update()
     {
-        _movespeed = 0.0f;
+        transform.position += new Vector3(_movespeed * Time.deltaTime, 0, 0);
     }
 
     public void ChangeSpeed(float speed)

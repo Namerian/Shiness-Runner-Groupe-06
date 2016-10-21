@@ -37,4 +37,8 @@ public class GameStateCharacterSelection : GameState
             gameManager.SwitchState(new GameState25d(gameManager));
         }
     }
+
+    protected override void OnButtonPressed(string buttonName)
+    {
+    }
 }

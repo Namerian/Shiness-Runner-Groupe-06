@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+
 using System.Collections;
 using System;
 
@@ -10,7 +12,7 @@ public class GameStateEndGame : GameState
 
     protected override void OnEnter()
     {
-        GameObject.FindObjectOfType<ReferenceBodyController>().StopMove();
+        GameObject.FindObjectOfType<ReferenceBodyController>().ChangeSpeed(0f);
 
         GameObject _endGameUI;
         _endGameUI = GameObject.FindObjectOfType<Canvas>().transform.FindChild("EndGame").gameObject;
@@ -31,5 +33,17 @@ public class GameStateEndGame : GameState
 
     protected override void OnUpdate()
     {
+    }
+
+    protected override void OnButtonPressed(string buttonName)
+    {
+        if (buttonName == "Retry")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else if (buttonName == "Quit")
+        {
+            Application.Quit();
+        }
     }
 }

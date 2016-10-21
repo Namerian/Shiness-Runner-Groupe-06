@@ -13,19 +13,50 @@ public class GameState2d : GameState
 	{
         gameManager.ScoreMultiplier = 2f;
         GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().ChangeSpeed(8f);
-
-        //GameObject.Find("ReferenceBody/Speedlines_Foreground").GetComponent<SpeedLines_Opacity>().AddSpeedLines();
-        //GameObject.Find("GameManager/Speedlines_Background").GetComponent<Speedlines_background>().AddSpeedLines();
+        GameObject.Find("ReferenceBody/MainCamera/Speedlines_Foreground").SetActive(true);
 	}
 
 	protected override void OnExit ()
-	{
-        //GameObject.Find("ReferenceBody/Speedlines_Foreground").GetComponent<SpeedLines_Opacity>().RemoveSpeedLines();
-        //GameObject.Find("GameManager/Speedlines_Background").GetComponent<Speedlines_background>().RemoveSpeedLines();
+    {
+        GameObject.Find("ReferenceBody/MainCamera/Speedlines_Foreground").SetActive(false);
     }
 
 	protected override void OnHandleInput (JoystickState[] joystickStates)
 	{
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.Jump();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.JumpCancel();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.SlideStart();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.SlideStop();
+            }
+        }
+
+        //##################################
+
         for (int i = 0; i < joystickStates.Length; i++)
         {
             JoystickState _stickState = joystickStates[i];
@@ -114,5 +145,9 @@ public class GameState2d : GameState
     {
         player.isDead = true;
         player.character.gameObject.SetActive(false);
+    }
+
+    protected override void OnButtonPressed(string buttonName)
+    {
     }
 }

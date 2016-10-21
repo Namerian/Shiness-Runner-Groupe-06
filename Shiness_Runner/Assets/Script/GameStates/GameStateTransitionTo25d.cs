@@ -24,6 +24,10 @@ public class GameStateTransitionTo25d : GameState
         GameObject _extazModeHolder = GameObject.Find("2D Extaz");
         Transform[] _extazHolderChildren = _extazModeHolder.transform.GetComponentsInChildren<Transform>();
 
+		////Trying to add/remove the speedlines
+		//GameObject.Find("ReferenceBody/MainCamera/Speedlines_Foreground").GetComponent<SpeedLines_Opacity>().AddSpeedLines();
+		//GameObject.Find("GameManager/Speedlines_Background").GetComponent<SpeedLines_Opacity>().AddSpeedLines();
+
         foreach (Transform childTransform in _extazHolderChildren)
         {
             if (childTransform != _extazModeHolder.transform)
@@ -86,6 +90,10 @@ public class GameStateTransitionTo25d : GameState
     {
         GameObject _brawlModeHolder = GameObject.Find("2.5D Brawl");
         Transform[] _brawlHolderChildren = _brawlModeHolder.transform.GetComponentsInChildren<Transform>(true);
+
+		//Trying to add/remove the speedlines
+		//GameObject.Find("ReferenceBody/MainCamera/Speedlines_Foreground").GetComponent<SpeedLines_Opacity>().RemoveSpeedLines();
+		//GameObject.Find("GameManager/Speedlines_Background").GetComponent<SpeedLines_Opacity>().RemoveSpeedLines();
 
         foreach (Transform childTransform in _brawlHolderChildren)
         {
@@ -156,6 +164,10 @@ public class GameStateTransitionTo25d : GameState
     }
 
     protected override void OnPlayerDied(PlayerInfo player)
+    {
+    }
+
+    protected override void OnButtonPressed(string buttonName)
     {
     }
 }
