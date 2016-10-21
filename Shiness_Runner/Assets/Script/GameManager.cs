@@ -118,48 +118,6 @@ public class GameManager : MonoBehaviour
     //#################################################
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            foreach (PlayerInfo info in playerInfoArray)
-            {
-                info.character.Jump();
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            foreach (PlayerInfo info in playerInfoArray)
-            {
-                info.character.JumpCancel();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            foreach (PlayerInfo info in playerInfoArray)
-            {
-                info.character.SlideStart();
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            foreach (PlayerInfo info in playerInfoArray)
-            {
-                info.character.SlideStop();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            foreach (PlayerInfo info in playerInfoArray)
-            {
-                info.character.Ability();
-            }
-        }
-
-        //#################################################
-
         JoystickState[] _joystickStates = new JoystickState[3];
 
         for (int i = 0; i < 3; i++)
@@ -230,7 +188,7 @@ public class GameManager : MonoBehaviour
 
                 //axis LT
                 _axisLT_pos = Input.GetAxis("Joy" + (i + 1) + "_LT");
-                Debug.Log("GamaManager: player" + i + " axisLT=" + _axisLT_pos);
+                //Debug.Log("GamaManager: player" + i + " axisLT=" + _axisLT_pos);
 
                 if (_axisLT_pos > 0)
                 {
@@ -239,7 +197,7 @@ public class GameManager : MonoBehaviour
 
                 //axis RT
                 _axisRT_pos = Input.GetAxis("Joy" + (i + 1) + "_RT");
-                Debug.Log("GamaManager: player" + i + " axisRT=" + _axisRT_pos);
+                //Debug.Log("GamaManager: player" + i + " axisRT=" + _axisRT_pos);
 
                 if (_axisRT_pos > 0)
                 {

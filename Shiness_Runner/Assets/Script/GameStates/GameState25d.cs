@@ -32,6 +32,46 @@ public class GameState25d : GameState
 
     protected override void OnHandleInput(JoystickState[] joystickStates)
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.Jump();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.JumpCancel();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.SlideStart();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.SlideStop();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.Ability();
+            }
+        }
+
         //##################################
         //extase check
         if (gameManager.Extase == 100f)
@@ -41,14 +81,14 @@ public class GameState25d : GameState
             foreach (JoystickState state in joystickStates)
             {
                 PlayerInfo _info = gameManager.GetPlayerInfo(state.characterIndex);
-                Debug.Log("GameState25d: HandleInput: checking if player " + _info.index + " is pressing LT RT");
+                //Debug.Log("GameState25d: HandleInput: checking if player " + _info.index + " is pressing LT RT");
 
                 if (!_info.isDead && _info.joystick != "")
                 {
-                    Debug.Log("player " + _info.index + " is not dead and has a controller");
+                    //Debug.Log("player " + _info.index + " is not dead and has a controller");
                     if (!(state.axisLT && state.axisRT))
                     {
-                        Debug.Log("player " + _info.index + " is not pressing LT and RT");
+                        //Debug.Log("player " + _info.index + " is not pressing LT and RT");
                         _switchMode = false;
                     }
                 }
