@@ -21,9 +21,9 @@ public class CameraManager : MonoBehaviour
 	{
 		if (isTransitioning) {
 			if (transitionTimer > transitionTime) {
-                Camera.main.transform.localPosition = transitionTargetPosition;
-                Camera.main.transform.localEulerAngles = transitionTargetRotation;
-                Camera.main.orthographicSize = transitionTargetSize;
+                //Camera.main.transform.localPosition = transitionTargetPosition;
+                //Camera.main.transform.localEulerAngles = transitionTargetRotation;
+                //Camera.main.orthographicSize = transitionTargetSize;
 
 				isTransitioning = false;
 

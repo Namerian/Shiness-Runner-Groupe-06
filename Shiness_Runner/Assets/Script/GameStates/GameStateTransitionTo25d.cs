@@ -110,6 +110,16 @@ public class GameStateTransitionTo25d : GameState
             }
         }
 
+        GameObject _habillageHolder = GameObject.Find("Habillage level");
+
+        foreach (Transform childTransform in _habillageHolder.transform.GetComponentsInChildren<Transform>(true))
+        {
+            if (childTransform.tag == "Brawl mode obstacles")
+            {
+                childTransform.gameObject.SetActive(true);
+            }
+        }
+
         /*GameObject[] _brawlModeObstacles = GameObject.FindGameObjectsWithTag("Brawl mode obstacles");
         float _xLimit = gameManager.cameraManager.transform.position.x + 5f;
         foreach (GameObject brawlObstacle in _brawlModeObstacles)
