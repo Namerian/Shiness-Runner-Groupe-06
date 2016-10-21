@@ -69,10 +69,10 @@ public class GameState2d : GameState
             }
 
             //
-            if (_character.gameObject.name != "Character" + (_stickState.playerInfo.index + 1))
+            /*if (_character.gameObject.name != "Character" + (_stickState.playerInfo.index + 1))
             {
                 Debug.LogError("GameState25d: OnHandleInput: character index (" + _character.gameObject.name + " != joystick index" + _stickState.playerInfo.index);
-            }
+            }*/
 
             //jump
             if (_stickState.buttonA_down)
