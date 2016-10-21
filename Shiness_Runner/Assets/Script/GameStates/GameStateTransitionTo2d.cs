@@ -9,7 +9,7 @@ public class GameStateTransitionTo2d : GameState
     private Vector3 transitionTo2DPosition = new Vector3(1.25f, 1.25f, -8f);
     private Vector3 transitionTo2DRotation = new Vector3(0f, 0f, 0f);
     private const float transitionTo2dSize = 2.5f;
-    private const float transitionTo2dTime = 0.5f;
+    private const float transitionTo2dTime = 0.2f;
 
     private float stateTimer;
 
