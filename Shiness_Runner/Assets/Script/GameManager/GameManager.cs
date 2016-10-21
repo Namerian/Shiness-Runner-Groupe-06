@@ -223,6 +223,11 @@ public class GameManager : MonoBehaviour
                 {
                     _axisRT = true;
                 }
+
+                if(_axisLT && _axisRT)
+                {
+                    Debug.Log("joystick " + i + " LT and RT pressed");
+                }
             }
 
             PlayerInfo _playerInfo = null;

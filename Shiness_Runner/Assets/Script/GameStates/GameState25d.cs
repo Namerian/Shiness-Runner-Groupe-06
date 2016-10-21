@@ -81,14 +81,11 @@ public class GameState25d : GameState
             foreach (JoystickState state in joystickStates)
             {
                 PlayerInfo _info = state.playerInfo;
-                //Debug.Log("GameState25d: HandleInput: checking if player " + _info.index + " is pressing LT RT");
 
                 if (!_info.isDead && _info.activeJoystick == true)
                 {
-                    //Debug.Log("player " + _info.index + " is not dead and has a controller");
                     if (!(state.axisLT && state.axisRT))
                     {
-                        //Debug.Log("player " + _info.index + " is not pressing LT and RT");
                         _switchMode = false;
                     }
                 }

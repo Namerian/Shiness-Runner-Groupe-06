@@ -221,8 +221,9 @@ public class UI : MonoBehaviour
 
     public void Ranking()
     {
-
         this.transform.FindChild("EndGame").FindChild("FinalScore").GetComponent<Text>().text = "" + (Mathf.Round(gameManager.GetPlayerInfo(0).score) + Mathf.Round(gameManager.GetPlayerInfo(1).score) + Mathf.Round(gameManager.GetPlayerInfo(2).score));
+
+        
 
         if (gameManager.GetPlayerInfo(0).score > gameManager.GetPlayerInfo(1).score && gameManager.GetPlayerInfo(0).score > gameManager.GetPlayerInfo(2).score)
         {
