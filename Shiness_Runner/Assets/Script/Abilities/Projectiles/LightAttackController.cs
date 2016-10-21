@@ -36,6 +36,5 @@ public class LightAttackController : MonoBehaviour {
             _gm.AddScore(_gm.enemyBatScoreValue, _player.GetComponent<HeroController>());
             Destroy(col.gameObject);
         }
-        Destroy(gameObject);
     }
 }
