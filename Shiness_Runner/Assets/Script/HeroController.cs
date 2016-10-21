@@ -14,6 +14,7 @@ public class HeroController : MonoBehaviour {
     public bool transitioning { get; private set; }
 
     //intern variables
+    GameObject _dustFx;
     Rigidbody _rb;
     Collider _collider;
     Color _tempColor;
@@ -45,6 +46,8 @@ public class HeroController : MonoBehaviour {
         _jumpCancel = false;
         _transitionTime = 0.2f;
         //transform.localEulerAngles = new Vector3(0, 0, 0);
+        _dustFx = transform.FindChild("FX_Dust").gameObject;
+        _dustFx.SetActive(true);
     }
 
 
@@ -72,6 +75,8 @@ public class HeroController : MonoBehaviour {
             {
                 _rb.velocity = new Vector3(_rb.velocity.x, -fallSpeed, 0);
                 _anim.SetTrigger("JumpToRun");
+                if(IsGrounded())
+                    _dustFx.SetActive(true);
             }
         }
         else if (((_rb.transform.position.y - _jumpStartLocation) >= jumpHeight && !IsGrounded()) || (_jumpCancel && (_rb.transform.position.y - _jumpStartLocation) >= jumpMin))
@@ -126,13 +131,14 @@ public class HeroController : MonoBehaviour {
     }
 
     bool IsGrounded() {
-        return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.4f);
+        return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 0.1f);
     }
 
     public void Jump()
     {
         if (IsGrounded())
         {
+            _dustFx.SetActive(false);
             _anim.SetTrigger("RunToJump");
             _rb.velocity +=  new Vector3(0, jumpForce, 0);
             _jumpStartLocation = transform.position.y;

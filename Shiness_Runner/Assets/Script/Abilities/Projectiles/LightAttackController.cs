@@ -31,10 +31,13 @@ public class LightAttackController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.name.Contains("Enemy_Bat"))
-        {
-            _gm.AddScore(_gm.enemyBatScoreValue, _player.GetComponent<HeroController>());
-            Destroy(col.gameObject);
+        if (col.gameObject.name.Contains("Enemy")) {
+            if (col.gameObject.name.Contains("Enemy_Bat"))
+            {
+                _gm.AddScore(_gm.enemyBatScoreValue, _player.GetComponent<HeroController>());
+                Destroy(col.gameObject);
+            }
+            Destroy(gameObject);
         }
     }
 }
