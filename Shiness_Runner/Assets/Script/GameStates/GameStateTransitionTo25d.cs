@@ -158,4 +158,8 @@ public class GameStateTransitionTo25d : GameState
     protected override void OnPlayerDied(PlayerInfo player)
     {
     }
+
+    protected override void OnButtonPressed(string buttonName)
+    {
+    }
 }

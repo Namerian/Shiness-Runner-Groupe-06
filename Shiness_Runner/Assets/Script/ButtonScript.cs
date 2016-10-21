@@ -5,9 +5,11 @@ using System.Collections;
 
 public class ButtonScript : MonoBehaviour {
 
+    private GameManager gameManager;
+
 	// Use this for initialization
 	void Start () {
-	
+        gameManager = GameObject.FindObjectOfType<GameManager>();
 	}
 	
 	// Update is called once per frame
@@ -53,7 +55,9 @@ public class ButtonScript : MonoBehaviour {
     //FONCTION QUAND CLIC BOUTON
     public void ClicButton(string buttonname)
     {
-        switch (buttonname)
+        gameManager.ButtonPressed(buttonname);
+
+        /*switch (buttonname)
         {
             case "Retry":
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -62,6 +66,6 @@ public class ButtonScript : MonoBehaviour {
             case "Quit":
                 Application.Quit();
                 break;
-        }
+        }*/
     }
 }
