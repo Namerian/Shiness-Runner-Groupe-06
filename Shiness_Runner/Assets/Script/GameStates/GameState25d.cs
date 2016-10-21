@@ -253,4 +253,8 @@ public class GameState25d : GameState
         player.isDead = true;
         player.character.gameObject.SetActive(false);
     }
+
+    protected override void OnButtonPressed(string buttonName)
+    {
+    }
 }

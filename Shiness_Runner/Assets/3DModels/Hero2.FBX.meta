@@ -1,0 +1,117 @@
+fileFormatVersion: 2
+guid: e0375d0cc713fa042a4dad6f86adfd2e
+timeCreated: 1477040793
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: B_Head
+    100002: B_Headgear
+    100004: B_L_Arm
+    100006: B_L_Foot
+    100008: B_L_Forearm
+    100010: B_L_Foreleg
+    100012: B_L_hand
+    100014: B_L_Leg
+    100016: B_R_Arm
+    100018: B_R_Foot
+    100020: B_R_Forearm
+    100022: B_R_Foreleg
+    100024: B_R_Hand
+    100026: B_R_Leg
+    100028: B_Spine1
+    100030: B_Spine2
+    100032: B_Zero
+    100034: //RootNode
+    100036: SK_Hero2
+    100038: SK_Hero2Head
+    400000: B_Head
+    400002: B_Headgear
+    400004: B_L_Arm
+    400006: B_L_Foot
+    400008: B_L_Forearm
+    400010: B_L_Foreleg
+    400012: B_L_hand
+    400014: B_L_Leg
+    400016: B_R_Arm
+    400018: B_R_Foot
+    400020: B_R_Forearm
+    400022: B_R_Foreleg
+    400024: B_R_Hand
+    400026: B_R_Leg
+    400028: B_Spine1
+    400030: B_Spine2
+    400032: B_Zero
+    400034: //RootNode
+    400036: SK_Hero2
+    400038: SK_Hero2Head
+    4300000: SK_Hero2
+    4300002: SK_Hero2Head
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: SK_Hero2
+    13700002: SK_Hero2Head
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

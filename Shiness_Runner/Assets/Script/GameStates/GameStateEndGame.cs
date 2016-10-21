@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+
 using System.Collections;
 using System;
 
@@ -31,5 +33,17 @@ public class GameStateEndGame : GameState
 
     protected override void OnUpdate()
     {
+    }
+
+    protected override void OnButtonPressed(string buttonName)
+    {
+        if (buttonName == "Retry")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else if (buttonName == "Quit")
+        {
+            Application.Quit();
+        }
     }
 }
