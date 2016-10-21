@@ -13,15 +13,12 @@ public class GameState2d : GameState
 	{
         gameManager.ScoreMultiplier = 2f;
         GameObject.Find("ReferenceBody").GetComponent<ReferenceBodyController>().ChangeSpeed(8f);
-
-        //GameObject.Find("ReferenceBody/Speedlines_Foreground").GetComponent<SpeedLines_Opacity>().AddSpeedLines();
-        //GameObject.Find("GameManager/Speedlines_Background").GetComponent<Speedlines_background>().AddSpeedLines();
+        GameObject.Find("ReferenceBody/MainCamera/Speedlines_Foreground").SetActive(true);
 	}
 
 	protected override void OnExit ()
-	{
-        //GameObject.Find("ReferenceBody/Speedlines_Foreground").GetComponent<SpeedLines_Opacity>().RemoveSpeedLines();
-        //GameObject.Find("GameManager/Speedlines_Background").GetComponent<Speedlines_background>().RemoveSpeedLines();
+    {
+        GameObject.Find("ReferenceBody/MainCamera/Speedlines_Foreground").SetActive(false);
     }
 
 	protected override void OnHandleInput (JoystickState[] joystickStates)
