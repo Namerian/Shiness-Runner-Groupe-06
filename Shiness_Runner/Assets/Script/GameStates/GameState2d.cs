@@ -60,7 +60,7 @@ public class GameState2d : GameState
         for (int i = 0; i < joystickStates.Length; i++)
         {
             JoystickState _stickState = joystickStates[i];
-            PlayerInfo _playerInfo = gameManager.GetPlayerInfo(_stickState.characterIndex);
+            PlayerInfo _playerInfo = gameManager.GetPlayerInfo(_stickState.playerInfo.index);
             HeroController _character = _playerInfo.character;
 
             if (_playerInfo.isDead)
@@ -69,9 +69,9 @@ public class GameState2d : GameState
             }
 
             //
-            if (_character.gameObject.name != "Character" + (_stickState.characterIndex + 1))
+            if (_character.gameObject.name != "Character" + (_stickState.playerInfo.index + 1))
             {
-                Debug.LogError("GameState25d: OnHandleInput: character index (" + _character.gameObject.name + " != joystick index" + _stickState.characterIndex);
+                Debug.LogError("GameState25d: OnHandleInput: character index (" + _character.gameObject.name + " != joystick index" + _stickState.playerInfo.index);
             }
 
             //jump

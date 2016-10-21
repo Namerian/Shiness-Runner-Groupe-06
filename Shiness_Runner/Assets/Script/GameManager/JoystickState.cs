@@ -3,7 +3,7 @@ using System.Collections;
 
 public class JoystickState
 {
-    public int characterIndex { get; private set; }
+    public PlayerInfo playerInfo { get; private set; }
 
     public bool buttonA_down { get; private set; }
     public bool buttonA_up { get; private set; }
@@ -20,14 +20,14 @@ public class JoystickState
     public bool axisRT { get; private set; }
 
     public JoystickState(
-        int characterIndex,
+        PlayerInfo playerInfo,
         bool buttonA_down, bool buttonA_up,
         bool buttonB_down, bool buttonB_up,
         bool buttonX_down,
         bool yAxisUp, bool yAxisDown,
         bool axisLT, bool axisRT)
     {
-        this.characterIndex = characterIndex;
+        this.playerInfo = playerInfo;
 
         this.buttonA_down = buttonA_down;
         this.buttonA_up = buttonA_up;

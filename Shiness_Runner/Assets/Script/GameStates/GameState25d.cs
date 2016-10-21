@@ -80,10 +80,10 @@ public class GameState25d : GameState
 
             foreach (JoystickState state in joystickStates)
             {
-                PlayerInfo _info = gameManager.GetPlayerInfo(state.characterIndex);
+                PlayerInfo _info = state.playerInfo;
                 //Debug.Log("GameState25d: HandleInput: checking if player " + _info.index + " is pressing LT RT");
 
-                if (!_info.isDead && _info.joystick != "")
+                if (!_info.isDead && _info.activeJoystick == true)
                 {
                     //Debug.Log("player " + _info.index + " is not dead and has a controller");
                     if (!(state.axisLT && state.axisRT))
@@ -112,14 +112,14 @@ public class GameState25d : GameState
             JoystickState _stickState = null;
             foreach(JoystickState state in joystickStates)
             {
-                if(info.index == state.characterIndex)
+                if(info.index == state.playerInfo.index)
                 {
                     _stickState = state;
                     break;
                 }
             }
 
-            PlayerInfo _playerInfo = gameManager.GetPlayerInfo(_stickState.characterIndex);
+            PlayerInfo _playerInfo = _stickState.playerInfo;
             HeroController _character = _playerInfo.character;
 
             if (_playerInfo.isDead)
@@ -128,9 +128,9 @@ public class GameState25d : GameState
             }
 
             //
-            if (_character.gameObject.name != "Character" + (_stickState.characterIndex + 1))
+            if (_character.gameObject.name != "Character" + (_stickState.playerInfo.index + 1))
             {
-                Debug.LogError("GameState25d: OnHandleInput: character index (" + _character.gameObject.name + " != joystick index" + _stickState.characterIndex);
+                Debug.LogError("GameState25d: OnHandleInput: character index (" + _character.gameObject.name + " != joystick index" + _stickState.playerInfo.index);
             }
 
             //attack
