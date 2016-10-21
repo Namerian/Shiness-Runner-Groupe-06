@@ -99,8 +99,8 @@ public class HeroController : MonoBehaviour {
         {
             if(_hitPositionStart == 0.0f)
             {
-                _tempColor = GetComponent<Renderer>().material.color;
-                GetComponent<Renderer>().material.color = new Color(255, 182, 182);
+                //_tempColor = GetComponent<Renderer>().material.color;
+                //GetComponent<Renderer>().material.color = new Color(255, 182, 182);
                 _hitPositionStart = transform.position.x;
             }
             else
@@ -109,7 +109,7 @@ public class HeroController : MonoBehaviour {
                 {
                     _rb.velocity = new Vector3(0, 0, 0);
                     _hitPositionStart = 0.0f;
-                    GetComponent<Renderer>().material.color = _tempColor;
+                    //GetComponent<Renderer>().material.color = _tempColor;
                 }
             }
         }

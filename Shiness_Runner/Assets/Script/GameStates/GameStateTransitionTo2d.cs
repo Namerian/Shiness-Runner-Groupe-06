@@ -118,7 +118,7 @@ public class GameStateTransitionTo2d : GameState
         {
             if (childTransform != _extazModeHolder.transform)
             {
-                if (childTransform.GetComponent<BoxCollider>() == null)
+                if (childTransform.GetComponent<BoxCollider>() == null && childTransform.tag != "FX")
                 {
                     childTransform.gameObject.SetActive(true);
                 }

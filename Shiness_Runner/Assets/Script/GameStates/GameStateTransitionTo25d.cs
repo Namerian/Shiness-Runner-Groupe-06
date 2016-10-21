@@ -99,7 +99,7 @@ public class GameStateTransitionTo25d : GameState
         {
             if (childTransform != _brawlModeHolder.transform)
             {
-                if(childTransform.GetComponent<BoxCollider>() == null)
+                if(childTransform.GetComponent<BoxCollider>() == null && childTransform.tag != "FX")
                 {
                     childTransform.gameObject.SetActive(true);
                 }

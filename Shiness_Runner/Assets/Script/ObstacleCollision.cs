@@ -18,7 +18,6 @@ public class ObstacleCollision : MonoBehaviour {
         {
             _enemy = true;
             _fx = transform.FindChild("FX_Enemy_Death").gameObject;
-            _fx.SetActive(false);
         }
     }
 
@@ -70,7 +69,10 @@ public class ObstacleCollision : MonoBehaviour {
 
     void OnDestroy()
     {
-        if(_enemy)
+        if (_enemy)
+        {
+            _fx.transform.parent = null;
             _fx.SetActive(true);
+        }
     }
 }
