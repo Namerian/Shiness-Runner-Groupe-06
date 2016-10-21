@@ -27,6 +27,8 @@ public class GameStateTransitionTo2d : GameState
 
     protected override void OnEnter()
     {
+        Debug.Log("GameStateTransitionTo2d: OnEnter: called");
+
         GameObject _brawlModeHolder = GameObject.Find("2.5D Brawl");
         
 
@@ -112,6 +114,8 @@ public class GameStateTransitionTo2d : GameState
 
     protected override void OnExit()
     {
+        Debug.Log("GameStateTransitionTo2d: OnExit: called");
+
         GameObject _extazModeHolder = GameObject.Find("2D Extaz");
 
         foreach (Transform childTransform in _extazModeHolder.transform.GetComponentsInChildren<Transform>(true))
@@ -141,18 +145,6 @@ public class GameStateTransitionTo2d : GameState
         if (stateTimer > transitionTo2dTime + 0.05f)
         {
             gameManager.SwitchState(new GameState2d(gameManager));
-
-            float _firstX = Mathf.SmoothStep(firstFromX, firstToX, 1);
-            float _secondX = Mathf.SmoothStep(secondFromX, secondToX, 1);
-            float _thirdX = Mathf.SmoothStep(thirdFromX, thirdToX, 1);
-
-            Vector3 _firstPos = firstCharacter.character.transform.localPosition;
-            Vector3 _secondPos = secondCharacter.character.transform.localPosition;
-            Vector3 _thirdPos = thirdCharacter.character.transform.localPosition;
-
-            firstCharacter.character.transform.localPosition = new Vector3(_firstX, _firstPos.y, _firstPos.z);
-            secondCharacter.character.transform.localPosition = new Vector3(_secondX, _secondPos.y, _secondPos.z);
-            thirdCharacter.character.transform.localPosition = new Vector3(_thirdX, _thirdPos.y, _thirdPos.z);
         }
 
         if (stateTimer > 0.05f)
