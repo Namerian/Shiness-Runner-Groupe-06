@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 using System.Collections;
 
 public class PlayerDeathDetector : MonoBehaviour {
@@ -29,6 +30,8 @@ public class PlayerDeathDetector : MonoBehaviour {
 
                 gameManager.uicanvas.GetComponent<UI>().GoGrey(0);
 
+                Camera.main.transform.DOShakePosition(0.5f, 0.25f, 20, 90);
+
                 Debug.Log("Character1 died");
             }
             else if(_otherGameObject.name == "Character2")
@@ -36,6 +39,8 @@ public class PlayerDeathDetector : MonoBehaviour {
                 gameManager.PlayerDied(_otherGameObject.GetComponent<HeroController>());
 
                 _otherGameObject.GetComponent<HeroController>().GetComponent<LightAttack>().cooldownFeedback.value = 0;
+
+                Camera.main.transform.DOShakePosition(0.5f, 0.25f, 20, 90);
 
                 gameManager.uicanvas.GetComponent<UI>().GoGrey(1);
 
@@ -46,6 +51,8 @@ public class PlayerDeathDetector : MonoBehaviour {
                 gameManager.PlayerDied(_otherGameObject.GetComponent<HeroController>());
 
                 _otherGameObject.GetComponent<HeroController>().GetComponent<HeadButt>().cooldownFeedback.value = 0;
+
+                Camera.main.transform.DOShakePosition(0.5f, 0.25f, 20, 90);
 
                 gameManager.uicanvas.GetComponent<UI>().GoGrey(2);
 
