@@ -26,6 +26,40 @@ public class GameState2d : GameState
 
 	protected override void OnHandleInput (JoystickState[] joystickStates)
 	{
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.Jump();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.JumpCancel();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.SlideStart();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            foreach (PlayerInfo info in gameManager.GetAllPlayerInfos())
+            {
+                info.character.SlideStop();
+            }
+        }
+
+        //##################################
+
         for (int i = 0; i < joystickStates.Length; i++)
         {
             JoystickState _stickState = joystickStates[i];
